@@ -1,0 +1,17 @@
+{
+    "name": "UnityColorSwatch.Editor",
+    "references": [
+        "GUID:45481c1a5703e4b4db8cfbe8316a40db"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
