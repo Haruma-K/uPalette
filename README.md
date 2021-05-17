@@ -1,6 +1,6 @@
 <h1 align="center">uPalette</h1>
 
-Centralized management & batch change of colors in a project.
+Centralized management & batch change system of colors in Unity project.
 
 <p align="center">
   <img width=700 src="https://user-images.githubusercontent.com/47441314/118399146-af759380-b696-11eb-882c-9ee8adb2ee99.gif" alt="Demo">
@@ -40,7 +40,7 @@ Or, open Packages/manifest.json and add the following to the dependencies block.
 
 If you want to set the target version, specify it like follow.
 
-* https://github.com/Haruma-K/uPalette.git?path=/Assets/uPalette#0.1.0
+* https://github.com/Haruma-K/uPalette.git?path=/Assets/uPalette#1.0.0
 
 #### License
 This software is released under the MIT License.  
