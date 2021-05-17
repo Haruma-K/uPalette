@@ -40,7 +40,7 @@ Or, open Packages/manifest.json and add the following to the dependencies block.
 
 If you want to set the target version, specify it like follow.
 
-* https://github.com/Haruma-K/uPalette.git?path=/Assets/uPalette#0.1.0
+* https://github.com/Haruma-K/uPalette.git?path=/Assets/uPalette#1.0.0
 
 #### License
 This software is released under the MIT License.  
