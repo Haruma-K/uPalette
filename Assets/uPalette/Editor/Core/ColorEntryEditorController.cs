@@ -86,7 +86,7 @@ namespace uPalette.Editor.Core
             item.Name.Subscribe(newValue =>
             {
                 var oldValue = entry.Name.Value;
-                _history.Register($"{GetType().Name}{nameof(OnItemAdded)}{nameof(item.Name)}",
+                _history.Register($"{GetType().Name}{nameof(OnItemAdded)}{entry.ID}{nameof(item.Name)}",
                     () =>
                     {
                         entry.Name.Value = newValue;
@@ -100,8 +100,8 @@ namespace uPalette.Editor.Core
             }).DisposeWith(disposables);
             item.Color.Subscribe(newValue =>
             {
-                var oldValue = entry.Color.Value;
-                _history.Register($"{GetType().Name}{nameof(OnItemAdded)}{nameof(item.Color)}",
+                var oldValue = entry.Value.Value;
+                _history.Register($"{GetType().Name}{nameof(OnItemAdded)}{entry.ID}{nameof(item.Color)}",
                     () =>
                     {
                         entry.SetColor(newValue);

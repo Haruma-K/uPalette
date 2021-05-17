@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 using uPalette.Runtime.Foundation.Observable.ObservableProperty;
 
 namespace uPalette.Runtime.Core
@@ -9,7 +10,7 @@ namespace uPalette.Runtime.Core
     {
         [SerializeField] private string _id;
         [SerializeField] private ObservableProperty<string> _name = new ObservableProperty<string>();
-        [SerializeField] private ObservableProperty<Color> _color = new ColorObservableProperty();
+        [SerializeField] private ObservableProperty<Color> _value = new ColorObservableProperty();
 
         public ColorEntry(string name = null, Color? color = null)
         {
@@ -26,14 +27,14 @@ namespace uPalette.Runtime.Core
 
         public ObservableProperty<string> Name => _name;
 
-        public IReadOnlyObservableProperty<Color> Color => _color;
+        public IReadOnlyObservableProperty<Color> Value => _value;
 
         public void SetColor(Color color)
         {
-            _color.Value = color;
+            _value.Value = color;
             if (string.IsNullOrEmpty(Name.Value) || ColorUtility.TryParseHtmlString(Name.Value, out _))
             {
-                Name.Value = $"#{ColorUtility.ToHtmlStringRGBA(_color.Value)}";
+                Name.Value = $"#{ColorUtility.ToHtmlStringRGBA(_value.Value)}";
             }
         }
     }

@@ -31,7 +31,7 @@ namespace uPalette.Runtime.Core
             var entry = _application.UPaletteStore.Entries.FirstOrDefault(x => x.ID.Equals(_entryId.Value));
             if (entry != null)
             {
-                Apply(entry.Color.Value);
+                Apply(entry.Value.Value);
             }
         }
 
@@ -91,13 +91,13 @@ namespace uPalette.Runtime.Core
             }
 
             _disposable?.Dispose();
-            _disposable = entry.Color.Subscribe(x =>
+            _disposable = entry.Value.Subscribe(x =>
             {
                 Apply(x);
                 EditorApplication.QueuePlayerLoopUpdate();
             });
 
-            Apply(entry.Color.Value);
+            Apply(entry.Value.Value);
         }
 #endif
     }

@@ -80,7 +80,7 @@ namespace uPalette.Editor.Core
             var item = _treeView.AddItem(entry);
             var disposable = new CompositeDisposable();
             entry.Name.Subscribe(x => item.Name.SetValueAndNotNotify(x)).DisposeWith(disposable);
-            entry.Color.Subscribe(x => item.Color.SetValueAndNotNotify(x)).DisposeWith(disposable);
+            entry.Value.Subscribe(x => item.Color.SetValueAndNotNotify(x)).DisposeWith(disposable);
             _perItemDisposables.Add(entry.ID, disposable);
             _treeView.Reload();
         }

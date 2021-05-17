@@ -42,7 +42,7 @@ namespace uPalette.Editor.Core
                     headerContent = new GUIContent("Name"),
                     headerTextAlignment = TextAlignment.Center,
                     canSort = true,
-                    width = 100,
+                    width = 130,
                     minWidth = 50,
                     autoResize = false,
                     allowToggleVisibility = false
@@ -82,7 +82,7 @@ namespace uPalette.Editor.Core
                 id = _currentItemId++
             };
             item.Name.SetValueAndNotNotify(entry.Name.Value);
-            item.Color.SetValueAndNotNotify(entry.Color.Value);
+            item.Color.SetValueAndNotNotify(entry.Value.Value);
             _itemToIdMap.Add(entry, item.id);
             AddItemAndSetParent(item, -1);
             return item;
