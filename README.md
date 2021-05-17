@@ -1,6 +1,6 @@
 <h1 align="center">uPalette</h1>
 
-Centralized management & batch change system of colors in a project.
+Centralized management & batch change system of colors in Unity project.
 
 <p align="center">
   <img width=700 src="https://user-images.githubusercontent.com/47441314/118399146-af759380-b696-11eb-882c-9ee8adb2ee99.gif" alt="Demo">
