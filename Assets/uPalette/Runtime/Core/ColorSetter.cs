@@ -97,6 +97,7 @@ namespace uPalette.Runtime.Core
                 EditorApplication.QueuePlayerLoopUpdate();
             });
 
+            Undo.RegisterCompleteObjectUndo(gameObject, $"{GetType().Name}.{nameof(Apply)}");
             Apply(entry.Value.Value);
         }
 #endif

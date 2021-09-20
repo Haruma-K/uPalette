@@ -79,7 +79,7 @@ namespace uPalette.Editor.Core
 
         private void OnItemAdded(TreeViewItem treeViewItem)
         {
-            var item = (ColorEntryEditorTreeViewItem) treeViewItem;
+            var item = (ColorEntryEditorTreeViewItem)treeViewItem;
             var disposables = new CompositeDisposable();
 
             var entry = _store.Entries.First(x => x.ID.Equals(item.EntryId));
@@ -171,7 +171,7 @@ namespace uPalette.Editor.Core
 
             foreach (var id in _treeView.GetSelection())
             {
-                var item = (ColorEntryEditorTreeViewItem) _treeView.GetItem(id);
+                var item = (ColorEntryEditorTreeViewItem)_treeView.GetItem(id);
                 var entry = _store.Entries.First(x => x.ID.Equals(item.EntryId));
                 _history.Register($"{GetType().Name}{nameof(RemoveSelectedEntries)}{entry.ID}",
                     () =>
@@ -198,7 +198,7 @@ namespace uPalette.Editor.Core
 
             var entryIds = _treeView.GetSelection().Select(x =>
             {
-                var item = (ColorEntryEditorTreeViewItem) _treeView.GetItem(x);
+                var item = (ColorEntryEditorTreeViewItem)_treeView.GetItem(x);
                 return item.EntryId;
             }).ToArray();
 
@@ -209,43 +209,69 @@ namespace uPalette.Editor.Core
 
         private void ApplyEntry(string entryId)
         {
-            var activeGameObject = Selection.activeGameObject;
-            if (activeGameObject == null)
+            var gameObjects = Selection.gameObjects;
+            var applyInfoList = new List<ApplyInfo>();
+            foreach (var colorSetterType in TypeCache.GetTypesWithAttribute<ColorSetterAttribute>())
             {
-                return;
+                var setterAttribute = colorSetterType.GetCustomAttribute<ColorSetterAttribute>();
+                var targetType = setterAttribute.TargetType;
+                foreach (var gameObj in gameObjects)
+                {
+                    if (gameObj.TryGetComponent(targetType, out var target))
+                    {
+                        var actualTargetType = target.GetType();
+                        applyInfoList.Add(new ApplyInfo
+                        {
+                            GameObj = gameObj,
+                            ActualTargetType = actualTargetType,
+                            ColorSetterType = colorSetterType,
+                            ColorSetterAttribute = setterAttribute
+                        });
+                    }
+                }
+            }
+
+            var menuFunctions = new Dictionary<string, GenericMenu.MenuFunction>();
+            foreach (var applyInfo in applyInfoList)
+            {
+                var actualTargetType = applyInfo.ActualTargetType;
+                var targetPropertyName = applyInfo.ColorSetterAttribute.TargetPropertyDisplayName;
+                var targetName = $"{actualTargetType.Name}{targetPropertyName}";
+                targetName = ObjectNames.NicifyVariableName(targetName);
+                GenericMenu.MenuFunction menuFunction = () =>
+                {
+                    if (!applyInfo.GameObj.TryGetComponent(applyInfo.ColorSetterType, out var setter))
+                    {
+                        setter = UnityEditor.Undo.AddComponent(applyInfo.GameObj, applyInfo.ColorSetterType);
+                    }
+
+                    ((ColorSetter)setter).SetEntry(entryId);
+
+                    // Focus on the InspectorWindow to enable Undo.
+                    var windowTypes = TypeCache.GetTypesDerivedFrom<EditorWindow>();
+                    foreach (var windowType in windowTypes)
+                    {
+                        if (windowType.Name.Equals("InspectorWindow"))
+                        {
+                            EditorWindow.GetWindow(windowType);
+                        }
+                    }
+                };
+
+                if (!menuFunctions.ContainsKey(targetName))
+                {
+                    menuFunctions[targetName] = menuFunction;
+                }
+                else
+                {
+                    menuFunctions[targetName] += menuFunction;
+                }
             }
 
             var menu = new GenericMenu();
-            var setters = TypeCache.GetTypesWithAttribute<ColorSetterAttribute>();
-            foreach (var setterType in setters)
+            foreach (var menuFunction in menuFunctions)
             {
-                var attribute = setterType.GetCustomAttribute<ColorSetterAttribute>();
-                var targetType = attribute.TargetType;
-                if (activeGameObject.TryGetComponent(targetType, out var target))
-                {
-                    var targetTypeName = target.GetType().Name;
-                    var targetName = $"{targetTypeName}{attribute.TargetPropertyDisplayName}";
-                    targetName = ObjectNames.NicifyVariableName(targetName);
-                    menu.AddItem(new GUIContent(targetName), false, () =>
-                    {
-                        if (!activeGameObject.TryGetComponent(setterType, out var setter))
-                        {
-                            setter = UnityEditor.Undo.AddComponent(activeGameObject, setterType);
-                        }
-
-                        ((ColorSetter) setter).SetEntry(entryId);
-
-                        // Focus on the InspectorWindow to enable Undo.
-                        var windowTypes = TypeCache.GetTypesDerivedFrom<EditorWindow>();
-                        foreach (var windowType in windowTypes)
-                        {
-                            if (windowType.Name.Equals("InspectorWindow"))
-                            {
-                                EditorWindow.GetWindow(windowType);
-                            }
-                        }
-                    });
-                }
+                menu.AddItem(new GUIContent(menuFunction.Key), false, menuFunction.Value);
             }
 
             if (menu.GetItemCount() == 0)
@@ -254,6 +280,14 @@ namespace uPalette.Editor.Core
             }
 
             menu.ShowAsContext();
+        }
+
+        private class ApplyInfo
+        {
+            public GameObject GameObj { get; set; }
+            public Type ActualTargetType { get; set; }
+            public Type ColorSetterType { get; set; }
+            public ColorSetterAttribute ColorSetterAttribute { get; set; }
         }
     }
 }
