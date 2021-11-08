@@ -32,7 +32,8 @@ namespace uPalette.Runtime.Core
         public void SetColor(Color color)
         {
             _value.Value = color;
-            if (string.IsNullOrEmpty(Name.Value) || ColorUtility.TryParseHtmlString(Name.Value, out _))
+            if (string.IsNullOrEmpty(Name.Value)
+                || Name.Value.StartsWith("#") && ColorUtility.TryParseHtmlString(Name.Value, out _))
             {
                 Name.Value = $"#{ColorUtility.ToHtmlStringRGBA(_value.Value)}";
             }
