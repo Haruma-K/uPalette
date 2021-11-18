@@ -15,5 +15,10 @@ namespace uPalette.Runtime.Core.ColorSetters
             colors.disabledColor = color;
             _component.colors = colors;
         }
+
+        protected override Color GetValue()
+        {
+            return _component.colors.disabledColor;
+        }
     }
 }

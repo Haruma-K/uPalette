@@ -23,5 +23,10 @@ namespace uPalette.Runtime.Core.ColorSetters
         {
             _outline.effectColor = color;
         }
+
+        protected override Color GetValue()
+        {
+            return _outline.effectColor;
+        }
     }
 }

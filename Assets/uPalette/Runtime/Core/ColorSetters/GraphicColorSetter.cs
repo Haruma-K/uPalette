@@ -13,5 +13,10 @@ namespace uPalette.Runtime.Core.ColorSetters
         {
             _component.color = color;
         }
+
+        protected override Color GetValue()
+        {
+            return _component.color;
+        }
     }
 }

@@ -14,5 +14,10 @@ namespace uPalette.Runtime.Core.ColorSetters
             _component.customCaretColor = true;
             _component.caretColor = color;
         }
+
+        protected override Color GetValue()
+        {
+            return _component.caretColor;
+        }
     }
 }
