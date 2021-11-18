@@ -1,5 +1,9 @@
 <h1 align="center">uPalette</h1>
 
+[![license](https://img.shields.io/badge/LICENSE-MIT-green.svg)](LICENSE.md)
+
+[日本語ドキュメント(Japanese Documents Available)](README_JA.md)
+
 Centralized management & batch change system of colors for Unity.
 
 <p align="center">
