@@ -51,6 +51,8 @@ namespace uPalette.Runtime.Core
 
         protected abstract void Apply(Color color);
 
+        protected abstract Color GetValue();
+
         [Serializable]
         internal class EntryId
         {
@@ -93,12 +95,18 @@ namespace uPalette.Runtime.Core
             _disposable?.Dispose();
             _disposable = entry.Value.Subscribe(x =>
             {
-                Apply(x);
-                EditorApplication.QueuePlayerLoopUpdate();
+                if (GetValue() != x)
+                {
+                    Apply(x);
+                    EditorApplication.QueuePlayerLoopUpdate();
+                }
             });
 
-            Undo.RegisterCompleteObjectUndo(gameObject, $"{GetType().Name}.{nameof(Apply)}");
-            Apply(entry.Value.Value);
+            if (GetValue() != entry.Value.Value)
+            {
+                Undo.RegisterCompleteObjectUndo(gameObject, $"{GetType().Name}.{nameof(Apply)}");
+                Apply(entry.Value.Value);
+            }
         }
 #endif
     }
