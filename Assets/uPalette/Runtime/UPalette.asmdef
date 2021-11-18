@@ -1,11 +1,7 @@
 {
-    "name": "UnityColorSwatch.Editor",
-    "references": [
-        "GUID:45481c1a5703e4b4db8cfbe8316a40db"
-    ],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "name": "UPalette",
+    "references": [],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
