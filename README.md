@@ -140,8 +140,23 @@ public class OutlineColorSetter : ColorSetter
     }
 }
 ```
+##### Get the color via script
+You can get the registered colors via script by using `UPaletteUtility` as follows.
 
-##### Edit via script
+```cs
+var keyColor = UPaletteUtility.GetColor("KeyColor");
+```
+
+Once the color is retrieved, it will be cached.  
+If you don't want to use the cache, give `false` as the second argument of the above method.
+
+You can also delete the cache as follows
+
+```cs
+UPaletteUtility.ClearColorCache();
+```
+
+##### Edit the color via script
 To edit the color via script, do as follows.
 
 ```cs
@@ -187,7 +202,7 @@ Therefore, uPalette applies the color according to the following rules.
 
 * uPalette Colors are serialized as IDs, not values.
 * In Edit Mode, reflect this color and start observing for changes when `OnEnable`.
-* In Play Mode, reflect the color at the timing of `Start`. 
+* In Play Mode, reflect the color at the timing of `Start`.
 
 In addition, uPalette does not set the dirty flag when reflecting colors so that changes are not applied when the Scene is opened in Edit Mode.
 
@@ -195,4 +210,3 @@ In addition, uPalette does not set the dirty flag when reflecting colors so that
 1. Clone this repository.
 2. Open and play the following scene.
     * https://github.com/Haruma-K/uPalette/blob/master/Assets/Demo/Demo.unity
-
