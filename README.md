@@ -166,7 +166,6 @@ To edit the color via script, do as follows.
 ```cs
 using System.Linq;
 using UnityEngine;
-using uPalette.Editor.Core;
 using uPalette.Runtime.Core;
 
 public class Example
@@ -189,7 +188,7 @@ public class Example
         }
         finally
         {
-            UPaletteEditorApplication.ReleaseInstance();
+            UPaletteApplication.ReleaseInstance();
         }
     }
 }
