@@ -4,13 +4,23 @@ namespace uPalette.Runtime.Foundation.LocalPersistence
 {
     public interface ILocalPersistence<T>
     {
-#if UNITY_EDITOR
+        /// <summary>
+        ///     Persist the data to local storage.
+        /// </summary>
+        /// <param name="target"></param>
+        void Save(T target);
+
         /// <summary>
         ///     Persist the data to local storage.
         /// </summary>
         /// <param name="target"></param>
         Task SaveAsync(T target);
-#endif
+
+        /// <summary>
+        ///     Load the data from local storage.
+        /// </summary>
+        /// <returns></returns>
+        T Load();
 
         /// <summary>
         ///     Load the data from local storage.

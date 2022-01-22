@@ -13,7 +13,8 @@ namespace uPalette.Runtime.Foundation.LocalPersistence
             set => _serializer.PrettyPrint = value;
         }
 
-        private readonly UnityJsonSerializer<T> _serializer = new UnityJsonSerializer<T>();
+        private readonly UnityJsonSerializer<T> _serializer =
+            new UnityJsonSerializer<T>();
 
         protected override ISerializer<T, string> Serializer => _serializer;
 

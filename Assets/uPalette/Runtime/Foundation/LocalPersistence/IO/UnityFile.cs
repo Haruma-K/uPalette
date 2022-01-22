@@ -52,13 +52,13 @@ namespace uPalette.Runtime.Foundation.LocalPersistence.IO
         {
             if (path.Contains(Application.streamingAssetsPath))
             {
-                return await StreamingAssetsFile.ReadAllBytesAsync(path).ConfigureAwait(false);
+                return await StreamingAssetsFile.ReadAllBytesAsync(path);
             }
 
             using (var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 var bytes = new byte[fileStream.Length];
-                await fileStream.ReadAsync(bytes, 0, bytes.Length).ConfigureAwait(false);
+                await fileStream.ReadAsync(bytes, 0, bytes.Length);
                 return bytes;
             }
         }
@@ -75,13 +75,13 @@ namespace uPalette.Runtime.Foundation.LocalPersistence.IO
 
             if (path.Contains(Application.streamingAssetsPath))
             {
-                return await StreamingAssetsFile.ReadAllTextAsync(path, encoding).ConfigureAwait(false);
+                return await StreamingAssetsFile.ReadAllTextAsync(path, encoding);
             }
 
             using (var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
             using (var streamReader = new StreamReader(fileStream, encoding))
             {
-                return await streamReader.ReadToEndAsync().ConfigureAwait(false);
+                return await streamReader.ReadToEndAsync();
             }
         }
     }
