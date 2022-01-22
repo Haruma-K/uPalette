@@ -11,10 +11,21 @@ namespace uPalette.Runtime.Foundation.LocalPersistence
     /// <typeparam name="T"></typeparam>
     public abstract class TextSerializePersistenceBase<T> : SerializeLocalPersistenceBase<T, string>
     {
-        public Encoding Encoding { get; set; } = new UTF8Encoding(false);
-
         public TextSerializePersistenceBase(string filePath) : base(filePath)
         {
+        }
+
+        public Encoding Encoding { get; set; } = new UTF8Encoding(false);
+
+        protected override void InternalSave(string path, string serialized)
+        {
+            var folderPath = Path.GetDirectoryName(path);
+            if (!string.IsNullOrEmpty(folderPath) && !Directory.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+            }
+
+            File.WriteAllText(path, serialized);
         }
 
         protected override async Task InternalSaveAsync(string path, string serialized)
@@ -24,6 +35,7 @@ namespace uPalette.Runtime.Foundation.LocalPersistence
             {
                 Directory.CreateDirectory(folderPath);
             }
+
             using (var fileStream = new FileStream(path, FileMode.Create, FileAccess.Write))
             using (var streamWriter = new StreamWriter(fileStream, Encoding))
             {
@@ -31,10 +43,14 @@ namespace uPalette.Runtime.Foundation.LocalPersistence
             }
         }
 
+        protected override string InternalLoad(string path)
+        {
+            return UnityFile.ReadAllText(path, Encoding);
+        }
+
         protected override async Task<string> InternalLoadAsync(string path)
         {
-            var result = await UnityFile.ReadAllTextAsync(path, Encoding).ConfigureAwait(false);
-            return result;
+            return await UnityFile.ReadAllTextAsync(path, Encoding);
         }
 
         protected override void DeleteInternal(string path)

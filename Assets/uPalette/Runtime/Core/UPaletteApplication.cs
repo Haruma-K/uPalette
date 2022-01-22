@@ -9,8 +9,8 @@ namespace uPalette.Runtime.Core
     {
         private static int _referenceCount;
         private static UPaletteApplication _instance;
-        private readonly ILocalPersistence<UPaletteStore> _persistence;
         private readonly CompositeDisposable _disposables = new CompositeDisposable();
+        private readonly ILocalPersistence<UPaletteStore> _persistence;
 
         private UPaletteApplication()
         {
@@ -25,8 +25,8 @@ namespace uPalette.Runtime.Core
             }
 #endif
 
-            UPaletteStore = _persistence.LoadAsync().Result;
-            
+            UPaletteStore = _persistence.Load();
+
 #if UNITY_EDITOR
             UPaletteStore.IsDirty.Subscribe(x =>
             {
@@ -51,7 +51,7 @@ namespace uPalette.Runtime.Core
 #if UNITY_EDITOR
         public void Save()
         {
-            _persistence.SaveAsync(UPaletteStore).Wait();
+            _persistence.Save(UPaletteStore);
             UPaletteStore.IsDirty.Value = false;
         }
 #endif

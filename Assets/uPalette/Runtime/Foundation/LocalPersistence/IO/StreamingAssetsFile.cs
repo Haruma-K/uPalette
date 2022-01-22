@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Assertions;
-
 #if USE_WEB_REQUEST
 using System;
 using System.Threading;
@@ -37,11 +36,15 @@ namespace uPalette.Runtime.Foundation.LocalPersistence.IO
                 {
                     Thread.Sleep(100);
                 }
-                var isError = request.isHttpError || request.isNetworkError;
+
+                var isError = request.result == UnityWebRequest.Result.ProtocolError
+                              || request.result == UnityWebRequest.Result.ConnectionError
+                              || request.result == UnityWebRequest.Result.DataProcessingError;
                 if (isError)
                 {
                     throw new Exception(request.error);
                 }
+
                 return request.downloadHandler.data;
             }
 #else
@@ -79,11 +82,15 @@ namespace uPalette.Runtime.Foundation.LocalPersistence.IO
                 {
                     Thread.Sleep(100);
                 }
-                var isError = request.isHttpError || request.isNetworkError;
+
+                var isError = request.result == UnityWebRequest.Result.ProtocolError
+                              || request.result == UnityWebRequest.Result.ConnectionError
+                              || request.result == UnityWebRequest.Result.DataProcessingError;
                 if (isError)
                 {
                     throw new Exception(request.error);
                 }
+
                 return encoding.GetString(request.downloadHandler.data);
             }
 #else
@@ -111,23 +118,26 @@ namespace uPalette.Runtime.Foundation.LocalPersistence.IO
         public static async Task<byte[]> ReadAllBytesAsync(string path)
         {
             Assert.IsTrue(path.StartsWith(Application.streamingAssetsPath));
-            
+
 #if USE_WEB_REQUEST
             using (var request = UnityWebRequest.Get(path))
             {
-                await request.SendWebRequest().ConfigureAwait();
-                var isError = request.isHttpError || request.isNetworkError;
+                await request.SendWebRequest();
+                var isError = request.result == UnityWebRequest.Result.ProtocolError
+                              || request.result == UnityWebRequest.Result.ConnectionError
+                              || request.result == UnityWebRequest.Result.DataProcessingError;
                 if (isError)
                 {
                     throw new Exception(request.error);
                 }
+
                 return request.downloadHandler.data;
             }
 #else
             using (var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
                 var bytes = new byte[fileStream.Length];
-                await fileStream.ReadAsync(bytes, 0, bytes.Length).ConfigureAwait(false);
+                await fileStream.ReadAsync(bytes, 0, bytes.Length);
                 return bytes;
             }
 #endif
@@ -141,7 +151,7 @@ namespace uPalette.Runtime.Foundation.LocalPersistence.IO
         public static async Task<byte[]> ReadAllBytesWithRelativePathAsync(string relativePath)
         {
             var path = Path.Combine(Application.streamingAssetsPath, relativePath);
-            return await ReadAllBytesAsync(path).ConfigureAwait(false);
+            return await ReadAllBytesAsync(path);
         }
 
         /// <summary>
@@ -158,19 +168,22 @@ namespace uPalette.Runtime.Foundation.LocalPersistence.IO
 #if USE_WEB_REQUEST
             using (var request = UnityWebRequest.Get(path))
             {
-                await request.SendWebRequest().ConfigureAwait();
-                var isError = request.isHttpError || request.isNetworkError;
+                await request.SendWebRequest();
+                var isError = request.result == UnityWebRequest.Result.ProtocolError
+                              || request.result == UnityWebRequest.Result.ConnectionError
+                              || request.result == UnityWebRequest.Result.DataProcessingError;
                 if (isError)
                 {
                     throw new Exception(request.error);
                 }
+
                 return encoding.GetString(request.downloadHandler.data);
             }
 #else
             using (var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read))
             using (var streamReader = new StreamReader(fileStream, encoding))
             {
-                return await streamReader.ReadToEndAsync().ConfigureAwait(false);
+                return await streamReader.ReadToEndAsync();
             }
 #endif
         }
@@ -184,7 +197,7 @@ namespace uPalette.Runtime.Foundation.LocalPersistence.IO
         public static async Task<string> ReadAllTextWithRelativePathAsync(string relativePath, Encoding encoding = null)
         {
             var path = Path.Combine(Application.streamingAssetsPath, relativePath);
-            return await ReadAllTextAsync(path, encoding).ConfigureAwait(false);
+            return await ReadAllTextAsync(path, encoding);
         }
     }
 }

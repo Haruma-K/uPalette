@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿#if UNITY_EDITOR
+#define IS_EDITOR
+#endif
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,17 +18,24 @@ namespace uPalette.Runtime.Foundation.LocalPersistence
     {
         private static readonly object _semaphoreLocker = new object();
         private static readonly Dictionary<string, SemaphoreSlim> _semaphores = new Dictionary<string, SemaphoreSlim>();
-        
-        private string FilePath { get; }
 
-        protected abstract ISerializer<TSource, TSerialized> Serializer { get; }
-        
         public SerializeLocalPersistenceBase(string filePath)
         {
             FilePath = CleanupDirectorySeparator(filePath);
         }
-        
-#if UNITY_EDITOR
+
+        private string FilePath { get; }
+
+        protected abstract ISerializer<TSource, TSerialized> Serializer { get; }
+
+        public void Save(TSource target)
+        {
+            var serialized = Serializer.Serialize(target);
+            var path = GetPath();
+            CreateFolders(path);
+            InternalSave(path, serialized);
+        }
+
         public async Task SaveAsync(TSource target)
         {
             var semaphore = GetSemaphore();
@@ -35,14 +45,20 @@ namespace uPalette.Runtime.Foundation.LocalPersistence
                 var serialized = Serializer.Serialize(target);
                 var path = GetPath();
                 CreateFolders(path);
-                await InternalSaveAsync(path, serialized).ConfigureAwait(false);
+                await InternalSaveAsync(path, serialized);
             }
             finally
             {
                 semaphore.Release();
             }
         }
-#endif
+
+        public TSource Load()
+        {
+            var path = GetPath();
+            var serialized = InternalLoad(path);
+            return Serializer.Deserialize(serialized);
+        }
 
         public async Task<TSource> LoadAsync()
         {
@@ -51,7 +67,7 @@ namespace uPalette.Runtime.Foundation.LocalPersistence
             {
                 await semaphore.WaitAsync().ConfigureAwait(false);
                 var path = GetPath();
-                var serialized = await InternalLoadAsync(path).ConfigureAwait(false);
+                var serialized = await InternalLoadAsync(path);
                 return Serializer.Deserialize(serialized);
             }
             finally
@@ -85,7 +101,11 @@ namespace uPalette.Runtime.Foundation.LocalPersistence
             return FilePath;
         }
 
+        protected abstract void InternalSave(string path, TSerialized serialized);
+
         protected abstract Task InternalSaveAsync(string path, TSerialized serialized);
+
+        protected abstract TSerialized InternalLoad(string path);
 
         protected abstract Task<TSerialized> InternalLoadAsync(string path);
 
@@ -100,7 +120,7 @@ namespace uPalette.Runtime.Foundation.LocalPersistence
 
         private static string CleanupDirectorySeparator(string path)
         {
-#if UNITY_EDITOR
+#if IS_EDITOR
             if (IsAssetPath(path))
             {
                 return path.Replace(Path.DirectorySeparatorChar, '/')
@@ -131,7 +151,7 @@ namespace uPalette.Runtime.Foundation.LocalPersistence
                 if (Directory.GetFiles(path).Length == 0 && Directory.GetDirectories(path).Length == 0)
                 {
                     Directory.Delete(path, false);
-#if UNITY_EDITOR
+#if IS_EDITOR
                     // Delete the meta file of the directory.
                     var metaPath = $"{path}.meta";
                     if (File.Exists(metaPath))
@@ -157,6 +177,7 @@ namespace uPalette.Runtime.Foundation.LocalPersistence
                 {
                     return semaphore;
                 }
+
                 semaphore = new SemaphoreSlim(1);
                 _semaphores.Add(FilePath, semaphore);
                 return semaphore;
