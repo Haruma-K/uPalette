@@ -16,7 +16,9 @@ namespace uPalette.Runtime.Core
         {
             var folderPath = $"{Application.streamingAssetsPath}/uPalette";
             const string fileName = "AppData";
-            _persistence = new UnityJsonLocalPersistence<UPaletteStore>(folderPath, fileName);
+            var persistence = new UnityJsonLocalPersistence<UPaletteStore>(folderPath, fileName);
+            persistence.PrettyPrint = true;
+            _persistence = persistence;
 #if UNITY_EDITOR
             if (!_persistence.Exists())
             {
