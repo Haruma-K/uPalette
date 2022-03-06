@@ -35,12 +35,8 @@ namespace uPalette.Editor.Core.Shared
                     if (GUILayout.Button("Create Palette Store"))
                         PaletteStore.CreateAsset();
 
-                    using (new EditorGUILayout.HorizontalScope())
-                    {
-                        GUILayout.Label("Update Version 1 to 2", GUILayout.Width(EditorGUIUtility.labelWidth));
-                        if (GUILayout.Button("Execute"))
-                            VersionUpdater.Update1To2();
-                    }
+                    if (GUILayout.Button("Update Version 1 to 2"))
+                        VersionUpdater.Update1To2();
 
                     return;
                 }
