@@ -1,0 +1,383 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0edd4d6dec9974f11ba4b078ca3a0e1e, type: 3}
+  m_Name: PaletteStore
+  m_EditorClassIdentifier: 
+  _colorPalette:
+    _entries:
+      _keys:
+      - 341d370a-effa-40c9-90c8-ab56c7f03dde
+      - 48d15dc5-7597-44a0-8fe5-88f6fc67dcaa
+      - 4d4ede3c-e38a-45f4-8dd2-db084f5ac4a6
+      - 5adfd18e-5fc5-4bc8-958a-4be3f6ec59b6
+      - ace06488-c485-4f64-a359-64ab534f0454
+      - 813656bc-9c9a-432d-a465-98344fd8b8b1
+      - f0b6741e-8aab-4614-901d-d938f23a1ed8
+      - 3de325d8-9dc3-4304-aef6-df868625e6f2
+      _values:
+      - _id: 341d370a-effa-40c9-90c8-ab56c7f03dde
+        _name:
+          _value: Background
+        _values:
+          _keys:
+          - ca0a054c-cd1f-415c-8946-eb80b0a46c86
+          - 27944544-a27d-4596-b509-f5e0ab6f7f90
+          - e243989c-d425-4612-9a47-faf2f4cb4e69
+          _values:
+          - _value: {r: 0.8509804, g: 0.8509804, b: 0.8509804, a: 1}
+          - _value: {r: 0.19215687, g: 0.16078432, b: 0.16078432, a: 1}
+          - _value: {r: 0.07058824, g: 0.078431375, b: 0.09803922, a: 1}
+      - _id: 48d15dc5-7597-44a0-8fe5-88f6fc67dcaa
+        _name:
+          _value: Main Text
+        _values:
+          _keys:
+          - ca0a054c-cd1f-415c-8946-eb80b0a46c86
+          - 27944544-a27d-4596-b509-f5e0ab6f7f90
+          - e243989c-d425-4612-9a47-faf2f4cb4e69
+          _values:
+          - _value: {r: 0.23921569, g: 0.3019608, b: 0.39215687, a: 1}
+          - _value: {r: 1, g: 0.9764706, b: 0.8980392, a: 1}
+          - _value: {r: 1, g: 1, b: 1, a: 1}
+      - _id: 4d4ede3c-e38a-45f4-8dd2-db084f5ac4a6
+        _name:
+          _value: Key Color 1
+        _values:
+          _keys:
+          - ca0a054c-cd1f-415c-8946-eb80b0a46c86
+          - 27944544-a27d-4596-b509-f5e0ab6f7f90
+          - e243989c-d425-4612-9a47-faf2f4cb4e69
+          _values:
+          - _value: {r: 0.96862745, g: 0.5019608, b: 0.07058824, a: 1}
+          - _value: {r: 0.1764706, g: 0.42352942, b: 0.44313726, a: 1}
+          - _value: {r: 0.22352941, g: 0.1882353, b: 0.11372549, a: 1}
+      - _id: 5adfd18e-5fc5-4bc8-958a-4be3f6ec59b6
+        _name:
+          _value: Key Color 2
+        _values:
+          _keys:
+          - ca0a054c-cd1f-415c-8946-eb80b0a46c86
+          - 27944544-a27d-4596-b509-f5e0ab6f7f90
+          - e243989c-d425-4612-9a47-faf2f4cb4e69
+          _values:
+          - _value: {r: 0.43137255, g: 0.43137255, b: 0.9607843, a: 1}
+          - _value: {r: 0.16862746, g: 0.2901961, b: 0.48235294, a: 1}
+          - _value: {r: 0.11372549, g: 0.18431373, b: 0.22352941, a: 1}
+      - _id: ace06488-c485-4f64-a359-64ab534f0454
+        _name:
+          _value: Button Contents
+        _values:
+          _keys:
+          - ca0a054c-cd1f-415c-8946-eb80b0a46c86
+          - 27944544-a27d-4596-b509-f5e0ab6f7f90
+          - e243989c-d425-4612-9a47-faf2f4cb4e69
+          _values:
+          - _value: {r: 1, g: 1, b: 1, a: 1}
+          - _value: {r: 1, g: 0.9764706, b: 0.8980392, a: 1}
+          - _value: {r: 1, g: 1, b: 1, a: 1}
+      - _id: 813656bc-9c9a-432d-a465-98344fd8b8b1
+        _name:
+          _value: Sub Button Background
+        _values:
+          _keys:
+          - ca0a054c-cd1f-415c-8946-eb80b0a46c86
+          - 27944544-a27d-4596-b509-f5e0ab6f7f90
+          - e243989c-d425-4612-9a47-faf2f4cb4e69
+          _values:
+          - _value: {r: 0.42352942, g: 0.4117647, b: 0.37254903, a: 1}
+          - _value: {r: 0.3137255, g: 0.23529412, b: 0.19215687, a: 1}
+          - _value: {r: 0.23921569, g: 0.2509804, b: 0.3137255, a: 1}
+      - _id: f0b6741e-8aab-4614-901d-d938f23a1ed8
+        _name:
+          _value: Option Button Background
+        _values:
+          _keys:
+          - ca0a054c-cd1f-415c-8946-eb80b0a46c86
+          - 27944544-a27d-4596-b509-f5e0ab6f7f90
+          - e243989c-d425-4612-9a47-faf2f4cb4e69
+          _values:
+          - _value: {r: 1, g: 1, b: 1, a: 1}
+          - _value: {r: 0.1254902, g: 0.09803922, b: 0.09803922, a: 1}
+          - _value: {r: 0, g: 0, b: 0, a: 1}
+      - _id: 3de325d8-9dc3-4304-aef6-df868625e6f2
+        _name:
+          _value: Option Button Contents
+        _values:
+          _keys:
+          - ca0a054c-cd1f-415c-8946-eb80b0a46c86
+          - 27944544-a27d-4596-b509-f5e0ab6f7f90
+          - e243989c-d425-4612-9a47-faf2f4cb4e69
+          _values:
+          - _value: {r: 0.1981132, g: 0.1981132, b: 0.1981132, a: 1}
+          - _value: {r: 1, g: 0.9764706, b: 0.8980392, a: 1}
+          - _value: {r: 1, g: 1, b: 1, a: 1}
+    _themes:
+      _keys:
+      - ca0a054c-cd1f-415c-8946-eb80b0a46c86
+      - 27944544-a27d-4596-b509-f5e0ab6f7f90
+      - e243989c-d425-4612-9a47-faf2f4cb4e69
+      _values:
+      - _id: ca0a054c-cd1f-415c-8946-eb80b0a46c86
+        _name:
+          _value: Light
+      - _id: 27944544-a27d-4596-b509-f5e0ab6f7f90
+        _name:
+          _value: Classic
+      - _id: e243989c-d425-4612-9a47-faf2f4cb4e69
+        _name:
+          _value: Dark
+    _entryOrders:
+      _ids:
+      - 341d370a-effa-40c9-90c8-ab56c7f03dde
+      - 48d15dc5-7597-44a0-8fe5-88f6fc67dcaa
+      - 4d4ede3c-e38a-45f4-8dd2-db084f5ac4a6
+      - 5adfd18e-5fc5-4bc8-958a-4be3f6ec59b6
+      - ace06488-c485-4f64-a359-64ab534f0454
+      - 813656bc-9c9a-432d-a465-98344fd8b8b1
+      - f0b6741e-8aab-4614-901d-d938f23a1ed8
+      - 3de325d8-9dc3-4304-aef6-df868625e6f2
+    _themeOrders:
+      _ids:
+      - ca0a054c-cd1f-415c-8946-eb80b0a46c86
+      - 27944544-a27d-4596-b509-f5e0ab6f7f90
+      - e243989c-d425-4612-9a47-faf2f4cb4e69
+    _activeTheme:
+      _value:
+        _id: 27944544-a27d-4596-b509-f5e0ab6f7f90
+        _name:
+          _value: Classic
+  _gradientPalette:
+    _entries:
+      _keys: []
+      _values: []
+    _themes:
+      _keys:
+      - b38a3fad-0b4f-42ed-9d55-849a4615d181
+      _values:
+      - _id: b38a3fad-0b4f-42ed-9d55-849a4615d181
+        _name:
+          _value: Default
+    _entryOrders:
+      _ids: []
+    _themeOrders:
+      _ids:
+      - b38a3fad-0b4f-42ed-9d55-849a4615d181
+    _activeTheme:
+      _value:
+        _id: b38a3fad-0b4f-42ed-9d55-849a4615d181
+        _name:
+          _value: Default
+  _characterStylePalette:
+    _entries:
+      _keys: []
+      _values: []
+    _themes:
+      _keys:
+      - 2bf21534-f311-4f5a-945f-8bb282e4c047
+      _values:
+      - _id: 2bf21534-f311-4f5a-945f-8bb282e4c047
+        _name:
+          _value: Default
+    _entryOrders:
+      _ids: []
+    _themeOrders:
+      _ids:
+      - 2bf21534-f311-4f5a-945f-8bb282e4c047
+    _activeTheme:
+      _value:
+        _id: 2bf21534-f311-4f5a-945f-8bb282e4c047
+        _name:
+          _value: Default
+  _characterStyleTMPPalette:
+    _entries:
+      _keys:
+      - 6921221d-1d74-4033-bee5-e0d01cb06122
+      - 40b83e6c-74e3-4f98-ac6a-f8c4705ad8a9
+      - 066cbf8f-8b4a-441c-937e-c234e2780b88
+      - 82a83956-0eb2-4672-9978-c1933198355f
+      _values:
+      - _id: 6921221d-1d74-4033-bee5-e0d01cb06122
+        _name:
+          _value: Logo
+        _values:
+          _keys:
+          - 10a7c335-bf25-4867-8af2-dd1b19273382
+          - d91fac9e-c104-42c1-a5f8-6990c1d30827
+          - 4015608b-c889-497a-929c-95b799fb0fc4
+          _values:
+          - _value:
+              font: {fileID: 11400000, guid: b6293ffbd93fe49de87acd10b0edc3fb, type: 2}
+              fontStyle: 1
+              fontSize: 48
+              enableAutoSizing: 0
+              characterSpacing: 0
+              wordSpacing: 0
+              lineSpacing: 0
+              paragraphSpacing: 0
+          - _value:
+              font: {fileID: 11400000, guid: b6293ffbd93fe49de87acd10b0edc3fb, type: 2}
+              fontStyle: 1
+              fontSize: 48
+              enableAutoSizing: 0
+              characterSpacing: 0
+              wordSpacing: 0
+              lineSpacing: 0
+              paragraphSpacing: 0
+          - _value:
+              font: {fileID: 11400000, guid: b6293ffbd93fe49de87acd10b0edc3fb, type: 2}
+              fontStyle: 1
+              fontSize: 48
+              enableAutoSizing: 0
+              characterSpacing: 0
+              wordSpacing: 0
+              lineSpacing: 0
+              paragraphSpacing: 0
+      - _id: 40b83e6c-74e3-4f98-ac6a-f8c4705ad8a9
+        _name:
+          _value: Title
+        _values:
+          _keys:
+          - 10a7c335-bf25-4867-8af2-dd1b19273382
+          - d91fac9e-c104-42c1-a5f8-6990c1d30827
+          - 4015608b-c889-497a-929c-95b799fb0fc4
+          _values:
+          - _value:
+              font: {fileID: 11400000, guid: b6293ffbd93fe49de87acd10b0edc3fb, type: 2}
+              fontStyle: 1
+              fontSize: 144
+              enableAutoSizing: 0
+              characterSpacing: 0
+              wordSpacing: 0
+              lineSpacing: 0
+              paragraphSpacing: 0
+          - _value:
+              font: {fileID: 11400000, guid: 059b3d333517a463fa25542c9baf761e, type: 2}
+              fontStyle: 0
+              fontSize: 164.16
+              enableAutoSizing: 0
+              characterSpacing: 0
+              wordSpacing: 0
+              lineSpacing: 0
+              paragraphSpacing: 0
+          - _value:
+              font: {fileID: 11400000, guid: f71aa57f589f043c591a629d90986ffa, type: 2}
+              fontStyle: 1
+              fontSize: 162.84
+              enableAutoSizing: 0
+              characterSpacing: 11.7
+              wordSpacing: 0
+              lineSpacing: 0
+              paragraphSpacing: 0
+      - _id: 066cbf8f-8b4a-441c-937e-c234e2780b88
+        _name:
+          _value: Main Button
+        _values:
+          _keys:
+          - 10a7c335-bf25-4867-8af2-dd1b19273382
+          - d91fac9e-c104-42c1-a5f8-6990c1d30827
+          - 4015608b-c889-497a-929c-95b799fb0fc4
+          _values:
+          - _value:
+              font: {fileID: 11400000, guid: b6293ffbd93fe49de87acd10b0edc3fb, type: 2}
+              fontStyle: 33
+              fontSize: 80
+              enableAutoSizing: 0
+              characterSpacing: 0
+              wordSpacing: 0
+              lineSpacing: 0
+              paragraphSpacing: 0
+          - _value:
+              font: {fileID: 11400000, guid: 059b3d333517a463fa25542c9baf761e, type: 2}
+              fontStyle: 0
+              fontSize: 80
+              enableAutoSizing: 0
+              characterSpacing: 0
+              wordSpacing: 0
+              lineSpacing: 0
+              paragraphSpacing: 0
+          - _value:
+              font: {fileID: 11400000, guid: f71aa57f589f043c591a629d90986ffa, type: 2}
+              fontStyle: 1
+              fontSize: 80
+              enableAutoSizing: 0
+              characterSpacing: 18.8
+              wordSpacing: 0
+              lineSpacing: 0
+              paragraphSpacing: 0
+      - _id: 82a83956-0eb2-4672-9978-c1933198355f
+        _name:
+          _value: New Character Style TMP
+        _values:
+          _keys:
+          - 10a7c335-bf25-4867-8af2-dd1b19273382
+          - d91fac9e-c104-42c1-a5f8-6990c1d30827
+          - 4015608b-c889-497a-929c-95b799fb0fc4
+          _values:
+          - _value:
+              font: {fileID: 11400000, guid: 059b3d333517a463fa25542c9baf761e, type: 2}
+              fontStyle: 32
+              fontSize: 111
+              enableAutoSizing: 0
+              characterSpacing: 33.9
+              wordSpacing: 0
+              lineSpacing: 0
+              paragraphSpacing: 0
+          - _value:
+              font: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+              fontStyle: 0
+              fontSize: 36
+              enableAutoSizing: 0
+              characterSpacing: 0
+              wordSpacing: 0
+              lineSpacing: 0
+              paragraphSpacing: 0
+          - _value:
+              font: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+              fontStyle: 0
+              fontSize: 36
+              enableAutoSizing: 0
+              characterSpacing: 0
+              wordSpacing: 0
+              lineSpacing: 0
+              paragraphSpacing: 0
+    _themes:
+      _keys:
+      - 10a7c335-bf25-4867-8af2-dd1b19273382
+      - d91fac9e-c104-42c1-a5f8-6990c1d30827
+      - 4015608b-c889-497a-929c-95b799fb0fc4
+      _values:
+      - _id: 10a7c335-bf25-4867-8af2-dd1b19273382
+        _name:
+          _value: Standard
+      - _id: d91fac9e-c104-42c1-a5f8-6990c1d30827
+        _name:
+          _value: Black Letter
+      - _id: 4015608b-c889-497a-929c-95b799fb0fc4
+        _name:
+          _value: Classic
+    _entryOrders:
+      _ids:
+      - 6921221d-1d74-4033-bee5-e0d01cb06122
+      - 40b83e6c-74e3-4f98-ac6a-f8c4705ad8a9
+      - 066cbf8f-8b4a-441c-937e-c234e2780b88
+      - 82a83956-0eb2-4672-9978-c1933198355f
+    _themeOrders:
+      _ids:
+      - 10a7c335-bf25-4867-8af2-dd1b19273382
+      - 4015608b-c889-497a-929c-95b799fb0fc4
+      - d91fac9e-c104-42c1-a5f8-6990c1d30827
+    _activeTheme:
+      _value:
+        _id: 10a7c335-bf25-4867-8af2-dd1b19273382
+        _name:
+          _value: Standard
+  _missingEntryErrorLevel: 2
