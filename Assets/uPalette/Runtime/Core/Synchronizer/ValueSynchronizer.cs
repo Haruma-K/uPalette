@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 using uPalette.Runtime.Core.Model;
 using uPalette.Runtime.Foundation.TinyRx;
 #if UNITY_EDITOR
@@ -12,11 +11,10 @@ namespace uPalette.Runtime.Core.Synchronizer
     [ExecuteAlways]
     public abstract class ValueSynchronizer<T> : MonoBehaviour
     {
-        [FormerlySerializedAs("_entryId._value")]
-        [SerializeField] private string _entryId;
+        [SerializeField] private EntryIdentifier _entryId; // For compatibility, entry id is wrapped in EntryIdentifier.
         private readonly CompositeDisposable _observingDisposables = new CompositeDisposable();
 
-        public string EntryId => _entryId;
+        public string EntryId => _entryId.Value;
 
         protected virtual void OnEnable()
         {
@@ -39,13 +37,13 @@ namespace uPalette.Runtime.Core.Synchronizer
         public void SetEntryId(string entryId)
         {
             StopObserving();
-            _entryId = entryId;
+            _entryId.Value = entryId;
             StartObserving();
         }
 
         private void StartObserving()
         {
-            if (string.IsNullOrEmpty(_entryId))
+            if (string.IsNullOrEmpty(_entryId.Value))
                 return;
 
             var store = PaletteStore.Instance;
@@ -58,7 +56,7 @@ namespace uPalette.Runtime.Core.Synchronizer
 
             var palette = GetPalette(store);
 
-            if (!palette.TryGetActiveValue(_entryId, out var value))
+            if (!palette.TryGetActiveValue(_entryId.Value, out var value))
             {
                 var errorMessage =
                     $"{GetType().FullName} tried to get {nameof(Entry<T>)} (ID: {_entryId}), but could not find it.";
@@ -97,6 +95,18 @@ namespace uPalette.Runtime.Core.Synchronizer
         private void StopObserving()
         {
             _observingDisposables?.Clear();
+        }
+
+        [Serializable]
+        private struct EntryIdentifier
+        {
+            [SerializeField] private string _value;
+
+            public string Value
+            {
+                get => _value;
+                set => _value = value;
+            }
         }
     }
 }
