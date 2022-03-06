@@ -12,7 +12,7 @@ namespace uPalette.Editor.Core.Shared
         {
             var valueSynchronizer = (ValueSynchronizer<T>)target;
 
-            var entryIdProperty = serializedObject.FindProperty("_entryId");
+            var entryIdProperty = serializedObject.FindProperty("_entryId._value");
             var entryId = entryIdProperty.stringValue;
             var entryName = "(Not Found)";
             var themeName = "(Not Found)";
