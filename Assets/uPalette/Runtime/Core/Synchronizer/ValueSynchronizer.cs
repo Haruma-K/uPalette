@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 using uPalette.Runtime.Core.Model;
 using uPalette.Runtime.Foundation.TinyRx;
 #if UNITY_EDITOR
@@ -11,6 +12,7 @@ namespace uPalette.Runtime.Core.Synchronizer
     [ExecuteAlways]
     public abstract class ValueSynchronizer<T> : MonoBehaviour
     {
+        [FormerlySerializedAs("_entryId._value")]
         [SerializeField] private string _entryId;
         private readonly CompositeDisposable _observingDisposables = new CompositeDisposable();
 
