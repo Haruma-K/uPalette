@@ -32,7 +32,15 @@ namespace uPalette.Editor.Core.Shared
                         "To use Project Settings, you need to create a PaletteStore to initialize uPalette.",
                         MessageType.Warning);
 
-                    if (GUILayout.Button("Create Palette Store")) PaletteStore.CreateAsset();
+                    if (GUILayout.Button("Create Palette Store"))
+                        PaletteStore.CreateAsset();
+
+                    using (new EditorGUILayout.HorizontalScope())
+                    {
+                        GUILayout.Label("Update Version 1 to 2", GUILayout.Width(EditorGUIUtility.labelWidth));
+                        if (GUILayout.Button("Execute"))
+                            VersionUpdater.Update1To2();
+                    }
 
                     return;
                 }
@@ -64,18 +72,6 @@ namespace uPalette.Editor.Core.Shared
                         NameEnumsFileGenerateMode.WhenWindowLosesFocus)
                         EditorPrefs.SetBool(EditorPrefsKey.IsIdOrNameDirtyPrefsKey, true);
                 }
-
-                EditorGUILayout.Space(12);
-                EditorGUILayout.LabelField("Danger Zone", EditorStyles.boldLabel);
-                using (new EditorGUILayout.HorizontalScope())
-                {
-                    GUILayout.Label("Update Version 1 to 2", GUILayout.Width(EditorGUIUtility.labelWidth));
-                    if (GUILayout.Button("Execute"))
-                    {
-                        VersionUpdater.Update1To2();
-                    }
-                }
-
             }
         }
 
