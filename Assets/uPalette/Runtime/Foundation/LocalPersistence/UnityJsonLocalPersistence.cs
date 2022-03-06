@@ -3,7 +3,7 @@ using uPalette.Runtime.Foundation.LocalPersistence.Serialization;
 
 namespace uPalette.Runtime.Foundation.LocalPersistence
 {
-    public class UnityJsonLocalPersistence<T> : TextSerializePersistenceBase<T>
+    public class UnityJsonLocalPersistence<T> : TextSerializeLocalPersistenceBase<T>
     {
         private const string Extension = ".json";
 

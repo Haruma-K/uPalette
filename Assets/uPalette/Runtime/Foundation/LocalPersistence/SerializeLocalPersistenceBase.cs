@@ -6,6 +6,9 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using uPalette.Runtime.Foundation.LocalPersistence.Serialization;
+#if IS_EDITOR
+using UnityEditor;
+#endif
 
 namespace uPalette.Runtime.Foundation.LocalPersistence
 {
@@ -34,6 +37,10 @@ namespace uPalette.Runtime.Foundation.LocalPersistence
             var path = GetPath();
             CreateFolders(path);
             InternalSave(path, serialized);
+#if IS_EDITOR
+            if (IsAssetPath(path))
+                AssetDatabase.Refresh();
+#endif
         }
 
         public async Task SaveAsync(TSource target)
@@ -46,6 +53,10 @@ namespace uPalette.Runtime.Foundation.LocalPersistence
                 var path = GetPath();
                 CreateFolders(path);
                 await InternalSaveAsync(path, serialized);
+#if IS_EDITOR
+                if (IsAssetPath(path))
+                    AssetDatabase.Refresh();
+#endif
             }
             finally
             {
@@ -83,6 +94,12 @@ namespace uPalette.Runtime.Foundation.LocalPersistence
             {
                 var path = GetPath();
                 DeleteInternal(path);
+#if IS_EDITOR
+                // Delete the meta file.
+                var metaPath = $"{path}.meta";
+                if (File.Exists(metaPath))
+                    File.Delete(metaPath);
+#endif
             }
             finally
             {
@@ -122,10 +139,8 @@ namespace uPalette.Runtime.Foundation.LocalPersistence
         {
 #if IS_EDITOR
             if (IsAssetPath(path))
-            {
                 return path.Replace(Path.DirectorySeparatorChar, '/')
                     .Replace(Path.AltDirectorySeparatorChar, '/');
-            }
 #endif
             return path;
         }
@@ -133,10 +148,7 @@ namespace uPalette.Runtime.Foundation.LocalPersistence
         private static void CreateFolders(string path)
         {
             var folderPath = Path.GetDirectoryName(path);
-            if (folderPath != null)
-            {
-                Directory.CreateDirectory(folderPath);
-            }
+            if (folderPath != null) Directory.CreateDirectory(folderPath);
         }
 
         private static void DeleteEmptyFolders(string path)
@@ -147,7 +159,6 @@ namespace uPalette.Runtime.Foundation.LocalPersistence
         private static void DeleteEmptyFoldersRecursive(string path)
         {
             if (Directory.Exists(path))
-            {
                 if (Directory.GetFiles(path).Length == 0 && Directory.GetDirectories(path).Length == 0)
                 {
                     Directory.Delete(path, false);
@@ -155,28 +166,19 @@ namespace uPalette.Runtime.Foundation.LocalPersistence
                     // Delete the meta file of the directory.
                     var metaPath = $"{path}.meta";
                     if (File.Exists(metaPath))
-                    {
                         File.Delete(metaPath);
-                    }
 #endif
                 }
-            }
 
             var directory = Path.GetDirectoryName(path);
-            if (!string.IsNullOrEmpty(directory))
-            {
-                DeleteEmptyFolders(directory);
-            }
+            if (!string.IsNullOrEmpty(directory)) DeleteEmptyFolders(directory);
         }
 
         private SemaphoreSlim GetSemaphore()
         {
             lock (_semaphoreLocker)
             {
-                if (_semaphores.TryGetValue(FilePath, out var semaphore))
-                {
-                    return semaphore;
-                }
+                if (_semaphores.TryGetValue(FilePath, out var semaphore)) return semaphore;
 
                 semaphore = new SemaphoreSlim(1);
                 _semaphores.Add(FilePath, semaphore);
