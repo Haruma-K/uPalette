@@ -55,7 +55,7 @@ namespace uPalette.Editor.Core.Templates
         WriteLine("{");
         PushIndent("    ");
         {
-            WriteLine($"public static string ToEntryId(this {paletteData.TypeName}Theme theme)");
+            WriteLine($"public static string ToThemeId(this {paletteData.TypeName}Theme theme)");
             WriteLine("{");
             PushIndent("    ");
             {

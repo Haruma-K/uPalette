@@ -11,7 +11,7 @@ namespace uPalette.Generated
 
     public static class ColorThemeExtensions
     {
-        public static string ToEntryId(this ColorTheme theme)
+        public static string ToThemeId(this ColorTheme theme)
         {
             switch (theme)
             {
@@ -74,7 +74,7 @@ namespace uPalette.Generated
 
     public static class GradientThemeExtensions
     {
-        public static string ToEntryId(this GradientTheme theme)
+        public static string ToThemeId(this GradientTheme theme)
         {
             switch (theme)
             {
@@ -109,7 +109,7 @@ namespace uPalette.Generated
 
     public static class CharacterStyleThemeExtensions
     {
-        public static string ToEntryId(this CharacterStyleTheme theme)
+        public static string ToThemeId(this CharacterStyleTheme theme)
         {
             switch (theme)
             {
@@ -146,7 +146,7 @@ namespace uPalette.Generated
 
     public static class CharacterStyleTMPThemeExtensions
     {
-        public static string ToEntryId(this CharacterStyleTMPTheme theme)
+        public static string ToThemeId(this CharacterStyleTMPTheme theme)
         {
             switch (theme)
             {
