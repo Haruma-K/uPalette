@@ -57,6 +57,18 @@ namespace uPalette.Editor.Core.PaletteEditor
         public CharacterStyleTMPPaletteEditorWindowContentsView CharacterStyleTMPContentsView => _characterStyleTMPContentsView;
         public PaletteEditorWindowEmptyView EmptyView => _emptyView;
 
+        public void Reload()
+        {
+            _application.CleanupPaletteEditor();
+            
+            _colorContentsView.Setup();
+            _gradientContentsView.Setup();
+            _characterStyleContentsView.Setup();
+            _characterStyleTMPContentsView.Setup();
+            
+            _application.SetupPaletteEditor(this);
+        }
+
         private void OnEnable()
         {
             var application = UPaletteEditorApplication.RequestInstance();
@@ -67,8 +79,8 @@ namespace uPalette.Editor.Core.PaletteEditor
             _gradientContentsView.Setup();
             _characterStyleContentsView.Setup();
             _characterStyleTMPContentsView.Setup();
-
-            application.SetupPaletteEditor(this);
+            
+            _application.SetupPaletteEditor(this);
         }
 
         private void OnDisable()

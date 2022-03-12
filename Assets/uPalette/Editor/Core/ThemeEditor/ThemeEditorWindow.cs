@@ -55,6 +55,18 @@ namespace uPalette.Editor.Core.ThemeEditor
         public ThemeEditorWindowContentsView CharacterStyleTMPContentsView => _characterStyleTMPContentsView;
         public ThemeEditorWindowEmptyView EmptyView => _emptyView;
 
+        public void Reload()
+        {
+            _application.CleanupThemeEditor();
+            
+            _colorContentsView.Setup();
+            _gradientContentsView.Setup();
+            _characterStyleContentsView.Setup();
+            _characterStyleTMPContentsView.Setup();
+            
+            _application.SetupThemeEditor(this);
+        }
+        
         private void OnEnable()
         {
             var application = UPaletteEditorApplication.RequestInstance();
