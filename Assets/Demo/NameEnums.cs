@@ -141,7 +141,7 @@ namespace uPalette.Generated
     {
         Standard,
         Classic,
-        BlackLetter,
+        Grunge,
     }
 
     public static class CharacterStyleTMPThemeExtensions
@@ -154,7 +154,7 @@ namespace uPalette.Generated
                     return "10a7c335-bf25-4867-8af2-dd1b19273382";
                 case CharacterStyleTMPTheme.Classic:
                     return "4015608b-c889-497a-929c-95b799fb0fc4";
-                case CharacterStyleTMPTheme.BlackLetter:
+                case CharacterStyleTMPTheme.Grunge:
                     return "d91fac9e-c104-42c1-a5f8-6990c1d30827";
                 default:
                     throw new ArgumentOutOfRangeException(nameof(theme), theme, null);

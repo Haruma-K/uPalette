@@ -152,9 +152,9 @@ MonoBehaviour:
       - e243989c-d425-4612-9a47-faf2f4cb4e69
     _activeTheme:
       _value:
-        _id: e243989c-d425-4612-9a47-faf2f4cb4e69
+        _id: ca0a054c-cd1f-415c-8946-eb80b0a46c86
         _name:
-          _value: Dark
+          _value: Light
   _gradientPalette:
     _entries:
       _keys: []
@@ -323,7 +323,7 @@ MonoBehaviour:
           _value: Standard
       - _id: d91fac9e-c104-42c1-a5f8-6990c1d30827
         _name:
-          _value: Black Letter
+          _value: Grunge
       - _id: 4015608b-c889-497a-929c-95b799fb0fc4
         _name:
           _value: Classic
@@ -339,7 +339,7 @@ MonoBehaviour:
       - d91fac9e-c104-42c1-a5f8-6990c1d30827
     _activeTheme:
       _value:
-        _id: 10a7c335-bf25-4867-8af2-dd1b19273382
+        _id: d91fac9e-c104-42c1-a5f8-6990c1d30827
         _name:
-          _value: Standard
+          _value: Grunge
   _missingEntryErrorLevel: 2
