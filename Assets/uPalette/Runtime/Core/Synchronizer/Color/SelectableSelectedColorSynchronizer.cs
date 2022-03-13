@@ -14,10 +14,10 @@ namespace uPalette.Runtime.Core.Synchronizer.Color
             return _component.colors.selectedColor;
         }
 
-        protected internal override void SetValue(UnityEngine.Color color)
+        protected internal override void SetValue(UnityEngine.Color value)
         {
             var colors = _component.colors;
-            colors.selectedColor = color;
+            colors.selectedColor = value;
             _component.colors = colors;
         }
 

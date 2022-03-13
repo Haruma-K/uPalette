@@ -30,7 +30,7 @@ namespace uPalette.Runtime.Core.Synchronizer
 
         protected internal abstract T GetValue();
 
-        protected internal abstract void SetValue(T color);
+        protected internal abstract void SetValue(T value);
 
         protected abstract bool EqualsToCurrentValue(T value);
 

@@ -14,9 +14,9 @@ namespace uPalette.Runtime.Core.Synchronizer.Color
             return _component.effectColor;
         }
 
-        protected internal override void SetValue(UnityEngine.Color color)
+        protected internal override void SetValue(UnityEngine.Color value)
         {
-            _component.effectColor = color;
+            _component.effectColor = value;
         }
 
         protected override bool EqualsToCurrentValue(UnityEngine.Color value)

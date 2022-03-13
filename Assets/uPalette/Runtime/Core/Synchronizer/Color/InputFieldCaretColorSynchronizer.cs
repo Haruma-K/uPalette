@@ -14,10 +14,10 @@ namespace uPalette.Runtime.Core.Synchronizer.Color
             return _component.caretColor;
         }
 
-        protected internal override void SetValue(UnityEngine.Color color)
+        protected internal override void SetValue(UnityEngine.Color value)
         {
             _component.customCaretColor = true;
-            _component.caretColor = color;
+            _component.caretColor = value;
         }
 
         protected override bool EqualsToCurrentValue(UnityEngine.Color value)
