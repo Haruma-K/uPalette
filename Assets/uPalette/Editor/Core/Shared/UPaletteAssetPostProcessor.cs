@@ -24,6 +24,7 @@ namespace uPalette.Editor.Core.Shared
 
                 _needReloading = false;
                 EditorApplication.delayCall += OnPaletteStoreImported;
+                return;
             }
         }
 
