@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 39420eeadf4544ae981a18bb089ca312
+guid: 60bc147e0ecf54fdcaf79e6f6af20934
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Manuskript Gothisch
+  - Humger
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

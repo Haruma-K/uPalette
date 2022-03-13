@@ -167,7 +167,6 @@ namespace uPalette.Generated
         Logo,
         Title,
         MainButton,
-        NewCharacterStyleTMP,
     }
 
     public static class CharacterStyleTMPEntryExtensions
@@ -182,8 +181,6 @@ namespace uPalette.Generated
                     return "40b83e6c-74e3-4f98-ac6a-f8c4705ad8a9";
                 case CharacterStyleTMPEntry.MainButton:
                     return "066cbf8f-8b4a-441c-937e-c234e2780b88";
-                case CharacterStyleTMPEntry.NewCharacterStyleTMP:
-                    return "82a83956-0eb2-4672-9978-c1933198355f";
                 default:
                     throw new ArgumentOutOfRangeException(nameof(entry), entry, null);
             }

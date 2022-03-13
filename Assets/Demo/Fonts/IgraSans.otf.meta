@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3bf032baca99341ba94940e2b9773ad8
+guid: f09e25fce7cff41d58a3c4bdf66adfc0
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Rosseta
+  - Igra Sans
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
