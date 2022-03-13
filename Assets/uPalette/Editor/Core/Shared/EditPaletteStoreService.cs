@@ -105,8 +105,18 @@ namespace uPalette.Editor.Core.Shared
         {
             if (!IsIdOrNameDirty)
                 return;
+            
+            EditorUtility.DisplayProgressBar("Processing", "Generating Name Enum File...", 0.0f);
+            try
+            {
+                _generateNameEnumsFileService.Run();
 
-            _generateNameEnumsFileService.Run();
+            }
+            finally
+            {
+                EditorUtility.DisplayProgressBar("Processing", "Generating Name Enum File...", 1.0f);
+                EditorUtility.ClearProgressBar();
+            }
             ClearIdOrNameDirty();
         }
 

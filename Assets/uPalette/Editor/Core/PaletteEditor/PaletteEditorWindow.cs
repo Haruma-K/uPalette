@@ -2,6 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 using uPalette.Editor.Core.Shared;
+using uPalette.Editor.Foundation.CharacterStyles;
 using uPalette.Runtime.Foundation.TinyRx;
 
 namespace uPalette.Editor.Core.PaletteEditor
@@ -91,7 +92,19 @@ namespace uPalette.Editor.Core.PaletteEditor
 
         private void OnLostFocus()
         {
-            _lostFocusSubject.OnNext(Empty.Default);
+            if (focusedWindow == null)
+            {
+                _lostFocusSubject.OnNext(Empty.Default);
+                return;
+            }
+            
+            //　It is considered unfocused only when it transitions to a window that is not related to PaletteEditor.
+            var focusedWindowName = focusedWindow.GetType().Name;
+            if (focusedWindowName != "ColorPicker" && focusedWindowName != "GradientPicker" &&
+                !(focusedWindow is CharacterStyleEditor) && !(focusedWindow is CharacterStyleTMPEditor))
+            {
+                _lostFocusSubject.OnNext(Empty.Default);
+            }
         }
 
         private void OnDestroy()
