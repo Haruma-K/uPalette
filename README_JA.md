@@ -10,7 +10,7 @@
 Unityプロジェクトにおける色や文字スタイルを一元的に管理するためのシステムです。
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/158066417-1ecf9278-4204-45ff-802b-7793b0eadfd6.gif" alt="Demo">
+  <img width=800 src="https://user-images.githubusercontent.com/47441314/158066417-1ecf9278-4204-45ff-802b-7793b0eadfd6.gif" alt="Demo">
 </p>
 
 ## 目次
