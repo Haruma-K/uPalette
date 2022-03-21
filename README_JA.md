@@ -392,6 +392,19 @@ public sealed class GraphicColorSynchronizer : GradientSynchronizer<SampleGradie
 対象のエントリが見つからなかった場合、エラーログを出したい場合もあれば、それを無視したい場合もあるでしょう。  
 `Project Settings > uPalette > Missing Entry Error`から、エントリが見つからなかった時の挙動を設定できます。
 
+<p align="center">
+  <img width=600 src="https://user-images.githubusercontent.com/47441314/158050990-59e1fae4-d8ec-4ae8-8d15-4009016aee29.png" alt="Missing Entry Error">
+</p>
+
+選択肢は以下の通りです。
+
+| 名前 | 説明 |
+| --- | --- |
+| None | 何もしない。 |
+| Warning | 警告ログを出力する。 |
+| Error | エラーログを出力する。 |
+| Exception | 例外をスローする。 |
+
 ## 実装されているSynchronizer一覧
 uPaletteに標準で実装されているSynchronizerは以下の通りです。
 
