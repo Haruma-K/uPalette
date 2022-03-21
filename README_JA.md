@@ -1,8 +1,8 @@
-# uPalette: 色や文字スタイルの一元管理システム
+<h1 align="center">uPalette</h1>
 
 [![license](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE.md)
-[![license](https://img.shields.io/badge/PR-welcome-green.svg)](https://github.com/CyberAgentGameEntertainment/NovaShader/pulls)
-[![license](https://img.shields.io/badge/Unity-2020.3-green.svg)](#Requirements)
+[![license](https://img.shields.io/badge/PR-welcome-green.svg)](https://github.com/pulls)
+[![license](https://img.shields.io/badge/Unity-2020.1-green.svg)](#要件)
 
 **ドキュメント** ([English](README.md), [日本語](README_JA.md))
 | [デモ](Assets/Demo/Demo.unity)
@@ -78,8 +78,346 @@ Unity2020.1 以上
 
 バージョンの更新もインストールと同様の手順で実行できます。
 
-{% note %}
-
 `No 'git' executable was found. Please install Git on your system and restart Unity` のようなメッセージが出た場合、マシンにGitをセットアップする必要がある点にご注意ください。
 
-{% endnote %}
+## 基本的な使い方
+
+### Palette Storeを作成する
+uPaletteを使うにはまず`Window > uPalette > Palette Editor`からPalette Editorを開きます。  
+Palette Editorを開くと下図のようなウィンドウが表示されます。
+
+<p align="center">
+  <img width=600 src="https://user-images.githubusercontent.com/47441314/157675097-e260f475-5ba0-42af-adfc-06d8155103d8.png" alt="Palette Editor">
+</p>
+
+次に、中央の`Create Palette Store`ボタンを押下することでPalette Storeアセットを作成します。  
+Palette StoreはuPaletteで扱うデータを保持するためのアセットです。  
+プロジェクト内の任意の場所に配置できますが、ランタイムで使うアセットなのでEditorフォルダ配下には置かないよう注意してください。
+
+Palette Storeアセットを作成するとPalette Editorは以下のような表示に切り替わります。
+
+<p align="center">
+  <img width=600 src="https://user-images.githubusercontent.com/47441314/157675124-bf3471c4-5f0f-4a07-ae10-8a97b3d986ad.png" alt="Palette Editor">
+</p>
+
+### エントリを作成する
+uPaletteでは、色や文字スタイルの設定のことをエントリと呼びます。  
+Palette Editorの右上にある「+」ボタンを押下することで、エントリを追加することができます。
+
+<p align="center">
+  <img width=600 src="https://user-images.githubusercontent.com/47441314/157674758-981455be-7770-4a54-af49-71f69dd01276.gif" alt="Add Entry">
+</p>
+
+エントリ名をクリックすることでリネームすることができます。  
+また、エントリの削除は右クリックから行えます。
+
+<p align="center">
+  <img width=600 src="https://user-images.githubusercontent.com/47441314/157676311-1b7d12fc-a410-4303-a38a-fbe2f3192265.gif" alt="Rename & Remove Entry">
+</p>
+
+要素をドラッグすると順番を並び替えることもできます。
+
+### エントリを適用する
+作成した色や文字スタイルをコンポーネントに反映するには、対象のGameObjectを選択した状態で対象のエントリのApplyボタンを押下します。  
+すると適用可能なコンポーネントとプロパティの名前がリストアップされるので、適用したいものを選択します。
+
+<p align="center">
+  <img width=600 src="https://user-images.githubusercontent.com/47441314/157679154-0e1aa71a-27f4-49c4-9c28-9eca8080f96d.gif" alt="Apply Entry">
+</p>
+
+これで、エントリとプロパティが同期されます。  
+同期されているエントリの値が変化するとプロパティが自動的に書き変わります。
+
+<p align="center">
+  <img width=600 src="https://user-images.githubusercontent.com/47441314/157680482-2df5fe4c-3756-4422-89fb-208a89b1f657.gif" alt="Change Entry Value">
+</p>
+
+この時、対象のGameObjectにはSynchronizerと呼ばれるコンポーネントがアタッチされています。  
+このコンポーネントをデタッチすると、エントリとの同期が解除されます。
+
+<p align="center">
+  <img width=600 src="https://user-images.githubusercontent.com/47441314/157680907-388bedd1-01e9-4a71-af7b-af09f2360bce.png" alt="Synchroizer">
+</p>
+
+なお、Prefabに対してエントリを適用した場合には、通常のPrefabワークフローと同様、Prefabにはシリアライズされていない状態となります。  
+シリアライズを行うには右クリックメニューなどからApplyしてください。
+
+<p align="center">
+  <img width=600 src="https://user-images.githubusercontent.com/47441314/157682845-22d8ad29-a245-4f37-a817-9fdfa3bdbd48.gif" alt="Serialization">
+</p>
+
+### 同期中のGameObjectをハイライトする
+エントリの右クリックメニューからHighlightを選択すると、同期中のGameObjectをハイライト（選択）できます。
+
+<p align="center">
+  <img width=600 src="https://user-images.githubusercontent.com/47441314/157684607-0b28a34a-c892-4458-9b0d-a3cdf8ea10e5.gif" alt="Highlight">
+</p>
+
+### ## 色以外のエントリを取り扱う
+ここまで、uPaletteで色を管理する方法について説明しました。  
+
+uPaletteには色の他にも文字スタイルやグラデーションといったパレットの種類が存在します。  
+PaletteEditorの左上のドロップダウンメニューから、パレットの種類を切り替えることができます。
+
+<p align="center">
+  <img width=600 src="https://user-images.githubusercontent.com/47441314/157685702-e2d83f7c-4cfa-4b37-9561-0067f5c828c0.gif" alt="Various Palettes">
+</p>
+
+各ドロップダウンメニューの説明は以下の通りです。
+
+| 名前 | 説明 |
+| --- | --- |
+| Color | 色を管理するために使用します。 |
+| Gradient | グラデーションを管理するために使用します。 |
+| Character Style | uGUI Textの文字スタイルを管理するために使用します。 |
+| Character Style TMP | Text Mesh Proの文字スタイルを管理するために使用します。 |
+
+## テーマ機能の使い方
+
+### テーマとは？
+テーマ機能を使うと、エントリのセットを「テーマ」として保存できます。  
+テーマは複数保存でき、それを切り替えることでテーマに応じた色や文字スタイルを反映することができます。
+
+<p align="center">
+  <img width=600 src="https://user-images.githubusercontent.com/47441314/157786384-dc33d7a0-eec3-4413-9639-2b61b8c9f1b5.gif" alt="Theme">
+</p>
+
+### テーマを作成する
+テーマを作成するには、`Window > uPalette > Theme Editor`からTheme Editorを開きます。  
+デフォルトでは、Defaultという名前のテーマが存在しており、左上の「+」ボタンを押下することで新しいテーマを作成できます。  
+Entry Editorと同様の操作でリネーム、削除、並び替えなどができます。
+
+<p align="center">
+  <img width=600 src="https://user-images.githubusercontent.com/47441314/157786982-b19be4af-ffd4-407e-a8dc-3ba39c9426f4.gif" alt="Theme Editor">
+</p>
+
+テーマを追加すると、Palette Editorにそのテーマのエントリを設定するためのカラムが追加されます。  
+これを編集することでそのテーマに応じた値を設定できます。
+
+<p align="center">
+  <img width=600 src="https://user-images.githubusercontent.com/47441314/159245296-ad887c65-27f9-4274-a641-811833683130.png" alt="Palette Editor">
+</p>
+
+なおテーマはパレットの種類ごとに設定できます。  
+パレットの種類はTheme Editor左上のドロップダウンから変更できます。
+
+<p align="center">
+  <img width=400 src="https://user-images.githubusercontent.com/47441314/157789707-b2103a3a-cf9b-4e55-a7ac-157604608cb9.gif" alt="Change Palette Type">
+</p>
+
+### テーマを切り替える（エディタ）
+Theme EditorからActivateボタンを押下することでテーマを切り替えることができます。  
+テーマを切り替えると、そのテーマのエントリの値が即座に反映されます。
+
+<p align="center">
+  <img width=600 src="https://user-images.githubusercontent.com/47441314/157788787-e1cf2500-7b20-4a60-86cf-421613089517.gif" alt="Change Theme">
+</p>
+
+### テーマを切り替える（スクリプト）
+ランタイムにおけるテーマの切り替えには`Palette`クラスの`SetActiveTheme()`を使用します。  
+以下は[自動生成したテーマのEnum](#エントリやテーマを表すEnumを自動生成する)を使用して、`ColorPalette`のテーマを切り替えるスクリプトの例です。
+
+```csharp
+using System;
+using UnityEngine;
+using uPalette.Generated;
+using uPalette.Runtime.Core;
+
+public class Example : MonoBehaviour
+{
+    public void OnGUI()
+    {
+        foreach (ColorTheme colorTheme in Enum.GetValues(typeof(ColorTheme)))
+            if (GUILayout.Button(colorTheme.ToString()))
+            {
+                var colorPalette = PaletteStore.Instance.ColorPalette;
+                colorPalette.SetActiveTheme(colorTheme.ToThemeId());
+            }
+    }
+}
+```
+
+これを適当なGameObjectにアタッチして再生すると、以下のようにテーマを切り替えることができます。
+
+<p align="center">
+  <img width=600 src="https://user-images.githubusercontent.com/47441314/158050236-389b9798-e9e9-46fe-bb15-c862d263bff4.gif" alt="Change Theme">
+</p>
+
+## 応用的な使い方
+
+### エントリやテーマを表すEnumを自動生成する
+スクリプトからuPaletteを操作する場合、テーマやエントリの情報にアクセスするためのスクリプトを自動生成しておくと便利です。  
+`Project Settings > uPalette > Name Enums File Generation`を`When Window Loses Focus`に設定すると、Palette EditorやTheme Editorからフォーカスが外れた際にこのファイルが自動生成されます。  
+`Name Enums File Location`にフォルダを指定するとそのフォルダに生成されます。未指定の場合にはAssetsフォルダ直下に生成されます。
+
+<p align="center">
+  <img width=600 src="https://user-images.githubusercontent.com/47441314/158021815-2cec00b7-46f1-403b-b459-e03c8754b29d.png" alt="Project Settings">
+</p>
+
+以下のようなEnumが生成されます。
+
+```csharp
+using System;
+
+namespace uPalette.Generated
+{
+    public enum ColorEntry
+    {
+        Red,
+        Green,
+        Blue,
+    }
+}
+```
+
+またこのEnumの拡張メソッドとして定義されている`ToEntryId()`を使用すると、当該エントリのIDを取得することができます。
+
+```csharp
+using uPalette.Generated;
+
+public class Example
+{
+    private void Foo()
+    {
+        ColorEntry.Red.ToEntryId();
+    }
+}
+```
+
+他の種類のエントリやテーマについても同様にして使用できます。
+
+### uPaletteのデータをスクリプトから編集する
+以下のようにPaletteStoreから各パレットを取得することで、uPaletteのデータをスクリプトから編集することができます。  
+PaletteStoreは`ScriptableObject`なので、編集した後には必ずDirtyフラグを立ててUnityに編集したことを知らせる必要がある点にご注意ください。
+
+```csharp
+// Get PaletteStore.
+var paletteStore = PaletteStore.Instance;
+
+// Get each palette.
+var colorPalette = PaletteStore.Instance.ColorPalette;
+var gradientPalette = PaletteStore.Instance.GradientPalette;
+var characterStylePalette = PaletteStore.Instance.CharacterStylePalette;
+var characterStyleTMPPalette = PaletteStore.Instance.CharacterStyleTMPPalette;
+
+// Set the dirty flag after editing.
+EditorUtility.SetDirty(paletteStore);
+
+// Save assets if you need.
+AssetDatabase.SaveAssets();
+```
+
+### 独自のコンポーネントに値を反映する
+uPaletteには[標準的なコンポーネントのプロパティに値を反映するためのSynchronizerがあらかじめ用意](#実装されているSynchronizer一覧)されています。
+
+これとは別に、独自のコンポーネントに値を反映するためのSynchronizerを作成することもできます。  
+例として、グラデーションをプロパティとして持つ独自のコンポーネントを考えます。
+
+```csharp
+using UnityEngine;
+
+public class SampleGradient : MonoBehaviour
+{
+    [SerializeField] private Gradient _gradient;
+
+    public Gradient Gradient
+    {
+        get => _gradient;
+        set => _gradient = value;
+    }
+}
+```
+
+このプロパティに値を反映するためのSynchronizerは以下のように作成できます。
+
+```csharp
+using UnityEngine;
+using uPalette.Runtime.Core.Synchronizer.Gradient;
+
+[AddComponentMenu("")]
+[DisallowMultipleComponent]
+[RequireComponent(typeof(SampleGradient))]
+[GradientSynchronizer(typeof(SampleGradient), "Gradient")]
+public sealed class GraphicColorSynchronizer : GradientSynchronizer<SampleGradient>
+{
+    protected override Gradient GetValue()
+    {
+        return _component.Gradient;
+    }
+
+    protected override void SetValue(Gradient value)
+    {
+        _component.Gradient = value;
+    }
+
+    protected override bool EqualsToCurrentValue(Gradient value)
+    {
+        return _component.Gradient.Equals(value);
+    }
+}
+```
+
+### エントリが見つからなかった時の挙動を設定する
+対象のエントリが見つからなかった場合、エラーログを出したい場合もあれば、それを無視したい場合もあるでしょう。  
+`Project Settings > uPalette > Missing Entry Error`から、エントリが見つからなかった時の挙動を設定できます。
+
+## 実装されているSynchronizer一覧
+uPaletteに標準で実装されているSynchronizerは以下の通りです。
+
+| エントリの種類 | 対象クラス名 | 対象プロパティ名 |
+| --- | --- | --- |
+| Color | UnityEngine.UI.Graphic | color |
+| Color | UnityEngine.UI.Outline | effectColor |
+| Color | UnityEngine.UI.Selectable | colors.normalColor |
+| Color | UnityEngine.UI.Selectable | colors.selectedColor |
+| Color | UnityEngine.UI.Selectable | colors.pressedColor |
+| Color | UnityEngine.UI.Selectable | colors.disabledColor |
+| Color | UnityEngine.UI.Selectable | colors.highlightedColor |
+| Color | UnityEngine.UI.InputField | caretColor |
+| Color | UnityEngine.UI.InputField | selectionColor |
+| CharacterStyle | UnityEngine.UI.Text | font / fontStyle / fontSize / lineSpacing |
+| CharacterStyleTMP | TMPro.TextMeshProUGUI | font / fontStyle / fontSize / enableAutoSizing / characterSpacing / wordSpacing / lineSpacing / paragraphSpacing |
+
+## 技術的詳細
+
+### エントリを反映するタイミングについて
+
+Unityでは、各コンポーネントに設定されている色やテキストスタイルなどの情報はそのまま値としてシリアライズされます。  
+したがって、これら変更したときにはこのシリアライズされた値を書き換えるべきです。
+
+しかしこれでは、エントリを変更した際に多くのSceneやPrefabに変更が加わってしまいます。  
+そこでuPaletteでは以下のルールに従って色を反映しています。
+
+- uPaletteのエントリは値ではなくIDとしてシリアライズ
+- Edit ModeではOnEnable時にこのエントリを反映・変更を監視する
+- Play ModeではStart()のタイミングでエントリを反映する
+
+また、Edit ModeでSceneを開いたときに変更が加わらないよう、シリアライズされたIDのエントリを反映するときにはDirtyフラグを立てない実装にしています。
+
+# バージョン1からのアップデート方法
+
+uPaletteをバージョン1からバージョン2にバージョンアップする上で、データ構造やデータの置き場所を大きく変更しました。
+
+バージョン1を使用していた方は、Palette Storeを作成する前にProject Settingsから以下のボタンを押下することでバージョン2にデータを移行できます。
+
+<p align="center">
+  <img width=600 src="https://user-images.githubusercontent.com/47441314/158051937-fe364df4-7105-4de0-83d4-a15e6c7a3517.png" alt="How to update">
+</p>
+
+## デモ
+デモシーンは以下の手順で再生できます。
+
+1. リポジトリをクローンする
+2. 以下のシーンを開いて再生
+    - [https://github.com/Haruma-K/uPalette/blob/master/Assets/Demo/Demo.unity](Assets/Demo/Demo.unity)
+
+## ライセンス
+本ソフトウェアはMITライセンスで公開しています。ライセンスの範囲内で自由に使っていただけますが、使用の際は以下の著作権表示とライセンス表示が必須となります。
+
+- [LICENSE](LICENSE.md)
+
+また、本ドキュメントの目次は以下のソフトウェアを使用して作成されています。
+
+- [toc-generator](https://github.com/technote-space/toc-generator)
+
+toc-generatorのライセンスの詳細は [Third Party Notices.md](Third Party Notices.md) を参照してください。
