@@ -10,7 +10,7 @@
 Centrally manage colors and text styles in Unity projects.
 
 <p align="center">
-  <img width=800 src="https://user-images.githubusercontent.com/47441314/158066417-1ecf9278-4204-45ff-802b-7793b0eadfd6.gif" alt="Demo">
+  <img width=800 src="https://user-images.githubusercontent.com/47441314/159275911-0445d1da-690b-4b56-86e8-85d57d79f257.gif" alt="Demo">
 </p>
 
 ## Table of Contents
