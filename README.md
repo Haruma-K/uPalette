@@ -44,7 +44,6 @@ Centrally manage colors and text styles in Unity projects.
 - [Technical details](#technical-details)
 - [About the timing of reflecting Entries](#about-the-timing-of-reflecting-entries)
 - [How to update from version 1](#how-to-update-from-version-1)
-- [デモ](#%E3%83%87%E3%83%A2)
 - [Demo](#demo)
 - [Licenses](#licenses)
 
