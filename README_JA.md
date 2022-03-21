@@ -184,7 +184,7 @@ Palette Editorの右上にある「+」ボタンを押下することで、エ�
   <img width=600 src="https://user-images.githubusercontent.com/47441314/157684607-0b28a34a-c892-4458-9b0d-a3cdf8ea10e5.gif" alt="Highlight">
 </p>
 
-### ## 色以外のエントリを取り扱う
+### 色以外のエントリを取り扱う
 ここまで、uPaletteで色を管理する方法について説明しました。  
 
 uPaletteには色の他にも文字スタイルやグラデーションといったパレットの種類が存在します。  
@@ -451,4 +451,4 @@ uPaletteをバージョン1からバージョン2にバージョンアップす�
 
 - [toc-generator](https://github.com/technote-space/toc-generator)
 
-toc-generatorのライセンスの詳細は [Third Party Notices.md](Third Party Notices.md) を参照してください。
+toc-generatorのライセンスの詳細は [Third Party Notices.md](ThirdPartyNotices.md) を参照してください。
