@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using UnityEngine.Networking;
 
-namespace uPalette.Runtime.Foundation.LocalPersistence.IO
+namespace uPalette.Editor.Foundation.LocalPersistence.IO
 {
     internal class UnityWebRequestAsyncOperationAwaiter : INotifyCompletion
     {

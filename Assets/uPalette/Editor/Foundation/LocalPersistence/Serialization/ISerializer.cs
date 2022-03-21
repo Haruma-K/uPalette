@@ -1,4 +1,4 @@
-﻿namespace uPalette.Runtime.Foundation.LocalPersistence.Serialization
+﻿namespace uPalette.Editor.Foundation.LocalPersistence.Serialization
 {
     /// <summary>
     ///     Interface of the serializer.

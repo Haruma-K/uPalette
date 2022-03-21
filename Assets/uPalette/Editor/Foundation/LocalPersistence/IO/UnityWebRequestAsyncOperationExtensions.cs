@@ -1,6 +1,6 @@
 ﻿using UnityEngine.Networking;
 
-namespace uPalette.Runtime.Foundation.LocalPersistence.IO
+namespace uPalette.Editor.Foundation.LocalPersistence.IO
 {
     internal static class UnityWebRequestAsyncOperationExtensions
     {

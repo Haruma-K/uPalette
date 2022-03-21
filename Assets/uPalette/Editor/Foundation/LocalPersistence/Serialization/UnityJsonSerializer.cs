@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace uPalette.Runtime.Foundation.LocalPersistence.Serialization
+namespace uPalette.Editor.Foundation.LocalPersistence.Serialization
 {
     /// <summary>
     ///     Json serializer implemented using <see cref="UnityEngine.JsonUtility" />.

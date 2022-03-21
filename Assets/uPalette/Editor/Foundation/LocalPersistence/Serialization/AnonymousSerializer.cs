@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace uPalette.Runtime.Foundation.LocalPersistence.Serialization
+namespace uPalette.Editor.Foundation.LocalPersistence.Serialization
 {
     public class AnonymousSerializer<TSerialized> : ISerializer<TSerialized>
     {

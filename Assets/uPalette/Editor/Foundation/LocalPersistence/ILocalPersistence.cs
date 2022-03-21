@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace uPalette.Runtime.Foundation.LocalPersistence
+namespace uPalette.Editor.Foundation.LocalPersistence
 {
     public interface ILocalPersistence<T>
     {

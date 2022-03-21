@@ -1,9 +1,9 @@
 ﻿using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-using uPalette.Runtime.Foundation.LocalPersistence.IO;
+using uPalette.Editor.Foundation.LocalPersistence.IO;
 
-namespace uPalette.Runtime.Foundation.LocalPersistence
+namespace uPalette.Editor.Foundation.LocalPersistence
 {
     /// <summary>
     ///     Serialize and persist the text data.

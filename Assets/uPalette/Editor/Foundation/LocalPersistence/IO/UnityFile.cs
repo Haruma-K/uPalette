@@ -3,7 +3,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace uPalette.Runtime.Foundation.LocalPersistence.IO
+namespace uPalette.Editor.Foundation.LocalPersistence.IO
 {
     /// <summary>
     ///     Utilities for handling files in Unity.

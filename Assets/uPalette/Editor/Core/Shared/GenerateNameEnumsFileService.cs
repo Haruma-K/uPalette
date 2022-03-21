@@ -1,8 +1,8 @@
 ﻿using UnityEditor;
 using uPalette.Editor.Core.Templates;
+using uPalette.Editor.Foundation.LocalPersistence;
 using uPalette.Runtime.Core;
 using uPalette.Runtime.Core.Model;
-using uPalette.Runtime.Foundation.LocalPersistence;
 
 namespace uPalette.Editor.Core.Shared
 {

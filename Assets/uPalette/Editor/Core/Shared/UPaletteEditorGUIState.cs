@@ -1,6 +1,6 @@
 ﻿using System;
 using UnityEngine;
-using uPalette.Runtime.Foundation.EditorPrefsProperty.EditorPrefsProperty.Editor;
+using uPalette.Editor.Foundation.EditorPrefsProperty.EditorPrefsProperty.Editor;
 using uPalette.Runtime.Foundation.TinyRx;
 using uPalette.Runtime.Foundation.TinyRx.ObservableProperty;
 

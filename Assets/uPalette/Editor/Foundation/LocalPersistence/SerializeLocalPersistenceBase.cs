@@ -5,12 +5,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using uPalette.Runtime.Foundation.LocalPersistence.Serialization;
-#if IS_EDITOR
 using UnityEditor;
+using uPalette.Editor.Foundation.LocalPersistence.Serialization;
+#if IS_EDITOR
 #endif
 
-namespace uPalette.Runtime.Foundation.LocalPersistence
+namespace uPalette.Editor.Foundation.LocalPersistence
 {
     /// <summary>
     ///     Base class to serialize and persist the data.

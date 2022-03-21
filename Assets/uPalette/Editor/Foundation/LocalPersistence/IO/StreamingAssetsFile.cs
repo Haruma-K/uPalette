@@ -13,7 +13,7 @@ using System.Threading;
 using UnityEngine.Networking;
 #endif
 
-namespace uPalette.Runtime.Foundation.LocalPersistence.IO
+namespace uPalette.Editor.Foundation.LocalPersistence.IO
 {
     /// <summary>
     ///     Utilities for handling files in the StreamingAssets folder.

@@ -1,7 +1,7 @@
 ﻿using System.IO;
-using uPalette.Runtime.Foundation.LocalPersistence.Serialization;
+using uPalette.Editor.Foundation.LocalPersistence.Serialization;
 
-namespace uPalette.Runtime.Foundation.LocalPersistence
+namespace uPalette.Editor.Foundation.LocalPersistence
 {
     public class UnityJsonLocalPersistence<T> : TextSerializeLocalPersistenceBase<T>
     {

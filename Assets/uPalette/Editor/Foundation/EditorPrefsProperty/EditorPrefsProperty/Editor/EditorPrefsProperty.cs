@@ -1,7 +1,7 @@
 using System;
 using UnityEditor;
 
-namespace uPalette.Runtime.Foundation.EditorPrefsProperty.EditorPrefsProperty.Editor
+namespace uPalette.Editor.Foundation.EditorPrefsProperty.EditorPrefsProperty.Editor
 {
     /// <summary>
     ///     Property whose value is persisted in EditorPrefs.
