@@ -15,8 +15,41 @@ Centrally manage colors and text styles in Unity projects.
 
 ## Table of Contents
 
-<!-- START doctoc -->
-<!-- END doctoc -->
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+<details>
+<summary>Details</summary>
+
+- [Concept & Features](#concept--features)
+- [Setup](#setup)
+  - [Requirements](#requirements)
+  - [Installation](#installation)
+- [Getting Started](#getting-started)
+  - [Create Palette Store](#create-palette-store)
+  - [Create Entry](#create-entry)
+  - [Apply Entry](#apply-entry)
+  - [Highlight synchronized GameObjects](#highlight-synchronized-gameobjects)
+  - [Handling non-color Entries.](#handling-non-color-entries)
+- [Theme Feature Usage](#theme-feature-usage)
+  - [What is Theme?](#what-is-theme)
+  - [Create Theme](#create-theme)
+  - [Switch Themes (Editor)](#switch-themes-editor)
+  - [Switch Themes (Script)](#switch-themes-script)
+- [Advanced Usage](#advanced-usage)
+  - [Automatic generation of enums for Entries and Themes](#automatic-generation-of-enums-for-entries-and-themes)
+  - [Edit uPalette data from scripts](#edit-upalette-data-from-scripts)
+  - [Reflects values to your own components](#reflects-values-to-your-own-components)
+  - [Configure behavior when an entry is not found](#configure-behavior-when-an-entry-is-not-found)
+- [Implemented Synchronizers](#implemented-synchronizers)
+- [Technical details](#technical-details)
+- [About the timing of reflecting Entries](#about-the-timing-of-reflecting-entries)
+- [How to update from version 1](#how-to-update-from-version-1)
+- [デモ](#%E3%83%87%E3%83%A2)
+- [Demo](#demo)
+- [Licenses](#licenses)
+
+</details>
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Concept & Features
 In typical application development, one color is applied to multiple locations. The same blue color is applied to the button background, icon color, and outline in the following example.
