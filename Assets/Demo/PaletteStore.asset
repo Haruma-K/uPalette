@@ -150,11 +150,7 @@ MonoBehaviour:
       - ca0a054c-cd1f-415c-8946-eb80b0a46c86
       - 27944544-a27d-4596-b509-f5e0ab6f7f90
       - e243989c-d425-4612-9a47-faf2f4cb4e69
-    _activeTheme:
-      _value:
-        _id: ca0a054c-cd1f-415c-8946-eb80b0a46c86
-        _name:
-          _value: Light
+    _activeThemeId: ca0a054c-cd1f-415c-8946-eb80b0a46c86
   _gradientPalette:
     _entries:
       _keys: []
@@ -171,11 +167,7 @@ MonoBehaviour:
     _themeOrders:
       _ids:
       - b38a3fad-0b4f-42ed-9d55-849a4615d181
-    _activeTheme:
-      _value:
-        _id: b38a3fad-0b4f-42ed-9d55-849a4615d181
-        _name:
-          _value: Default
+    _activeThemeId: b38a3fad-0b4f-42ed-9d55-849a4615d181
   _characterStylePalette:
     _entries:
       _keys: []
@@ -192,11 +184,7 @@ MonoBehaviour:
     _themeOrders:
       _ids:
       - 2bf21534-f311-4f5a-945f-8bb282e4c047
-    _activeTheme:
-      _value:
-        _id: 2bf21534-f311-4f5a-945f-8bb282e4c047
-        _name:
-          _value: Default
+    _activeThemeId: 2bf21534-f311-4f5a-945f-8bb282e4c047
   _characterStyleTMPPalette:
     _entries:
       _keys:
@@ -337,9 +325,5 @@ MonoBehaviour:
       - 10a7c335-bf25-4867-8af2-dd1b19273382
       - 4015608b-c889-497a-929c-95b799fb0fc4
       - d91fac9e-c104-42c1-a5f8-6990c1d30827
-    _activeTheme:
-      _value:
-        _id: d91fac9e-c104-42c1-a5f8-6990c1d30827
-        _name:
-          _value: Grunge
+    _activeThemeId: 10a7c335-bf25-4867-8af2-dd1b19273382
   _missingEntryErrorLevel: 2

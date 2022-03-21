@@ -27,7 +27,9 @@ namespace uPalette.Runtime.Core.Model
 
         [SerializeField] private OrderCollection<string> _themeOrders = new OrderCollection<string>();
 
-        [SerializeField] private ObservableProperty<Theme> _activeTheme = new ObservableProperty<Theme>();
+        // NOTE: Serialize _activeThemeId instead of _activeTheme as an ad-hoc solution to a serialization bug (probably in Unity).
+        [SerializeField] private string _activeThemeId;
+        private ObservableProperty<Theme> _activeTheme = new ObservableProperty<Theme>();
 
         private readonly CompositeDisposable _activeThemeDisposables = new CompositeDisposable();
 
@@ -59,10 +61,12 @@ namespace uPalette.Runtime.Core.Model
 
         void ISerializationCallbackReceiver.OnBeforeSerialize()
         {
+            _activeThemeId = _activeTheme.Value.Id;
         }
 
         void ISerializationCallbackReceiver.OnAfterDeserialize()
         {
+            _activeTheme = new ObservableProperty<Theme>(_themes[_activeThemeId]);
             var activeThemeId = _activeTheme.Value.Id;
 
             foreach (var entry in _entries.Values)
