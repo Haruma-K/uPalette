@@ -15,10 +15,19 @@ Unityプロジェクトにおける色や文字スタイルを一元的に管理
 
 ## 目次
 
-<!-- START doctoc -->
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 <!-- param::title::詳細:: -->
+<details>
+<summary>詳細</summary>
 
-<!-- END doctoc -->
+- [コンセプトと特徴](#%E3%82%B3%E3%83%B3%E3%82%BB%E3%83%97%E3%83%88%E3%81%A8%E7%89%B9%E5%BE%B4)
+- [セットアップ](#%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97)
+  - [要件](#%E8%A6%81%E4%BB%B6)
+  - [インストール](#%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB)
+
+</details>
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## コンセプトと特徴
 アプリケーション開発では一般的に、一つの色を複数の箇所に適用します。  

@@ -1,3 +1,28 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+<details>
+<summary>Details</summary>
+
+- [uPalette](#upalette)
+  - [Features](#features)
+  - [Setup](#setup)
+      - [Requirement](#requirement)
+      - [Install](#install)
+      - [License](#license)
+  - [Usage](#usage)
+      - [Create Colors](#create-colors)
+      - [Apply Colors](#apply-colors)
+      - [Highlight applied GameObjects](#highlight-applied-gameobjects)
+      - [Apply color to your own components](#apply-color-to-your-own-components)
+        - [Get the color via script](#get-the-color-via-script)
+        - [Edit the color via script](#edit-the-color-via-script)
+  - [Technical details](#technical-details)
+      - [About applying colors](#about-applying-colors)
+  - [Demo](#demo)
+
+</details>
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 <h1 align="center">uPalette</h1>
 
 [![license](https://img.shields.io/badge/LICENSE-MIT-green.svg)](LICENSE.md)
