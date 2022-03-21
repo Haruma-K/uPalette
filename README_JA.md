@@ -1,218 +1,85 @@
-<h1 align="center">uPalette</h1>
+# uPalette: 色や文字スタイルの一元管理システム
 
-[![license](https://img.shields.io/badge/LICENSE-MIT-green.svg)](LICENSE.md)
+[![license](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE.md)
+[![license](https://img.shields.io/badge/PR-welcome-green.svg)](https://github.com/CyberAgentGameEntertainment/NovaShader/pulls)
+[![license](https://img.shields.io/badge/Unity-2020.3-green.svg)](#Requirements)
 
-[English Documents Available(英語ドキュメント)](README.md)
+**ドキュメント** ([English](README.md), [日本語](README_JA.md))
+| [デモ](Assets/Demo/Demo.unity)
 
-Unityにおけるプロジェクト内の色の一元管理・一括変更システム。
+Unityプロジェクトにおける色や文字スタイルを一元的に管理するためのシステムです。
 
 <p align="center">
-  <img width=700 src="https://user-images.githubusercontent.com/47441314/118399146-af759380-b696-11eb-882c-9ee8adb2ee99.gif" alt="Demo">
+  <img width=600 src="https://user-images.githubusercontent.com/47441314/158066417-1ecf9278-4204-45ff-802b-7793b0eadfd6.gif" alt="Demo">
 </p>
 
-## 特徴
-* Unityプロジェクト内で使用している色を一元管理
-* 色を変更するとプロジェクト全体に自動反映されるため、デザインの変更が容易に
-* Adobe XDのアセットパネルのようなUX
-* Prefab/Prefab Variantにも対応
+## 目次
+
+<!-- START doctoc -->
+<!-- param::title::詳細:: -->
+
+<!-- END doctoc -->
+
+## コンセプトと特徴
+アプリケーション開発では一般的に、一つの色を複数の箇所に適用します。  
+以下はボタンの背景色やアイコンの色、アウトラインに同じ青色を適用している例です。
+
+<p align="center">
+  <img width=400 src="https://user-images.githubusercontent.com/47441314/159170066-1bd16348-b013-4f47-8d64-988f43f2fde7.png" alt="Apply blue color">
+</p>
+
+次に、この色を青色から緑色に変更することを考えます。  
+Unityでは色の値はPrefabやSceneにシリアライズされるので、これらすべての値を一つ一つ変更する必要があります。
+
+<p align="center">
+  <img width=400 src="https://user-images.githubusercontent.com/47441314/158061951-ff91aaee-019a-4ea4-9c74-012a93f0558f.png" alt="Change the color to green">
+</p>
+
+当然ながら、この作業量はプロジェクトの規模に応じて増加します。  
+uPaletteを使えば色を一元管理することでこのような変更を一括で適用することができます。
+
+<p align="center">
+  <img width=400 src="https://user-images.githubusercontent.com/47441314/158061961-153d13ba-a4ee-45ee-b513-9d7956f21fa4.png" alt="uPalette">
+</p>
+
+またuPaletteでは、色だけではなく文字スタイルやグラデーションを管理することもできます。
+
+<p align="center">
+  <img width=600 src="https://user-images.githubusercontent.com/47441314/158065275-5b9e5801-88e8-4667-8cbe-67bc428d4b1e.png" alt="Character Styles & Gradients">
+</p>
+
+さらにテーマ機能を使えば、色や文字スタイルのセットをテーマとして保存できます。  
+アクティブなテーマを切り替えることでそのテーマに応じた色や文字スタイルが反映されます。
+
+<p align="center">
+  <img width=600 src="https://user-images.githubusercontent.com/47441314/158065218-21a3f422-ad00-4da9-ab61-455408c2f7d1.gif" alt="Theme Feature">
+</p>
 
 ## セットアップ
 
-#### 要件
-Unityのバージョンは2020.1以上に対応しています（Generic型のシリアライズを使っているため）。
+### 要件
+Unity2020.1 以上
 
-#### インストール
-1. Window > Package ManagerからPackage Managerを開く
-2. 「+」ボタン > Add package from git URL
-3. 以下を入力
-    * https://github.com/Haruma-K/uPalette.git?path=/Assets/uPalette
+### インストール
+インストールは以下の手順で行います。
 
-<p align="center">
-  <img width=500 src="https://user-images.githubusercontent.com/47441314/118421190-97842b00-b6fb-11eb-9f94-4dc94e82367a.png" alt="Package Manager">
-</p>
-
-あるいはPackages/manifest.jsonを開き、dependenciesブロックに以下を追記します。
-
-```json
-{
-    "dependencies": {
-        "com.harumak.upalette": "https://github.com/Haruma-K/uPalette.git?path=/Assets/uPalette"
-    }
-}
-```
-
-バージョンを指定したい場合には以下のように記述します。
-
-* https://github.com/Haruma-K/uPalette.git?path=/Assets/uPalette#0.1.0
-
-#### ライセンス
-本ソフトウェアはMITライセンスで公開しています。  
-ライセンスの範囲内で自由に使っていただいてかまいませんが、  
-使用の際は以下の著作権表示とライセンス表示が必須となります。
-
-[https://github.com/Haruma-K/uPalette/blob/master/LICENSE.md]
-
-## 使い方
-
-#### 色を作成する
-uPaletteで管理する色は以下の手順で作成します。
-
-1. Window > uPalette
-2. uPaletteウィンドウ左上のCreateボタンを押下
-3. 色と名前を自由に設定する
-4. 削除は右クリックメニューから
+1. Window > Package Manager を選択
+2. 「+」ボタン > Add package from git URL を選択
+3. 以下のURLを入力してインストール
+    - https://github.com/Haruma-K/uPalette.git?path=/Assets/uPalette
 
 <p align="center">
-  <img width=500 src="https://user-images.githubusercontent.com/47441314/118421129-6efc3100-b6fb-11eb-8431-c1f0548be99d.gif" alt="Create Colors">
+  <img width=400 src="https://user-images.githubusercontent.com/47441314/118421190-97842b00-b6fb-11eb-9f94-4dc94e82367a.png" alt="Install">
 </p>
 
-設定データは`StreamingAssets/uPalette`以下に保存されます。  
-プレイヤービルド時に必要なデータとなりますので削除しないようご注意ください。
+バージョンを指定したい場合には以下のようにURLの末尾にバージョンを付与します。
 
-#### 色を反映する
-作成した色は以下の手順で反映します。
+* https://github.com/Haruma-K/uPalette.git?path=/Assets/uPalette#1.0.0
 
-1. 反映したいGameObjectを選択
-2. Applyボタンを押下
-3. 色を反映するコンポーネント/プロパティ名を選択
+バージョンの更新もインストールと同様の手順で実行できます。
 
-<p align="center">
-  <img width=700 src="https://user-images.githubusercontent.com/47441314/118421148-7b808980-b6fb-11eb-9b50-15c1dcfdc7cd.gif" alt="Apply Colors">
-</p>
+{% note %}
 
-以上の手順で色とプロパティがリンクされます。  
-リンクを解除するにはInspectorからColorSetterコンポーネントをデタッチします。
+`No 'git' executable was found. Please install Git on your system and restart Unity` のようなメッセージが出た場合、マシンにGitをセットアップする必要がある点にご注意ください。
 
-また、デフォルトで反映できるクラス/プロパティは以下の通りです。
-
-|クラス名|プロパティ名|
-|-|-|
-|Graphic|color|
-|Outline|effectColor|
-|Selectable|colors.normalColor|
-|Selectable|colors.selectedColor|
-|Selectable|colors.pressedColor|
-|Selectable|colors.disabledColor|
-|Selectable|colors.highlightedColor|
-|InputField|caretColor|
-|InputField|selectionColor|
-
-これ以外のプロパティに色を反映する方法については「独自のコンポーネントに色を適用する」を参照してください。
-
-なおPrefabのインスタンスに色を反映した場合には、通常のPrefabワークフローと同様、Prefabには反映されていない状態となります。  
-Prefabに反映するには右クリックメニューなどからColor SetterをApplyしてください。
-
-<p align="center">
-  <img width=500 src="https://user-images.githubusercontent.com/47441314/118421157-80ddd400-b6fb-11eb-8173-c8801da7c653.gif" alt="Apply to Prefab">
-</p>
-
-#### 色を適用しているGameObjectをハイライトする
-色を右クリック > Highlightを選択すると、その色が適用されているGameObjectがハイライト（選択）されます。
-
-<p align="center">
-  <img width=700 src="https://user-images.githubusercontent.com/47441314/118421169-86d3b500-b6fb-11eb-86ce-1946a6f1a8d5.gif" alt="Highlight">
-</p>
-
-#### 独自のコンポーネントに色を反映する
-ColorSetterクラスを継承したクラスを作成すると、独自のコンポーネントに色を反映できます。
-
-```cs
-using UnityEngine;
-using UnityEngine.UI;
-
-[AddComponentMenu("")]
-[DisallowMultipleComponent]
-[RequireComponent(typeof(Outline))]
-[ColorSetter(typeof(Outline), "Color")] // ColorSetterアトリビュートを付ける
-public class OutlineColorSetter : ColorSetter
-{
-    [SerializeField] [HideInInspector] private Outline _outline;
-
-    private void Awake()
-    {
-        if (Application.isEditor)
-        {
-            _outline = GetComponent<Outline>();
-        }
-    }
-
-    // Applyメソッドをオーバーライドして色を適用する
-    protected override void Apply(Color color)
-    {
-        _outline.effectColor = color;
-    }
-}
-```
-
-##### スクリプトから色を取得する
-登録済みの色をスクリプトから取得するには以下のように `UPaletteUtility` を使用します。
-
-```cs
-var keyColor = UPaletteUtility.GetColor("KeyColor");
-```
-
-一度取得した色はキャッシュされます。  
-キャッシュを使用しない場合には上記のメソッドの第二引数に `false` を与えます。
-
-またキャッシュは以下のようにして削除できます。
-
-```cs
-UPaletteUtility.ClearColorCache();
-```
-
-##### スクリプトから色を操作する
-色をスクリプトから操作するには以下のようにします。
-
-```cs
-using System.Linq;
-using UnityEngine;
-using uPalette.Runtime.Core;
-
-public class Example
-{
-    private void Main()
-    {
-        var app = UPaletteApplication.RequestInstance();
-
-        try
-        {
-            var store = app.UPaletteStore; // アプリケーションの状態
-
-            // エントリを取得して変更を加える
-            var entry = store.Entries.First();
-            entry.Name.Value = "Example";
-            entry.SetColor(Color.red);
-
-            // 変更を加えたらStoreにDirtyフラグを立てる（自動的に保存される）
-            store.IsDirty.Value = true;
-        }
-        finally
-        {
-            UPaletteApplication.ReleaseInstance();
-        }
-    }
-}
-```
-
-## 技術的詳細
-
-#### 変更した色を反映するタイミングについて
-Unityでは、各コンポーネントに設定されている色はそのまま値としてシリアライズされます。  
-したがって、uPaletteで色を変更したときにはこのシリアライズされた値を書き換えるべきです。
-
-しかしこれでは、色を変更するだけで多くのSceneやPrefabに変更が加わってしまいます。  
-そこでuPaletteでは以下のルールに従って色を反映しています。
-
-* uPaletteの色は値ではなくIDとしてシリアライズ
-* Edit ModeではOnEnable時にこの色を反映・色の変更を監視する
-* Play ModeではStart()のタイミングで色を反映する
-
-また、Edit ModeでSceneを開いたときに変更が加わらないよう、  
-シリアライズされたIDの色を反映するときにはDirtyフラグを立てない実装にしています。
-
-## デモ
-デモシーンは以下の手順で再生できます。
-
-1. リポジトリをクローンする
-2. 以下のシーンを開いて再生
-    * https://github.com/Haruma-K/uPalette/blob/master/Assets/Demo/Demo.unity
+{% endnote %}
