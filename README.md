@@ -388,13 +388,6 @@ If you have been using version 1, you can transfer your data to version 2 by pre
   <img width=600 src="https://user-images.githubusercontent.com/47441314/158051937-fe364df4-7105-4de0-83d4-a15e6c7a3517.png" alt="How to update">
 </p>
 
-## デモ
-デモシーンは以下の手順で再生できます。
-
-1. リポジトリをクローンする
-2. 以下のシーンを開いて再生
-    - [https://github.com/Haruma-K/uPalette/blob/master/Assets/Demo/Demo.unity](Assets/Demo/Demo.unity)
-
 ## Demo
 1. Clone this repository.
 2. Open and play the following scene.
