@@ -1,3 +1,4 @@
 ﻿using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("UPalette.Editor")]
+[assembly: InternalsVisibleTo("uPalette.Editor")]
+[assembly: InternalsVisibleTo("uPalette.Tests")]

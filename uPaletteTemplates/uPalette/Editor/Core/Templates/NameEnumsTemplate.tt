@@ -1,0 +1,117 @@
+<#@ template language="C#" linePragmas="false"#>
+<#@ assembly name="System.Core" #>
+using System;
+
+namespace uPalette.Generated
+{
+<#
+    PushIndent("    ");
+    for (var i = 0; i < _input.PaletteDataList.Count; i++)
+    {
+        if (i >= 1)
+        {
+            WriteLine("");
+        }
+
+        var paletteData = _input.PaletteDataList[i];
+
+        // Theme
+        WriteLine($"public enum {paletteData.TypeName}Theme");
+        WriteLine("{");
+        PushIndent("    ");
+        {
+            foreach (var (themeName, _) in paletteData.ThemeInfos)
+            {
+                WriteLine($"{themeName},");
+            }
+        }
+        PopIndent();
+        WriteLine("}");
+        WriteLine("");
+
+        // ThemeExtensions
+        WriteLine($"public static class {paletteData.TypeName}ThemeExtensions");
+        WriteLine("{");
+        PushIndent("    ");
+        {
+            WriteLine($"public static string ToThemeId(this {paletteData.TypeName}Theme theme)");
+            WriteLine("{");
+            PushIndent("    ");
+            {
+                WriteLine("switch (theme)");
+                WriteLine("{");
+                PushIndent("    ");
+                {
+                    foreach (var (themeName, themeId) in paletteData.ThemeInfos)
+                    {
+                        WriteLine($"case {paletteData.TypeName}Theme.{themeName}:");
+                        PushIndent("    ");
+                        WriteLine($"return \"{themeId}\";");
+                        PopIndent();
+                    }
+                    WriteLine("default:");
+                    PushIndent("    ");
+                    WriteLine("throw new ArgumentOutOfRangeException(nameof(theme), theme, null);");
+                    PopIndent();
+                }
+                PopIndent();
+                WriteLine("}");
+            }
+            PopIndent();
+            WriteLine("}");
+        }
+        PopIndent();
+        WriteLine("}");
+        WriteLine("");
+
+        // Entry
+        WriteLine($"public enum {paletteData.TypeName}Entry");
+        WriteLine("{");
+        PushIndent("    ");
+        {
+            foreach (var (entryName, _) in paletteData.EntryInfos)
+            {
+                WriteLine($"{entryName},");
+            }
+        }
+        PopIndent();
+        WriteLine("}");
+        WriteLine("");
+
+        // EntryExtensions
+        WriteLine($"public static class {paletteData.TypeName}EntryExtensions");
+        WriteLine("{");
+        PushIndent("    ");
+        {
+            WriteLine($"public static string ToEntryId(this {paletteData.TypeName}Entry entry)");
+            WriteLine("{");
+            PushIndent("    ");
+            {
+                WriteLine("switch (entry)");
+                WriteLine("{");
+                PushIndent("    ");
+                {
+                    foreach (var (entryName, entryId) in paletteData.EntryInfos)
+                    {
+                        WriteLine($"case {paletteData.TypeName}Entry.{entryName}:");
+                        PushIndent("    ");
+                        WriteLine($"return \"{entryId}\";");
+                        PopIndent();
+                    }
+                    WriteLine("default:");
+                    PushIndent("    ");
+                    WriteLine("throw new ArgumentOutOfRangeException(nameof(entry), entry, null);");
+                    PopIndent();
+                }
+                PopIndent();
+                WriteLine("}");
+            }
+            PopIndent();
+            WriteLine("}");
+        }
+        PopIndent();
+        WriteLine("}");
+    }
+    ClearIndent();
+#>
+}

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEditor.IMGUI.Controls;
 using uPalette.Editor.Foundation.EasyTreeView;
-using uPalette.Runtime.Foundation.Observable;
+using uPalette.Runtime.Foundation.TinyRx;
 
 namespace uPalette.Editor.Foundation
 {
