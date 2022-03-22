@@ -42,7 +42,7 @@ Centrally manage colors and text styles in Unity projects.
   - [Configure behavior when an entry is not found](#configure-behavior-when-an-entry-is-not-found)
 - [Implemented Synchronizers](#implemented-synchronizers)
 - [Technical details](#technical-details)
-- [About the timing of reflecting Entries](#about-the-timing-of-reflecting-entries)
+  - [About the timing of reflecting Entries](#about-the-timing-of-reflecting-entries)
 - [How to update from version 1](#how-to-update-from-version-1)
 - [Demo](#demo)
 - [Licenses](#licenses)
