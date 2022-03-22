@@ -105,7 +105,7 @@ Unity2020.1 以上
 
 バージョンを指定したい場合には以下のようにURLの末尾にバージョンを付与します。
 
-* https://github.com/Haruma-K/uPalette.git?path=/Assets/uPalette#1.0.0
+* https://github.com/Haruma-K/uPalette.git?path=/Assets/uPalette#2.0.0
 
 バージョンの更新もインストールと同様の手順で実行できます。
 
