@@ -100,7 +100,7 @@ Unity2020.1 or higher.
 
 If you want to install a specific version, add the version to the end of the URL as follows.
 
-- https://github.com/Haruma-K/uPalette.git?path=/Assets/uPalette#1.0.0
+- https://github.com/Haruma-K/uPalette.git?path=/Assets/uPalette#2.0.0
 
 You can also update the version in the same manner as installation.
 
