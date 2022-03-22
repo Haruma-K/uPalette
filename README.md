@@ -398,7 +398,7 @@ The Synchronizer implemented in uPalette is as follows.
 
 ## Technical details
 
-## About the timing of reflecting Entries
+### About the timing of reflecting Entries
 
 In Unity, information such as colors and character styles set for each component are serialized as values as they are. Therefore, these serialized values should be rewritten when they are changed.
 
