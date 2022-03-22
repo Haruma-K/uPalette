@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using uPalette.Runtime.Foundation.TinyRx;
@@ -8,7 +7,7 @@ namespace uPalette.Editor.Foundation.TinyRx
 {
     internal static class EditorObservableImplExtensions
     {
-        public static IObservable<T> EditorBatchFrame<T>(this IObservable<T> self, int skipFrameCount = 0)
+        public static System.IObservable<T> EditorBatchFrame<T>(this System.IObservable<T> self, int skipFrameCount = 0)
         {
             return new AnonymousObservable<T>(observer =>
             {
