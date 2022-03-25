@@ -123,7 +123,7 @@ Palette Editorを開くと下図のようなウィンドウが表示されます
 
 次に、中央の`Create Palette Store`ボタンを押下することでPalette Storeアセットを作成します。  
 Palette StoreはuPaletteで扱うデータを保持するためのアセットです。  
-プロジェクト内の任意の場所に配置できますが、ランタイムで使うアセットなのでEditorフォルダ配下には置かないよう注意してください。
+プロジェクト内の任意の場所に配置できますが、ランタイムで使うアセットなのでEditorフォルダやStreamingAssetsフォルダ配下には置かないよう注意してください。
 
 Palette Storeアセットを作成するとPalette Editorは以下のような表示に切り替わります。
 
@@ -447,6 +447,9 @@ uPaletteをバージョン1からバージョン2にバージョンアップす�
 <p align="center">
   <img width=600 src="https://user-images.githubusercontent.com/47441314/158051937-fe364df4-7105-4de0-83d4-a15e6c7a3517.png" alt="How to update">
 </p>
+
+ボタンを押下するとPalette Storeアセットの保存パネルが表示されるので、任意の場所に保存してください。  
+ただしこのアセットはランタイムで使うアセットなので、EditorフォルダやStreamingAssetsフォルダ配下には置かないよう注意してください。
 
 ## デモ
 デモシーンは以下の手順で再生できます。

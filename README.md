@@ -115,7 +115,7 @@ To use uPalette, first open the Palette Editor from `Window > uPalette > Palette
   <img width=600 src="https://user-images.githubusercontent.com/47441314/157675097-e260f475-5ba0-42af-adfc-06d8155103d8.png" alt="Palette Editor">
 </p>
 
-Next, create a Palette Store asset by clicking the center `Create Palette Store` button. Palette Store is the asset that will hold the data for the uPalette. You can place this anywhere in the project, but not in the Editor folder because this asset is used at runtime.
+Next, create a Palette Store asset by clicking the center `Create Palette Store` button. Palette Store is the asset that will hold the data for the uPalette. You can place this anywhere in the project, but not in the Editor folder or Streaming Assets folder because this asset is used at runtime.
 
 After creating a Palette Store asset, the Palette Editor will change to the following display.
 
@@ -419,6 +419,8 @@ If you have been using version 1, you can transfer your data to version 2 by pre
 <p align="center">
   <img width=600 src="https://user-images.githubusercontent.com/47441314/158051937-fe364df4-7105-4de0-83d4-a15e6c7a3517.png" alt="How to update">
 </p>
+
+After you click on the button, the panel to save the Palette Store will appear. You can place the Palette Store anywhere in the project, but not in the Editor folder or Streaming Assets folder because this asset is used at runtime.
 
 ## Demo
 1. Clone this repository.
