@@ -11,19 +11,19 @@ namespace uPalette.Runtime.Core.Synchronizer.Color
     {
         protected internal override UnityEngine.Color GetValue()
         {
-            return _component.colors.highlightedColor;
+            return Component.colors.highlightedColor;
         }
 
         protected internal override void SetValue(UnityEngine.Color value)
         {
-            var colors = _component.colors;
+            var colors = Component.colors;
             colors.highlightedColor = value;
-            _component.colors = colors;
+            Component.colors = colors;
         }
 
         protected override bool EqualsToCurrentValue(UnityEngine.Color value)
         {
-            return _component.colors.highlightedColor == value;
+            return Component.colors.highlightedColor == value;
         }
     }
 }

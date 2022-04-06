@@ -14,10 +14,10 @@ namespace uPalette.Runtime.Core.Synchronizer.CharacterStyle
         {
             return new Foundation.CharacterStyles.CharacterStyle
             {
-                font = _component.font,
-                fontStyle = _component.fontStyle,
-                fontSize = _component.fontSize,
-                lineSpacing = _component.lineSpacing
+                font = Component.font,
+                fontStyle = Component.fontStyle,
+                fontSize = Component.fontSize,
+                lineSpacing = Component.lineSpacing
             };
         }
 
@@ -25,18 +25,18 @@ namespace uPalette.Runtime.Core.Synchronizer.CharacterStyle
 
         protected internal override void SetValue(Foundation.CharacterStyles.CharacterStyle value)
         {
-            _component.font = value.font;
-            _component.fontStyle = value.fontStyle;
-            _component.fontSize = value.fontSize;
-            _component.lineSpacing = value.lineSpacing;
+            Component.font = value.font;
+            Component.fontStyle = value.fontStyle;
+            Component.fontSize = value.fontSize;
+            Component.lineSpacing = value.lineSpacing;
         }
 
         protected override bool EqualsToCurrentValue(Foundation.CharacterStyles.CharacterStyle value)
         {
-            if (_component.font != value.font
-                || _component.fontStyle != value.fontStyle
-                || _component.fontSize != value.fontSize
-                || _component.lineSpacing != value.lineSpacing)
+            if (Component.font != value.font
+                || Component.fontStyle != value.fontStyle
+                || Component.fontSize != value.fontSize
+                || Component.lineSpacing != value.lineSpacing)
                 return false;
 
             return true;

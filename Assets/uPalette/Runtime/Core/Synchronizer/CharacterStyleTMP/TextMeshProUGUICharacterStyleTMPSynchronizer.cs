@@ -15,43 +15,43 @@ namespace uPalette.Runtime.Core.Synchronizer.CharacterStyleTMP
         {
             return new Foundation.CharacterStyles.CharacterStyleTMP
             {
-                font = _component.font,
-                fontStyle = _component.fontStyle,
-                fontSize = _component.fontSize,
-                enableAutoSizing = _component.enableAutoSizing,
-                characterSpacing = _component.characterSpacing,
-                wordSpacing = _component.wordSpacing,
-                lineSpacing = _component.lineSpacing,
-                paragraphSpacing = _component.paragraphSpacing
+                font = Component.font,
+                fontStyle = Component.fontStyle,
+                fontSize = Component.fontSize,
+                enableAutoSizing = Component.enableAutoSizing,
+                characterSpacing = Component.characterSpacing,
+                wordSpacing = Component.wordSpacing,
+                lineSpacing = Component.lineSpacing,
+                paragraphSpacing = Component.paragraphSpacing
             };
         }
 
         protected internal override void SetValue(Foundation.CharacterStyles.CharacterStyleTMP value)
         {
-            _component.font = value.font;
-            _component.fontStyle = value.fontStyle;
-            _component.fontSize = value.fontSize;
-            _component.enableAutoSizing = value.enableAutoSizing;
-            _component.characterSpacing = value.characterSpacing;
-            _component.wordSpacing = value.wordSpacing;
-            _component.lineSpacing = value.lineSpacing;
-            _component.paragraphSpacing = value.paragraphSpacing;
+            Component.font = value.font;
+            Component.fontStyle = value.fontStyle;
+            Component.fontSize = value.fontSize;
+            Component.enableAutoSizing = value.enableAutoSizing;
+            Component.characterSpacing = value.characterSpacing;
+            Component.wordSpacing = value.wordSpacing;
+            Component.lineSpacing = value.lineSpacing;
+            Component.paragraphSpacing = value.paragraphSpacing;
         }
 
         protected override bool EqualsToCurrentValue(Foundation.CharacterStyles.CharacterStyleTMP value)
         {
-            if (_component.font != null && _component.font.sourceFontFile != value.font.sourceFontFile)
+            if (Component.font != null && Component.font.sourceFontFile != value.font.sourceFontFile)
             {
                 return false;
             }
 
-            if (_component.fontStyle != value.fontStyle
-                || _component.fontSize != value.fontSize
-                || _component.enableAutoSizing != value.enableAutoSizing
-                || _component.characterSpacing != value.characterSpacing
-                || _component.wordSpacing != value.wordSpacing
-                || _component.lineSpacing != value.lineSpacing
-                || _component.paragraphSpacing != value.paragraphSpacing)
+            if (Component.fontStyle != value.fontStyle
+                || Component.fontSize != value.fontSize
+                || Component.enableAutoSizing != value.enableAutoSizing
+                || Component.characterSpacing != value.characterSpacing
+                || Component.wordSpacing != value.wordSpacing
+                || Component.lineSpacing != value.lineSpacing
+                || Component.paragraphSpacing != value.paragraphSpacing)
                 return false;
 
             return true;

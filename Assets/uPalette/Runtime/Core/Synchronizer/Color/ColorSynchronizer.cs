@@ -13,13 +13,18 @@ namespace uPalette.Runtime.Core.Synchronizer.Color
     
     public abstract class ColorSynchronizer<T> : ColorSynchronizer where T : Component
     {
-        [SerializeField] [HideInInspector] protected T _component;
-        
-        protected virtual void Awake()
+        [SerializeField] [HideInInspector] private T _component;
+
+        protected T Component
         {
-            if (Application.isEditor)
+            get
             {
-                _component = GetComponent<T>();
+                if (_component == null)
+                {
+                    _component = GetComponent<T>();
+                }
+
+                return _component;
             }
         }
     }
