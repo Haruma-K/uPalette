@@ -11,18 +11,18 @@ namespace uPalette.Runtime.Core.Synchronizer.Color
     {
         protected internal override UnityEngine.Color GetValue()
         {
-            return _component.caretColor;
+            return Component.caretColor;
         }
 
         protected internal override void SetValue(UnityEngine.Color value)
         {
-            _component.customCaretColor = true;
-            _component.caretColor = value;
+            Component.customCaretColor = true;
+            Component.caretColor = value;
         }
 
         protected override bool EqualsToCurrentValue(UnityEngine.Color value)
         {
-            return _component.caretColor == value;
+            return Component.caretColor == value;
         }
     }
 }

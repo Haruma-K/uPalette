@@ -13,12 +13,19 @@ namespace uPalette.Runtime.Core.Synchronizer.CharacterStyleTMP
 
     public abstract class CharacterStyleTMPSynchronizer<T> : CharacterStyleTMPSynchronizer where T : Component
     {
-        [SerializeField] [HideInInspector] protected T _component;
+        [SerializeField] [HideInInspector] private T _component;
 
-        protected virtual void Awake()
+        protected T Component
         {
-            if (Application.isEditor)
-                _component = GetComponent<T>();
+            get
+            {
+                if (_component == null)
+                {
+                    _component = GetComponent<T>();
+                }
+
+                return _component;
+            }
         }
     }
 }
