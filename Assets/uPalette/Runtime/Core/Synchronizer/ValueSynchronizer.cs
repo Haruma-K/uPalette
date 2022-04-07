@@ -37,7 +37,14 @@ namespace uPalette.Runtime.Core.Synchronizer
         public void SetEntryId(string entryId)
         {
             StopObserving();
+#if UNITY_EDITOR
+            var so = new SerializedObject(this);
+            var entryIdProperty = so.FindProperty("_entryId._value");
+            entryIdProperty.stringValue = entryId;
+            so.ApplyModifiedProperties();
+#else
             _entryId.Value = entryId;
+#endif
             StartObserving();
         }
 
