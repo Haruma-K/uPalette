@@ -29,8 +29,17 @@ namespace uPalette.Editor.Core.Shared
 
             EditorGUILayout.LabelField("Theme Name", themeName);
             EditorGUILayout.LabelField("Entry Name", entryName);
-            EditorGUILayout.LabelField("Entry Id", entryId);
-            if (GUILayout.Button("Open Palette Editor")) PaletteEditorWindow.Open();
+
+            var entryIdRect =
+                GUILayoutUtility.GetRect(1, EditorGUIUtility.singleLineHeight, GUILayout.ExpandWidth(true));
+            using (var scope = new EditorGUI.PropertyScope(entryIdRect, new GUIContent("Entry Id"), entryIdProperty))
+            {
+                var label = scope.content;
+                EditorGUI.LabelField(entryIdRect, label.text, entryId);
+            }
+
+            if (GUILayout.Button("Open Palette Editor"))
+                PaletteEditorWindow.Open();
         }
     }
 }
