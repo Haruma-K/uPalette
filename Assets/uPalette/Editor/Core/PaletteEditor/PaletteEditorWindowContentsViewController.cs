@@ -226,7 +226,7 @@ namespace uPalette.Editor.Core.PaletteEditor
 
                                 var valueSynchronizer = (ValueSynchronizer<T>)synchronizer;
                                 oldValue = valueSynchronizer.GetValue();
-                                oldEntryId = valueSynchronizer.EntryId;
+                                oldEntryId = valueSynchronizer.EntryId.Value;
                                 valueSynchronizer.SetEntryId(entryId);
                                 EditorUtility.SetDirty(gameObj);
                             },
