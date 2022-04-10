@@ -151,16 +151,16 @@ This will synchronize the entries and properties. When the value of a synchroniz
   <img width=600 src="https://user-images.githubusercontent.com/47441314/157680482-2df5fe4c-3756-4422-89fb-208a89b1f657.gif" alt="Change Entry Value">
 </p>
 
-At this time, a component named Synchronizer is attached to the target GameObject. If you want to remove synchronization with the Entry, detach this component.
+At this time, a component named Synchronizer is attached to the target GameObject. You can change the target Entry from this Inspector. If you want to remove synchronization with the Entry, detach this component.
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/157680907-388bedd1-01e9-4a71-af7b-af09f2360bce.png" alt="Synchroizer">
+  <img width=600 src="https://user-images.githubusercontent.com/47441314/162608969-56152f04-00f1-4b86-8d07-08537bd15c34.png" alt="Synchroizer">
 </p>
 
 Note that When the Entry is applied to Prefab, It is not serialized in Prefab as in the normal Prefab workflow. You can serialize by right-clicking menu of Prefab.
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/157682845-22d8ad29-a245-4f37-a817-9fdfa3bdbd48.gif" alt="Serialization">
+  <img width=600 src="https://user-images.githubusercontent.com/47441314/162609447-23ed99fb-2173-4717-84b6-79951ed70d88.gif" alt="Serialization">
 </p>
 
 ### Highlight synchronized GameObjects
@@ -251,6 +251,20 @@ Attach this to GameObject and play to switch Themes as follows.
 </p>
 
 ## Advanced Usage
+
+### SynchronizeEvent - Only notify changes in entry values
+As mentioned above, the Synchronizer component applies the value to the target property when the Entry value is changed. In contrast, you can receive only value change notifications as event by using the following Synchronize Event components.
+
+* Color Synchronize Event
+* Gradient Synchronize Event
+* Character Style Synchronize Event
+* Character Style TMP Synchronize Event
+
+To use it, attach the above component and setup UnityEvent to handle when the value changes.
+
+<p align="center">
+  <img width=600 src="https://user-images.githubusercontent.com/47441314/162609856-a64ab4de-9f44-4c92-9762-cd262f3ceeb9.png" alt="Change Theme">
+</p>
 
 ### Automatic generation of enums for Entries and Themes
 When working with uPalette from script, it is useful to have a script automatically generated to access Theme and Entry information.

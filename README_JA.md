@@ -164,17 +164,18 @@ Palette Editorの右上にある「+」ボタンを押下することで、エ�
 </p>
 
 この時、対象のGameObjectにはSynchronizerと呼ばれるコンポーネントがアタッチされています。  
-このコンポーネントをデタッチすると、エントリとの同期が解除されます。
+このコンポーネントのInspectorからエントリを切り替えることもできます。  
+またこのコンポーネントをデタッチすると、エントリとの同期が解除されます。
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/157680907-388bedd1-01e9-4a71-af7b-af09f2360bce.png" alt="Synchroizer">
+  <img width=600 src="https://user-images.githubusercontent.com/47441314/162608969-56152f04-00f1-4b86-8d07-08537bd15c34.png" alt="Synchroizer">
 </p>
 
 なお、Prefabに対してエントリを適用した場合には、通常のPrefabワークフローと同様、Prefabにはシリアライズされていない状態となります。  
 シリアライズを行うには右クリックメニューなどからApplyしてください。
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/157682845-22d8ad29-a245-4f37-a817-9fdfa3bdbd48.gif" alt="Serialization">
+  <img width=600 src="https://user-images.githubusercontent.com/47441314/162609447-23ed99fb-2173-4717-84b6-79951ed70d88.gif" alt="Serialization">
 </p>
 
 ### 同期中のGameObjectをハイライトする
@@ -275,6 +276,21 @@ public class Example : MonoBehaviour
 </p>
 
 ## 応用的な使い方
+
+### エントリの値の変更を通知するSynchronizeEvent
+上述の通り、Synchronizerコンポーネントは指定したエントリの値が変更されたときに対象のプロパティにその値を反映します。  
+これに対し、以下のSynchronize Eventコンポーネントを使用すると、値の変更通知だけをイベントとして受け取ることができます。
+
+* Color Synchronize Event
+* Gradient Synchronize Event
+* Character Style Synchronize Event
+* Character Style TMP Synchronize Event
+
+使用するには上記のコンポーネントをアタッチし、値が変わったときの処理をUnityEventに設定します。
+
+<p align="center">
+  <img width=600 src="https://user-images.githubusercontent.com/47441314/162609856-a64ab4de-9f44-4c92-9762-cd262f3ceeb9.png" alt="Change Theme">
+</p>
 
 ### エントリやテーマを表すEnumを自動生成する
 スクリプトからuPaletteを操作する場合、テーマやエントリの情報にアクセスするためのスクリプトを自動生成しておくと便利です。  
