@@ -36,6 +36,7 @@ Centrally manage colors and text styles in Unity projects.
   - [Switch Themes (Editor)](#switch-themes-editor)
   - [Switch Themes (Script)](#switch-themes-script)
 - [Advanced Usage](#advanced-usage)
+  - [SynchronizeEvent - Only notify changes in entry values](#synchronizeevent---only-notify-changes-in-entry-values)
   - [Automatic generation of enums for Entries and Themes](#automatic-generation-of-enums-for-entries-and-themes)
   - [Edit uPalette data from scripts](#edit-upalette-data-from-scripts)
   - [Reflects values to your own components](#reflects-values-to-your-own-components)
