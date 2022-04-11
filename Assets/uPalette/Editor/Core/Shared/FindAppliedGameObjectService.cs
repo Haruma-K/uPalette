@@ -18,7 +18,7 @@ namespace uPalette.Editor.Core.Shared
                     continue;
                 }
 
-                var entryId = synchronizer.EntryId;
+                var entryId = synchronizer.EntryId.Value;
                 if (entryIds.Contains(entryId))
                 {
                     result.Add(synchronizer.gameObject);

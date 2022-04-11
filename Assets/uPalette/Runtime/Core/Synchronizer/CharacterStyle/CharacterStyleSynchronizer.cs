@@ -5,6 +5,10 @@ namespace uPalette.Runtime.Core.Synchronizer.CharacterStyle
 {
     public abstract class CharacterStyleSynchronizer : ValueSynchronizer<Foundation.CharacterStyles.CharacterStyle>
     {
+        [SerializeField] private CharacterStyleEntryId _entryId = new CharacterStyleEntryId();
+
+        public override EntryId EntryId => _entryId;
+        
         internal override Palette<Foundation.CharacterStyles.CharacterStyle> GetPalette(PaletteStore store)
         {
             return store.CharacterStylePalette;

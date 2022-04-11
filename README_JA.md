@@ -37,6 +37,7 @@ Unityプロジェクトにおける色や文字スタイルを一元的に管理
   - [テーマを切り替える（エディタ）](#%E3%83%86%E3%83%BC%E3%83%9E%E3%82%92%E5%88%87%E3%82%8A%E6%9B%BF%E3%81%88%E3%82%8B%E3%82%A8%E3%83%87%E3%82%A3%E3%82%BF)
   - [テーマを切り替える（スクリプト）](#%E3%83%86%E3%83%BC%E3%83%9E%E3%82%92%E5%88%87%E3%82%8A%E6%9B%BF%E3%81%88%E3%82%8B%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88)
 - [応用的な使い方](#%E5%BF%9C%E7%94%A8%E7%9A%84%E3%81%AA%E4%BD%BF%E3%81%84%E6%96%B9)
+  - [エントリの値の変更を通知するSynchronizeEvent](#%E3%82%A8%E3%83%B3%E3%83%88%E3%83%AA%E3%81%AE%E5%80%A4%E3%81%AE%E5%A4%89%E6%9B%B4%E3%82%92%E9%80%9A%E7%9F%A5%E3%81%99%E3%82%8Bsynchronizeevent)
   - [エントリやテーマを表すEnumを自動生成する](#%E3%82%A8%E3%83%B3%E3%83%88%E3%83%AA%E3%82%84%E3%83%86%E3%83%BC%E3%83%9E%E3%82%92%E8%A1%A8%E3%81%99enum%E3%82%92%E8%87%AA%E5%8B%95%E7%94%9F%E6%88%90%E3%81%99%E3%82%8B)
   - [uPaletteのデータをスクリプトから編集する](#upalette%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E3%82%92%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88%E3%81%8B%E3%82%89%E7%B7%A8%E9%9B%86%E3%81%99%E3%82%8B)
   - [独自のコンポーネントに値を反映する](#%E7%8B%AC%E8%87%AA%E3%81%AE%E3%82%B3%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%8D%E3%83%B3%E3%83%88%E3%81%AB%E5%80%A4%E3%82%92%E5%8F%8D%E6%98%A0%E3%81%99%E3%82%8B)
@@ -164,17 +165,18 @@ Palette Editorの右上にある「+」ボタンを押下することで、エ�
 </p>
 
 この時、対象のGameObjectにはSynchronizerと呼ばれるコンポーネントがアタッチされています。  
-このコンポーネントをデタッチすると、エントリとの同期が解除されます。
+このコンポーネントのInspectorからエントリを切り替えることもできます。  
+またこのコンポーネントをデタッチすると、エントリとの同期が解除されます。
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/157680907-388bedd1-01e9-4a71-af7b-af09f2360bce.png" alt="Synchroizer">
+  <img width=600 src="https://user-images.githubusercontent.com/47441314/162608969-56152f04-00f1-4b86-8d07-08537bd15c34.png" alt="Synchroizer">
 </p>
 
 なお、Prefabに対してエントリを適用した場合には、通常のPrefabワークフローと同様、Prefabにはシリアライズされていない状態となります。  
 シリアライズを行うには右クリックメニューなどからApplyしてください。
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/157682845-22d8ad29-a245-4f37-a817-9fdfa3bdbd48.gif" alt="Serialization">
+  <img width=600 src="https://user-images.githubusercontent.com/47441314/162609447-23ed99fb-2173-4717-84b6-79951ed70d88.gif" alt="Serialization">
 </p>
 
 ### 同期中のGameObjectをハイライトする
@@ -275,6 +277,21 @@ public class Example : MonoBehaviour
 </p>
 
 ## 応用的な使い方
+
+### エントリの値の変更を通知するSynchronizeEvent
+上述の通り、Synchronizerコンポーネントは指定したエントリの値が変更されたときに対象のプロパティにその値を反映します。  
+これに対し、以下のSynchronize Eventコンポーネントを使用すると、値の変更通知だけをイベントとして受け取ることができます。
+
+* Color Synchronize Event
+* Gradient Synchronize Event
+* Character Style Synchronize Event
+* Character Style TMP Synchronize Event
+
+使用するには上記のコンポーネントをアタッチし、値が変わったときの処理をUnityEventに設定します。
+
+<p align="center">
+  <img width=600 src="https://user-images.githubusercontent.com/47441314/162609856-a64ab4de-9f44-4c92-9762-cd262f3ceeb9.png" alt="Change Theme">
+</p>
 
 ### エントリやテーマを表すEnumを自動生成する
 スクリプトからuPaletteを操作する場合、テーマやエントリの情報にアクセスするためのスクリプトを自動生成しておくと便利です。  

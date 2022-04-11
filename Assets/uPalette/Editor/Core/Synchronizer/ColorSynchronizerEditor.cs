@@ -2,7 +2,7 @@
 using UnityEngine;
 using uPalette.Runtime.Core.Synchronizer.Color;
 
-namespace uPalette.Editor.Core.Shared
+namespace uPalette.Editor.Core.Synchronizer
 {
     [CustomEditor(inspectedType: typeof(ColorSynchronizer), editorForChildClasses: true)]
     public sealed class ColorSynchronizerEditor : ValueSynchronizerEditor<Color>
