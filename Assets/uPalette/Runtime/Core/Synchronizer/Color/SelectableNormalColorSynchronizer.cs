@@ -7,7 +7,7 @@ namespace uPalette.Runtime.Core.Synchronizer.Color
     [DisallowMultipleComponent]
     [RequireComponent(typeof(Selectable))]
     [ColorSynchronizer(typeof(Selectable), "Transition Normal Color")]
-    public sealed class SelectableNormalColorSetter : ColorSynchronizer<Selectable>
+    public sealed class SelectableNormalColorSynchronizer : ColorSynchronizer<Selectable>
     {
         protected internal override UnityEngine.Color GetValue()
         {

@@ -7,7 +7,7 @@ namespace uPalette.Runtime.Core.Synchronizer.CharacterStyleTMP
     [DisallowMultipleComponent]
     [RequireComponent(typeof(TextMeshProUGUI))]
     [CharacterStyleTMPSynchronizer(typeof(TextMeshProUGUI), "Character Style")]
-    public sealed class TextCharacterStyleTMPSynchronizer : CharacterStyleTMPSynchronizer<TextMeshProUGUI>
+    public sealed class TextMeshProUGUICharacterStyleTMPSynchronizer : CharacterStyleTMPSynchronizer<TextMeshProUGUI>
     {
         private static int _latestRepaintFrame;
 
