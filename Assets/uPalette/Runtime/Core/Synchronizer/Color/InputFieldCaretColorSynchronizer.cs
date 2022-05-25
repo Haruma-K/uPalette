@@ -3,8 +3,6 @@ using UnityEngine.UI;
 
 namespace uPalette.Runtime.Core.Synchronizer.Color
 {
-    [AddComponentMenu("")]
-    [DisallowMultipleComponent]
     [RequireComponent(typeof(InputField))]
     [ColorSynchronizer(typeof(InputField), "Caret Color")]
     public sealed class InputFieldCaretColorSynchronizer : ColorSynchronizer<InputField>

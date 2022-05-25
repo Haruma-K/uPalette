@@ -3,8 +3,6 @@ using UnityEngine;
 
 namespace uPalette.Runtime.Core.Synchronizer.CharacterStyleTMP
 {
-    [AddComponentMenu("")]
-    [DisallowMultipleComponent]
     [RequireComponent(typeof(TextMeshProUGUI))]
     [CharacterStyleTMPSynchronizer(typeof(TextMeshProUGUI), "Character Style")]
     public sealed class TextMeshProUGUICharacterStyleTMPSynchronizer : CharacterStyleTMPSynchronizer<TextMeshProUGUI>
