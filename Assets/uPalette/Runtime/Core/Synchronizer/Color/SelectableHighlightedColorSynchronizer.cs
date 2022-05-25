@@ -3,8 +3,6 @@ using UnityEngine.UI;
 
 namespace uPalette.Runtime.Core.Synchronizer.Color
 {
-    [AddComponentMenu("")]
-    [DisallowMultipleComponent]
     [RequireComponent(typeof(Selectable))]
     [ColorSynchronizer(typeof(Selectable), "Transition Highlighted Color")]
     public sealed class SelectableHighlightedColorSynchronizer : ColorSynchronizer<Selectable>
