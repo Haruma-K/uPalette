@@ -4,8 +4,6 @@ using UnityEngine.UI;
 
 namespace uPalette.Runtime.Core.Synchronizer.CharacterStyle
 {
-    [AddComponentMenu("")]
-    [DisallowMultipleComponent]
     [RequireComponent(typeof(Text))]
     [CharacterStyleSynchronizer(typeof(Text), "Character Style")]
     public sealed class TextCharacterStyleSynchronizer : CharacterStyleSynchronizer<Text>
