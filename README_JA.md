@@ -436,6 +436,8 @@ uPaletteに標準で実装されているSynchronizerは以下の通りです。
 | Color | UnityEngine.UI.Selectable | colors.highlightedColor |
 | Color | UnityEngine.UI.InputField | caretColor |
 | Color | UnityEngine.UI.InputField | selectionColor |
+| Color | TMPro.TMP_InputField | caretColor |
+| Color | TMPro.TMP_InputField | selectionColor |
 | CharacterStyle | UnityEngine.UI.Text | font / fontStyle / fontSize / lineSpacing |
 | CharacterStyleTMP | TMPro.TextMeshProUGUI | font / fontStyle / fontSize / enableAutoSizing / characterSpacing / wordSpacing / lineSpacing / paragraphSpacing |
 
