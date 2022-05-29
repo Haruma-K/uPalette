@@ -1,11 +1,11 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using TMPro;
+using UnityEngine;
 
 namespace uPalette.Runtime.Core.Synchronizer.Color
 {
-    [RequireComponent(typeof(InputField))]
-    [ColorSynchronizer(typeof(InputField), "Selection Color")]
-    public sealed class InputFieldSelectionColorSynchronizer : ColorSynchronizer<InputField>
+    [RequireComponent(typeof(TMP_InputField))]
+    [ColorSynchronizer(typeof(TMP_InputField), "Selection Color")]
+    public sealed class TMPInputFieldSelectionColorSynchronizer : ColorSynchronizer<TMP_InputField>
     {
         protected internal override UnityEngine.Color GetValue()
         {
