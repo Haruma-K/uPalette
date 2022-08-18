@@ -10,7 +10,7 @@
 Unityプロジェクトにおける色や文字スタイルを一元的に管理するためのシステムです。
 
 <p align="center">
-  <img width=800 src="https://user-images.githubusercontent.com/47441314/159275911-0445d1da-690b-4b56-86e8-85d57d79f257.gif" alt="Demo">
+  <img width="90%" src="https://user-images.githubusercontent.com/47441314/159275911-0445d1da-690b-4b56-86e8-85d57d79f257.gif" alt="Demo">
 </p>
 
 ## 目次
@@ -57,21 +57,21 @@ Unityプロジェクトにおける色や文字スタイルを一元的に管理
 以下はボタンの背景色やアイコンの色、アウトラインに同じ青色を適用している例です。
 
 <p align="center">
-  <img width=400 src="https://user-images.githubusercontent.com/47441314/159170066-1bd16348-b013-4f47-8d64-988f43f2fde7.png" alt="Apply blue color">
+  <img width="50%" src="https://user-images.githubusercontent.com/47441314/159170066-1bd16348-b013-4f47-8d64-988f43f2fde7.png" alt="Apply blue color">
 </p>
 
 次に、この色を青色から緑色に変更することを考えます。  
 Unityでは色の値はPrefabやSceneにシリアライズされるので、これらすべての値を一つ一つ変更する必要があります。
 
 <p align="center">
-  <img width=400 src="https://user-images.githubusercontent.com/47441314/158061951-ff91aaee-019a-4ea4-9c74-012a93f0558f.png" alt="Change the color to green">
+  <img width="50%" src="https://user-images.githubusercontent.com/47441314/158061951-ff91aaee-019a-4ea4-9c74-012a93f0558f.png" alt="Change the color to green">
 </p>
 
 当然ながら、この作業量はプロジェクトの規模に応じて増加します。  
 uPaletteを使えば色を一元管理することでこのような変更を一括で適用することができます。
 
 <p align="center">
-  <img width=400 src="https://user-images.githubusercontent.com/47441314/158061961-153d13ba-a4ee-45ee-b513-9d7956f21fa4.png" alt="uPalette">
+  <img width="50%" src="https://user-images.githubusercontent.com/47441314/158061961-153d13ba-a4ee-45ee-b513-9d7956f21fa4.png" alt="uPalette">
 </p>
 
 またuPaletteでは、色だけではなく文字スタイルやグラデーションを管理することもできます。
@@ -84,7 +84,7 @@ uPaletteを使えば色を一元管理することでこのような変更を一
 アクティブなテーマを切り替えることでそのテーマに応じた色や文字スタイルが反映されます。
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/158065218-21a3f422-ad00-4da9-ab61-455408c2f7d1.gif" alt="Theme Feature">
+  <img width="70%" src="https://user-images.githubusercontent.com/47441314/158065218-21a3f422-ad00-4da9-ab61-455408c2f7d1.gif" alt="Theme Feature">
 </p>
 
 ## セットアップ
@@ -101,7 +101,7 @@ Unity2020.1 以上
     - https://github.com/Haruma-K/uPalette.git?path=/Assets/uPalette
 
 <p align="center">
-  <img width=400 src="https://user-images.githubusercontent.com/47441314/118421190-97842b00-b6fb-11eb-9f94-4dc94e82367a.png" alt="Install">
+  <img width="50%" src="https://user-images.githubusercontent.com/47441314/118421190-97842b00-b6fb-11eb-9f94-4dc94e82367a.png" alt="Install">
 </p>
 
 バージョンを指定したい場合には以下のようにURLの末尾にバージョンを付与します。
@@ -119,7 +119,7 @@ uPaletteを使うにはまず`Window > uPalette > Palette Editor`からPalette E
 Palette Editorを開くと下図のようなウィンドウが表示されます。
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/157675097-e260f475-5ba0-42af-adfc-06d8155103d8.png" alt="Palette Editor">
+  <img width="70%" src="https://user-images.githubusercontent.com/47441314/157675097-e260f475-5ba0-42af-adfc-06d8155103d8.png" alt="Palette Editor">
 </p>
 
 次に、中央の`Create Palette Store`ボタンを押下することでPalette Storeアセットを作成します。  
@@ -129,7 +129,7 @@ Palette StoreはuPaletteで扱うデータを保持するためのアセット�
 Palette Storeアセットを作成するとPalette Editorは以下のような表示に切り替わります。
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/157675124-bf3471c4-5f0f-4a07-ae10-8a97b3d986ad.png" alt="Palette Editor">
+  <img width="70%" src="https://user-images.githubusercontent.com/47441314/157675124-bf3471c4-5f0f-4a07-ae10-8a97b3d986ad.png" alt="Palette Editor">
 </p>
 
 ### エントリを作成する
@@ -137,14 +137,14 @@ uPaletteでは、色や文字スタイルの設定のことをエントリと呼
 Palette Editorの右上にある「+」ボタンを押下することで、エントリを追加することができます。
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/157674758-981455be-7770-4a54-af49-71f69dd01276.gif" alt="Add Entry">
+  <img width="70%" src="https://user-images.githubusercontent.com/47441314/157674758-981455be-7770-4a54-af49-71f69dd01276.gif" alt="Add Entry">
 </p>
 
 エントリ名をクリックすることでリネームすることができます。  
 また、エントリの削除は右クリックから行えます。
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/157676311-1b7d12fc-a410-4303-a38a-fbe2f3192265.gif" alt="Rename & Remove Entry">
+  <img width="70%" src="https://user-images.githubusercontent.com/47441314/157676311-1b7d12fc-a410-4303-a38a-fbe2f3192265.gif" alt="Rename & Remove Entry">
 </p>
 
 要素をドラッグすると順番を並び替えることもできます。
@@ -154,14 +154,14 @@ Palette Editorの右上にある「+」ボタンを押下することで、エ�
 すると適用可能なコンポーネントとプロパティの名前がリストアップされるので、適用したいものを選択します。
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/157679154-0e1aa71a-27f4-49c4-9c28-9eca8080f96d.gif" alt="Apply Entry">
+  <img width="70%" src="https://user-images.githubusercontent.com/47441314/157679154-0e1aa71a-27f4-49c4-9c28-9eca8080f96d.gif" alt="Apply Entry">
 </p>
 
 これで、エントリとプロパティが同期されます。  
 同期されているエントリの値が変化するとプロパティが自動的に書き変わります。
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/157680482-2df5fe4c-3756-4422-89fb-208a89b1f657.gif" alt="Change Entry Value">
+  <img width="70%" src="https://user-images.githubusercontent.com/47441314/157680482-2df5fe4c-3756-4422-89fb-208a89b1f657.gif" alt="Change Entry Value">
 </p>
 
 この時、対象のGameObjectにはSynchronizerと呼ばれるコンポーネントがアタッチされています。  
@@ -169,21 +169,21 @@ Palette Editorの右上にある「+」ボタンを押下することで、エ�
 またこのコンポーネントをデタッチすると、エントリとの同期が解除されます。
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/162608969-56152f04-00f1-4b86-8d07-08537bd15c34.png" alt="Synchroizer">
+  <img width="70%" src="https://user-images.githubusercontent.com/47441314/162608969-56152f04-00f1-4b86-8d07-08537bd15c34.png" alt="Synchroizer">
 </p>
 
 なお、Prefabに対してエントリを適用した場合には、通常のPrefabワークフローと同様、Prefabにはシリアライズされていない状態となります。  
 シリアライズを行うには右クリックメニューなどからApplyしてください。
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/162609447-23ed99fb-2173-4717-84b6-79951ed70d88.gif" alt="Serialization">
+  <img width="70%" src="https://user-images.githubusercontent.com/47441314/162609447-23ed99fb-2173-4717-84b6-79951ed70d88.gif" alt="Serialization">
 </p>
 
 ### 同期中のGameObjectをハイライトする
 エントリの右クリックメニューからHighlightを選択すると、同期中のGameObjectをハイライト（選択）できます。
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/157684607-0b28a34a-c892-4458-9b0d-a3cdf8ea10e5.gif" alt="Highlight">
+  <img width="70%" src="https://user-images.githubusercontent.com/47441314/157684607-0b28a34a-c892-4458-9b0d-a3cdf8ea10e5.gif" alt="Highlight">
 </p>
 
 ### 色以外のエントリを取り扱う
@@ -193,7 +193,7 @@ uPaletteには色の他にも文字スタイルやグラデーションといっ
 PaletteEditorの左上のドロップダウンメニューから、パレットの種類を切り替えることができます。
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/157685702-e2d83f7c-4cfa-4b37-9561-0067f5c828c0.gif" alt="Various Palettes">
+  <img width="70%" src="https://user-images.githubusercontent.com/47441314/157685702-e2d83f7c-4cfa-4b37-9561-0067f5c828c0.gif" alt="Various Palettes">
 </p>
 
 各ドロップダウンメニューの説明は以下の通りです。
@@ -212,7 +212,7 @@ PaletteEditorの左上のドロップダウンメニューから、パレット�
 テーマは複数保存でき、それを切り替えることでテーマに応じた色や文字スタイルを反映することができます。
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/157786384-dc33d7a0-eec3-4413-9639-2b61b8c9f1b5.gif" alt="Theme">
+  <img width="70%" src="https://user-images.githubusercontent.com/47441314/157786384-dc33d7a0-eec3-4413-9639-2b61b8c9f1b5.gif" alt="Theme">
 </p>
 
 ### テーマを作成する
@@ -221,21 +221,21 @@ PaletteEditorの左上のドロップダウンメニューから、パレット�
 Entry Editorと同様の操作でリネーム、削除、並び替えなどができます。
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/157786982-b19be4af-ffd4-407e-a8dc-3ba39c9426f4.gif" alt="Theme Editor">
+  <img width="70%" src="https://user-images.githubusercontent.com/47441314/157786982-b19be4af-ffd4-407e-a8dc-3ba39c9426f4.gif" alt="Theme Editor">
 </p>
 
 テーマを追加すると、Palette Editorにそのテーマのエントリを設定するためのカラムが追加されます。  
 これを編集することでそのテーマに応じた値を設定できます。
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/159245296-ad887c65-27f9-4274-a641-811833683130.png" alt="Palette Editor">
+  <img width="70%" src="https://user-images.githubusercontent.com/47441314/159245296-ad887c65-27f9-4274-a641-811833683130.png" alt="Palette Editor">
 </p>
 
 なおテーマはパレットの種類ごとに設定できます。  
 パレットの種類はTheme Editor左上のドロップダウンから変更できます。
 
 <p align="center">
-  <img width=400 src="https://user-images.githubusercontent.com/47441314/157789707-b2103a3a-cf9b-4e55-a7ac-157604608cb9.gif" alt="Change Palette Type">
+  <img width="50%" src="https://user-images.githubusercontent.com/47441314/157789707-b2103a3a-cf9b-4e55-a7ac-157604608cb9.gif" alt="Change Palette Type">
 </p>
 
 ### テーマを切り替える（エディタ）
@@ -243,7 +243,7 @@ Theme EditorからActivateボタンを押下することでテーマを切り替
 テーマを切り替えると、そのテーマのエントリの値が即座に反映されます。
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/157788787-e1cf2500-7b20-4a60-86cf-421613089517.gif" alt="Change Theme">
+  <img width="70%" src="https://user-images.githubusercontent.com/47441314/157788787-e1cf2500-7b20-4a60-86cf-421613089517.gif" alt="Change Theme">
 </p>
 
 ### テーマを切り替える（スクリプト）
@@ -273,7 +273,7 @@ public class Example : MonoBehaviour
 これを適当なGameObjectにアタッチして再生すると、以下のようにテーマを切り替えることができます。
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/158050236-389b9798-e9e9-46fe-bb15-c862d263bff4.gif" alt="Change Theme">
+  <img width="70%" src="https://user-images.githubusercontent.com/47441314/158050236-389b9798-e9e9-46fe-bb15-c862d263bff4.gif" alt="Change Theme">
 </p>
 
 ## 応用的な使い方
@@ -290,7 +290,7 @@ public class Example : MonoBehaviour
 使用するには上記のコンポーネントをアタッチし、値が変わったときの処理をUnityEventに設定します。
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/162609856-a64ab4de-9f44-4c92-9762-cd262f3ceeb9.png" alt="Change Theme">
+  <img width="70%" src="https://user-images.githubusercontent.com/47441314/162609856-a64ab4de-9f44-4c92-9762-cd262f3ceeb9.png" alt="Change Theme">
 </p>
 
 ### エントリやテーマを表すEnumを自動生成する
@@ -299,7 +299,7 @@ public class Example : MonoBehaviour
 `Name Enums File Location`にフォルダを指定するとそのフォルダに生成されます。未指定の場合にはAssetsフォルダ直下に生成されます。
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/158021815-2cec00b7-46f1-403b-b459-e03c8754b29d.png" alt="Project Settings">
+  <img width="70%" src="https://user-images.githubusercontent.com/47441314/158021815-2cec00b7-46f1-403b-b459-e03c8754b29d.png" alt="Project Settings">
 </p>
 
 以下のようなEnumが生成されます。
@@ -410,7 +410,7 @@ public sealed class GraphicColorSynchronizer : GradientSynchronizer<SampleGradie
 `Project Settings > uPalette > Missing Entry Error`から、エントリが見つからなかった時の挙動を設定できます。
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/158050990-59e1fae4-d8ec-4ae8-8d15-4009016aee29.png" alt="Missing Entry Error">
+  <img width="70%" src="https://user-images.githubusercontent.com/47441314/158050990-59e1fae4-d8ec-4ae8-8d15-4009016aee29.png" alt="Missing Entry Error">
 </p>
 
 選択肢は以下の通りです。
@@ -464,7 +464,7 @@ uPaletteをバージョン1からバージョン2にバージョンアップす�
 バージョン1を使用していた方は、Palette Storeを作成する前にProject Settingsから以下のボタンを押下することでバージョン2にデータを移行できます。
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/158051937-fe364df4-7105-4de0-83d4-a15e6c7a3517.png" alt="How to update">
+  <img width="70%" src="https://user-images.githubusercontent.com/47441314/158051937-fe364df4-7105-4de0-83d4-a15e6c7a3517.png" alt="How to update">
 </p>
 
 ボタンを押下するとPalette Storeアセットの保存パネルが表示されるので、任意の場所に保存してください。  
