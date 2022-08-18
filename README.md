@@ -10,7 +10,7 @@
 Centrally manage colors and text styles in Unity projects.
 
 <p align="center">
-  <img width=800 src="https://user-images.githubusercontent.com/47441314/159275911-0445d1da-690b-4b56-86e8-85d57d79f257.gif" alt="Demo">
+  <img width="90%" src="https://user-images.githubusercontent.com/47441314/159275911-0445d1da-690b-4b56-86e8-85d57d79f257.gif" alt="Demo">
 </p>
 
 ## Table of Contents
@@ -55,31 +55,31 @@ Centrally manage colors and text styles in Unity projects.
 In typical application development, one color is applied to multiple locations. The same blue color is applied to the button background, icon color, and outline in the following example.
 
 <p align="center">
-  <img width=400 src="https://user-images.githubusercontent.com/47441314/159170066-1bd16348-b013-4f47-8d64-988f43f2fde7.png" alt="Apply blue color">
+  <img width="50%" src="https://user-images.githubusercontent.com/47441314/159170066-1bd16348-b013-4f47-8d64-988f43f2fde7.png" alt="Apply blue color">
 </p>
 
 Now think about changing this color from blue to green. In Unity, color values are serialized in Prefabs and Scenes, so we need to change all these values one by one.
 
 <p align="center">
-  <img width=400 src="https://user-images.githubusercontent.com/47441314/158061951-ff91aaee-019a-4ea4-9c74-012a93f0558f.png" alt="Change the color to green">
+  <img width="50%" src="https://user-images.githubusercontent.com/47441314/158061951-ff91aaee-019a-4ea4-9c74-012a93f0558f.png" alt="Change the color to green">
 </p>
 
 This workload increases with the size of the project. With uPalette, such changes can be applied in batches by centralizing color management.
 
 <p align="center">
-  <img width=400 src="https://user-images.githubusercontent.com/47441314/158061961-153d13ba-a4ee-45ee-b513-9d7956f21fa4.png" alt="uPalette">
+  <img width="50%" src="https://user-images.githubusercontent.com/47441314/158061961-153d13ba-a4ee-45ee-b513-9d7956f21fa4.png" alt="uPalette">
 </p>
 
 uPalette also allows you to manage text styles and gradients as well as colors.
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/158065275-5b9e5801-88e8-4667-8cbe-67bc428d4b1e.png" alt="Character Styles & Gradients">
+  <img width="70%" src="https://user-images.githubusercontent.com/47441314/158065275-5b9e5801-88e8-4667-8cbe-67bc428d4b1e.png" alt="Character Styles & Gradients">
 </p>
 
 In addition, the theme feature allows you to save a set of colors and text styles as a theme. By switching the active theme, you can reflect the colors and text style according to that theme.
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/158065218-21a3f422-ad00-4da9-ab61-455408c2f7d1.gif" alt="Theme Feature">
+  <img width="70%" src="https://user-images.githubusercontent.com/47441314/158065218-21a3f422-ad00-4da9-ab61-455408c2f7d1.gif" alt="Theme Feature">
 </p>
 
 ## Setup
@@ -96,7 +96,7 @@ Unity2020.1 or higher.
     - https://github.com/Haruma-K/uPalette.git?path=/Assets/uPalette
 
 <p align="center">
-  <img width=400 src="https://user-images.githubusercontent.com/47441314/118421190-97842b00-b6fb-11eb-9f94-4dc94e82367a.png" alt="Install">
+  <img width="50%" src="https://user-images.githubusercontent.com/47441314/118421190-97842b00-b6fb-11eb-9f94-4dc94e82367a.png" alt="Install">
 </p>
 
 If you want to install a specific version, add the version to the end of the URL as follows.
@@ -113,7 +113,7 @@ Note that if you get a message like `No 'git' executable was found. Please insta
 To use uPalette, first open the Palette Editor from `Window > uPalette > Palette Editor`. You will see a window like as follows when you open the Palette Editor.
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/157675097-e260f475-5ba0-42af-adfc-06d8155103d8.png" alt="Palette Editor">
+  <img width="70%" src="https://user-images.githubusercontent.com/47441314/157675097-e260f475-5ba0-42af-adfc-06d8155103d8.png" alt="Palette Editor">
 </p>
 
 Next, create a Palette Store asset by clicking the center `Create Palette Store` button. Palette Store is the asset that will hold the data for the uPalette. You can place this anywhere in the project, but not in the Editor folder or Streaming Assets folder because this asset is used at runtime.
@@ -121,20 +121,20 @@ Next, create a Palette Store asset by clicking the center `Create Palette Store`
 After creating a Palette Store asset, the Palette Editor will change to the following display.
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/157675124-bf3471c4-5f0f-4a07-ae10-8a97b3d986ad.png" alt="Palette Editor">
+  <img width="70%" src="https://user-images.githubusercontent.com/47441314/157675124-bf3471c4-5f0f-4a07-ae10-8a97b3d986ad.png" alt="Palette Editor">
 </p>
 
 ### Create Entry
 In uPalette, color and character style settings are called Entries. You can add an Entry by pressing the “+” button in the upper right corner of the Palette Editor.
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/157674758-981455be-7770-4a54-af49-71f69dd01276.gif" alt="Add Entry">
+  <img width="70%" src="https://user-images.githubusercontent.com/47441314/157674758-981455be-7770-4a54-af49-71f69dd01276.gif" alt="Add Entry">
 </p>
 
 You can rename an Entry by clicking on its name. Entries can also be deleted by right-clicking menu of them.
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/157676311-1b7d12fc-a410-4303-a38a-fbe2f3192265.gif" alt="Rename & Remove Entry">
+  <img width="70%" src="https://user-images.githubusercontent.com/47441314/157676311-1b7d12fc-a410-4303-a38a-fbe2f3192265.gif" alt="Rename & Remove Entry">
 </p>
 
 You can also drag elements to reorder them.
@@ -143,39 +143,39 @@ You can also drag elements to reorder them.
 To apply the color and character style you created to components, select the target GameObject and press the Apply button for the target entry. The names of applicable components and properties will then be listed, and you can select the one you want to apply.
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/157679154-0e1aa71a-27f4-49c4-9c28-9eca8080f96d.gif" alt="Apply Entry">
+  <img width="70%" src="https://user-images.githubusercontent.com/47441314/157679154-0e1aa71a-27f4-49c4-9c28-9eca8080f96d.gif" alt="Apply Entry">
 </p>
 
 This will synchronize the entries and properties. When the value of a synchronized Entry changed, the property is automatically rewritten.
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/157680482-2df5fe4c-3756-4422-89fb-208a89b1f657.gif" alt="Change Entry Value">
+  <img width="70%" src="https://user-images.githubusercontent.com/47441314/157680482-2df5fe4c-3756-4422-89fb-208a89b1f657.gif" alt="Change Entry Value">
 </p>
 
 At this time, a component named Synchronizer is attached to the target GameObject. You can change the target Entry from this Inspector. If you want to remove synchronization with the Entry, detach this component.
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/162608969-56152f04-00f1-4b86-8d07-08537bd15c34.png" alt="Synchroizer">
+  <img width="70%" src="https://user-images.githubusercontent.com/47441314/162608969-56152f04-00f1-4b86-8d07-08537bd15c34.png" alt="Synchroizer">
 </p>
 
 Note that When the Entry is applied to Prefab, It is not serialized in Prefab as in the normal Prefab workflow. You can serialize by right-clicking menu of Prefab.
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/162609447-23ed99fb-2173-4717-84b6-79951ed70d88.gif" alt="Serialization">
+  <img width="70%" src="https://user-images.githubusercontent.com/47441314/162609447-23ed99fb-2173-4717-84b6-79951ed70d88.gif" alt="Serialization">
 </p>
 
 ### Highlight synchronized GameObjects
 Select Highlight from the Entry’s right-clicking menu to highlight (select) the synchronized GameObjects.
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/157684607-0b28a34a-c892-4458-9b0d-a3cdf8ea10e5.gif" alt="Highlight">
+  <img width="70%" src="https://user-images.githubusercontent.com/47441314/157684607-0b28a34a-c892-4458-9b0d-a3cdf8ea10e5.gif" alt="Highlight">
 </p>
 
 ### Handling non-color Entries.
 Up to this point, I have described how to manage colors in uPalette. In addition to colors, there are other palette types in uPalette, such as gradients and character styles. You can switch between Palette types from the drop-down menu in the upper left corner of the Palette Editor.
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/157685702-e2d83f7c-4cfa-4b37-9561-0067f5c828c0.gif" alt="Various Palettes">
+  <img width="70%" src="https://user-images.githubusercontent.com/47441314/157685702-e2d83f7c-4cfa-4b37-9561-0067f5c828c0.gif" alt="Various Palettes">
 </p>
 
 Each drop-down menu is described below.
@@ -193,33 +193,33 @@ Each drop-down menu is described below.
 The Theme feature allows you to save a set of the Entries as “theme”. You can save multiple Themes, and switch between them to reflect the colors and character styles of each Theme.
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/157786384-dc33d7a0-eec3-4413-9639-2b61b8c9f1b5.gif" alt="Theme">
+  <img width="70%" src="https://user-images.githubusercontent.com/47441314/157786384-dc33d7a0-eec3-4413-9639-2b61b8c9f1b5.gif" alt="Theme">
 </p>
 
 ### Create Theme
 To create a Theme, open the Theme Editor from `Window > uPalette > Theme Editor`. By default, there is a Theme named Default, and you can create a new Theme from the upper left “+” button. You can rename, delete, reorder, etc. using the same operations as in the Entry Editor.
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/157786982-b19be4af-ffd4-407e-a8dc-3ba39c9426f4.gif" alt="Theme Editor">
+  <img width="70%" src="https://user-images.githubusercontent.com/47441314/157786982-b19be4af-ffd4-407e-a8dc-3ba39c9426f4.gif" alt="Theme Editor">
 </p>
 
 When a Theme is added, a column is added to the Palette Editor for setting Entries for that theme. By editing this column, you can set values according to the Theme.
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/159245296-ad887c65-27f9-4274-a641-811833683130.png" alt="Palette Editor">
+  <img width="70%" src="https://user-images.githubusercontent.com/47441314/159245296-ad887c65-27f9-4274-a641-811833683130.png" alt="Palette Editor">
 </p>
 
 You can set the Theme for each Palette type. The palette type can be changed from the drop-down menu in the upper left corner of the Theme Editor.
 
 <p align="center">
-  <img width=400 src="https://user-images.githubusercontent.com/47441314/157789707-b2103a3a-cf9b-4e55-a7ac-157604608cb9.gif" alt="Change Palette Type">
+  <img width="50%" src="https://user-images.githubusercontent.com/47441314/157789707-b2103a3a-cf9b-4e55-a7ac-157604608cb9.gif" alt="Change Palette Type">
 </p>
 
 ### Switch Themes (Editor)
 You can switch Themes by pressing the Activate button from the Theme Editor.  When you switch themes, the values of the Entry in that Theme are immediately reflected.
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/157788787-e1cf2500-7b20-4a60-86cf-421613089517.gif" alt="Change Theme">
+  <img width="70%" src="https://user-images.githubusercontent.com/47441314/157788787-e1cf2500-7b20-4a60-86cf-421613089517.gif" alt="Change Theme">
 </p>
 
 ### Switch Themes (Script)
@@ -248,7 +248,7 @@ public class Example : MonoBehaviour
 Attach this to GameObject and play to switch Themes as follows.
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/158050236-389b9798-e9e9-46fe-bb15-c862d263bff4.gif" alt="Change Theme">
+  <img width="70%" src="https://user-images.githubusercontent.com/47441314/158050236-389b9798-e9e9-46fe-bb15-c862d263bff4.gif" alt="Change Theme">
 </p>
 
 ## Advanced Usage
@@ -264,7 +264,7 @@ As mentioned above, the Synchronizer component applies the value to the target p
 To use it, attach the above component and setup UnityEvent to handle when the value changes.
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/162609856-a64ab4de-9f44-4c92-9762-cd262f3ceeb9.png" alt="Change Theme">
+  <img width="70%" src="https://user-images.githubusercontent.com/47441314/162609856-a64ab4de-9f44-4c92-9762-cd262f3ceeb9.png" alt="Change Theme">
 </p>
 
 ### Automatic generation of enums for Entries and Themes
@@ -273,7 +273,7 @@ When working with uPalette from script, it is useful to have a script automatica
 If you set `Project Settings > uPalette > Name Enums File Generation`to`When Window Loses Focus`, this file will be automatically generated when the focus is lost from the Palette Editor or Theme Editor. If you set a folder to `Name Enums File Location`, the file will be generated in that folder. If not set, the file will be generated in the Assets folder.
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/158021815-2cec00b7-46f1-403b-b459-e03c8754b29d.png" alt="Project Settings">
+  <img width="70%" src="https://user-images.githubusercontent.com/47441314/158021815-2cec00b7-46f1-403b-b459-e03c8754b29d.png" alt="Project Settings">
 </p>
 
 The following enum is generated.
@@ -382,7 +382,7 @@ public sealed class GraphicColorSynchronizer : GradientSynchronizer<SampleGradie
 When a target Entry is not found, you may want to output error logs, or you may want to ignore it. You can configure the behavior when an Entry is not found by `Project Settings > uPalette > Missing Entry Error`.
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/158050990-59e1fae4-d8ec-4ae8-8d15-4009016aee29.png" alt="Missing Entry Error">
+  <img width="70%" src="https://user-images.githubusercontent.com/47441314/158050990-59e1fae4-d8ec-4ae8-8d15-4009016aee29.png" alt="Missing Entry Error">
 </p>
 
 The selections are as follows.
@@ -434,7 +434,7 @@ In upgrading uPalette from version 1 to version 2, I have made significant chang
 If you have been using version 1, you can transfer your data to version 2 by pressing the following button from Project Settings before creating Palette Store.
 
 <p align="center">
-  <img width=600 src="https://user-images.githubusercontent.com/47441314/158051937-fe364df4-7105-4de0-83d4-a15e6c7a3517.png" alt="How to update">
+  <img width="70%" src="https://user-images.githubusercontent.com/47441314/158051937-fe364df4-7105-4de0-83d4-a15e6c7a3517.png" alt="How to update">
 </p>
 
 After you click on the button, the panel to save the Palette Store will appear. You can place the Palette Store anywhere in the project, but not in the Editor folder or Streaming Assets folder because this asset is used at runtime.
