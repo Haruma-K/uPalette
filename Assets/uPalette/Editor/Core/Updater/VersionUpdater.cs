@@ -38,12 +38,12 @@ namespace uPalette.Editor.Core.Updater
 
                 var assetPath = AssetDatabase.GetAssetPath(palette);
                 PaletteStore.RemoveAsset();
-                palette = PaletteStore.CreateAsset(assetPath);
+                palette = PaletteStore.CreateAsset(assetPath, true);
             }
             else
             {
                 // Open save file panel and create PaletteStore asset.
-                palette = PaletteStore.CreateAsset();
+                palette = PaletteStore.CreateAsset(true);
 
                 // If cancelled, do nothing.
                 if (palette == null)
