@@ -308,6 +308,30 @@ public class Example
 
 The same can be used for other types of Entries and Themes.
 
+### Don't manage Palette Data with PreloadedAssets
+In default, Palette Data is registered to **PreloadedAssets**, and it is loaded automatically in runtime.
+This means that the Palette Data is included in the application.
+
+If you don't want to register Palette Data to **PreloadedAssets**, for example, when you want to make it to the **AssetBundle**, do the following.
+
+* Uncheck **Project Settings > uPalette > Automatic Runtime Data Loading**.
+
+<p align="center">
+  <img width="70%" src="https://user-images.githubusercontent.com/47441314/196029215-31b06774-fbb1-4951-836c-c7928bfbaea0.png" alt="Automatic Runtime Data Loading">
+</p>
+
+If you do this, the Palette Data is removed from **PreloadedAssets**.
+So you need to load the **PaletteStore** manually.
+The loaded **PaletteStore** is automatically registered to `PaletteStore.Instance` and you can access it from there.
+Note that you need to load it before loading GUIs that use uPalette.
+
+```cs
+// You must load the PaletteStore manually before loading GUIs that use uPalette.
+var _ = Resources.Load<PaletteStore>("PaletteStore");
+```
+
+In editor, the *PaletteStore* is always loaded via `AssetDatabase`.
+
 ### Edit uPalette data from scripts
 You can edit uPalette data from scripts by retrieving a palette from the PaletteStore as shown below. Note that you must always set the dirty flag after editing the PaletteStore, because it is a ScriptableObject.
 

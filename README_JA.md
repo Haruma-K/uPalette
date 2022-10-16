@@ -334,6 +334,30 @@ public class Example
 
 他の種類のエントリやテーマについても同様にして使用できます。
 
+### パレットデータをPreloadedAssetsで管理しない
+デフォルトでは uPalette のパレットデータは **PreloadedAssets** に登録され、ランタイムで自動的に読み込まれます。  
+これはパレットのデータがアプリ内に組み込まれることを意味します。
+
+パレットデータをアセットバンドル化する場合など、**PreloadedAssets** に登録したくない場合には以下の設定を行います。
+
+* **Project Settings > uPalette > Automatic Runtime Data Loading** のチェックを外す
+
+<p align="center">
+  <img width="70%" src="https://user-images.githubusercontent.com/47441314/196029215-31b06774-fbb1-4951-836c-c7928bfbaea0.png" alt="Automatic Runtime Data Loading">
+</p>
+
+この設定を行うと、uPalette のパレットデータは **PreloadedAssets** から削除されます。  
+この場合 **PaletteStore** のロードを手動で行う必要があります。  
+ロードされた **PaletteStore** は **PaletteStore.Instance** に自動的に登録されます。  
+uPalette を使用する GUI を読み込む前にロードする必要がある点に注意してください。
+
+```cs
+// You must load the PaletteStore manually before loading GUIs that use uPalette.
+var _ = Resources.Load<PaletteStore>("PaletteStore");
+```
+
+なお、エディタでは常に **AssetDatabase** を通してロードされた **PaletteStore** が使用されます。
+
 ### uPaletteのデータをスクリプトから編集する
 以下のようにPaletteStoreから各パレットを取得することで、uPaletteのデータをスクリプトから編集することができます。  
 PaletteStoreは`ScriptableObject`なので、編集した後には必ずDirtyフラグを立ててUnityに編集したことを知らせる必要がある点にご注意ください。
