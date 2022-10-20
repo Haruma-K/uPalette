@@ -2,6 +2,7 @@
 using UnityEngine;
 using uPalette.Runtime.Core.Model;
 using uPalette.Runtime.Foundation.CharacterStyles;
+using Object = UnityEngine.Object;
 #if UNITY_EDITOR
 using System.IO;
 using System.Linq;
@@ -57,13 +58,14 @@ namespace uPalette.Runtime.Core
 #if UNITY_EDITOR
         internal static PaletteStore LoadAsset()
         {
-            var asset = PlayerSettings.GetPreloadedAssets().OfType<PaletteStore>().FirstOrDefault();
+            var asset = LoadFromAssetDatabase<PaletteStore>();
             return asset;
         }
 
-        internal static PaletteStore CreateAsset()
+        internal static PaletteStore CreateAsset(bool registerToPreloadedAssets)
         {
-            var asset = PlayerSettings.GetPreloadedAssets().OfType<PaletteStore>().FirstOrDefault();
+            var asset = LoadFromAssetDatabase<PaletteStore>();
+
             if (asset != null)
             {
                 var path = AssetDatabase.GetAssetPath(asset);
@@ -77,16 +79,13 @@ namespace uPalette.Runtime.Core
             if (string.IsNullOrEmpty(assetPath))
                 // Return if canceled.
                 return null;
-            
-            return CreateAsset(assetPath);
+
+            return CreateAsset(assetPath, registerToPreloadedAssets);
         }
 
-        internal static PaletteStore CreateAsset(string assetPath)
+        internal static PaletteStore CreateAsset(string assetPath, bool registerToPreloadedAssets)
         {
-            if (string.IsNullOrEmpty(assetPath))
-            {
-                throw new ArgumentNullException(nameof(assetPath));
-            }
+            if (string.IsNullOrEmpty(assetPath)) throw new ArgumentNullException(nameof(assetPath));
 
             // Create folders if needed.
             var folderPath = Path.GetDirectoryName(assetPath);
@@ -95,25 +94,69 @@ namespace uPalette.Runtime.Core
 
             var instance = CreateInstance<PaletteStore>();
             AssetDatabase.CreateAsset(instance, assetPath);
-            var preloadedAssets = PlayerSettings.GetPreloadedAssets().ToList();
-            preloadedAssets.Add(instance);
-            PlayerSettings.SetPreloadedAssets(preloadedAssets.ToArray());
             AssetDatabase.SaveAssets();
+            
+            if (registerToPreloadedAssets)
+                RegisterToPreloadedAssets();
 
             return instance;
         }
 
         internal static void RemoveAsset()
         {
-            var preloadedAssetList = PlayerSettings.GetPreloadedAssets().ToList();
-            var asset = preloadedAssetList.FirstOrDefault();
-            
+            var asset = LoadFromAssetDatabase<PaletteStore>();
             if (asset == null)
                 return;
 
-            preloadedAssetList.Remove(asset);
-            PlayerSettings.SetPreloadedAssets(preloadedAssetList.ToArray());
+            UnregisterFromPreloadedAssets();
+
             DestroyImmediate(asset, true);
+        }
+
+        internal static void RegisterToPreloadedAssets(bool saveAsset = true)
+        {
+            var asset = LoadFromAssetDatabase<PaletteStore>();
+
+            if (asset == null)
+                throw new InvalidOperationException($"{nameof(PaletteStore)} does not exists.");
+
+            var preloadedAssets = PlayerSettings.GetPreloadedAssets().ToList();
+            if (preloadedAssets.Contains(asset))
+                return;
+            
+            preloadedAssets.Add(asset);
+            PlayerSettings.SetPreloadedAssets(preloadedAssets.ToArray());
+            if (saveAsset)
+                AssetDatabase.SaveAssets();
+        }
+        
+        internal static void UnregisterFromPreloadedAssets(bool saveAsset = true)
+        {
+            var asset = LoadFromAssetDatabase<PaletteStore>();
+
+            if (asset == null)
+                throw new InvalidOperationException($"{nameof(PaletteStore)} does not exists.");
+
+            var preloadedAssets = PlayerSettings.GetPreloadedAssets().ToList();
+            if (!preloadedAssets.Contains(asset))
+                return;
+            
+            preloadedAssets.Remove(asset);
+            PlayerSettings.SetPreloadedAssets(preloadedAssets.ToArray());
+            if (saveAsset)
+                AssetDatabase.SaveAssets();
+        }
+
+        private static T LoadFromAssetDatabase<T>() where T : Object
+        {
+            var asset = AssetDatabase.FindAssets($"t:{typeof(T).Name}")
+                .Select(x =>
+                {
+                    var path = AssetDatabase.GUIDToAssetPath(x);
+                    return AssetDatabase.LoadAssetAtPath<T>(path);
+                })
+                .FirstOrDefault();
+            return asset;
         }
 #endif
     }

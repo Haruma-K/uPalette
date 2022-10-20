@@ -1,5 +1,6 @@
 ﻿using UnityEditor;
 using UnityEngine;
+using uPalette.Runtime.Core;
 
 namespace uPalette.Editor.Core.Shared
 {
@@ -11,6 +12,7 @@ namespace uPalette.Editor.Core.Shared
 
         [SerializeField] private DefaultAsset _nameEnumsFolder;
         [SerializeField] private MonoScript _nameEnumsFile;
+        [SerializeField] private bool _automaticRuntimeDataLoading = true;
 
         public NameEnumsFileGenerateMode NameEnumsFileGenerateMode
         {
@@ -46,6 +48,25 @@ namespace uPalette.Editor.Core.Shared
                 if (value != _nameEnumsFile)
                 {
                     _nameEnumsFile = value;
+                    Save(true);
+                }
+            }
+        }
+
+        public bool AutomaticRuntimeDataLoading
+        {
+            get => _automaticRuntimeDataLoading;
+            set
+            {
+                if (value != _automaticRuntimeDataLoading)
+                {
+                    if (value)
+                        PaletteStore.RegisterToPreloadedAssets();
+                    else
+                        PaletteStore.UnregisterFromPreloadedAssets();
+
+
+                    _automaticRuntimeDataLoading = value;
                     Save(true);
                 }
             }

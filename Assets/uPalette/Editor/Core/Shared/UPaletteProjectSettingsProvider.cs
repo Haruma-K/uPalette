@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using uPalette.Editor.Core.Updater;
@@ -25,6 +26,7 @@ namespace uPalette.Editor.Core.Shared
             using (new GUIScope())
             {
                 var store = PaletteStore.LoadAsset();
+                var projectSettings = UPaletteProjectSettings.instance;
 
                 if (store == null)
                 {
@@ -33,15 +35,13 @@ namespace uPalette.Editor.Core.Shared
                         MessageType.Warning);
 
                     if (GUILayout.Button("Create Palette Store"))
-                        PaletteStore.CreateAsset();
+                        PaletteStore.CreateAsset(projectSettings.AutomaticRuntimeDataLoading);
 
                     if (GUILayout.Button("Update Version 1 to 2"))
                         VersionUpdater.Update1To2();
 
                     return;
                 }
-
-                var projectSettings = UPaletteProjectSettings.instance;
 
                 using (var ccs = new EditorGUI.ChangeCheckScope())
                 {
@@ -68,6 +68,19 @@ namespace uPalette.Editor.Core.Shared
                         NameEnumsFileGenerateMode.WhenWindowLosesFocus)
                         EditorPrefs.SetBool(EditorPrefsKey.IsIdOrNameDirtyPrefsKey, true);
                 }
+
+                projectSettings.AutomaticRuntimeDataLoading = EditorGUILayout.Toggle("Automatic Runtime Data Loading",
+                    projectSettings.AutomaticRuntimeDataLoading);
+
+                if (projectSettings.AutomaticRuntimeDataLoading && !PlayerSettings.GetPreloadedAssets().Contains(store))
+                    EditorGUILayout.HelpBox(
+                        $"\"Automatic Runtime Data Loading\" is turned on, but the preloaded assets does not contains the \"{nameof(PaletteStore)}\". To fix it you need to add the \"{nameof(PaletteStore)}\" to the preloaded assets manually.",
+                        MessageType.Error);
+
+                if (!projectSettings.AutomaticRuntimeDataLoading)
+                    EditorGUILayout.HelpBox(
+                        $"\"Automatic Runtime Data Loading\" is turned off, so you must load the \"{nameof(PaletteStore)}\" manually before loading GUIs that use uPalette.",
+                        MessageType.Warning);
             }
         }
 
