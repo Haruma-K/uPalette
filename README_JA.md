@@ -335,6 +335,39 @@ public class Example
 
 他の種類のエントリやテーマについても同様にして使用できます。
 
+#### スクリプトからエントリの値を取得・監視する
+スクリプトからエントリの値を取得したり監視するには、以下のように各Paletteの`GetActiveValue()`を使います。  
+`IReadOnlyObservableProperty<T>`が返されるので、現在の値を取得する場合にはこれの`Value`プロパティを使用します。  
+テーマが変更された時など、値の変更を監視したい場合には`Subscribe()`を使用して値の変更を監視することもできます。
+
+```csharp
+using System;
+using UnityEngine;
+using uPalette.Generated;
+using uPalette.Runtime.Core;
+
+public class Example : MonoBehaviour
+{
+    private void Start()
+    {
+        // Get the color palette.
+        var colorPalette = PaletteStore.Instance.ColorPalette;
+
+        // Get the color entry id from the auto-generated ColorEntry enum.
+        var targetColorEntryId = ColorEntry.KeyColor1.ToEntryId();
+
+        var colorProperty = colorPalette.GetActiveValue(targetColorEntryId);
+
+        // If you want to get the current value, use the Value property.
+        var targetValue = colorProperty.Value;
+
+        // If you want to get the value when the theme is changed, subscribe the property.
+        IObserver<Color> observer;
+        var disposable = colorProperty.Subscribe(observer);
+    }
+}
+```
+
 ### パレットデータをPreloadedAssetsで管理しない
 デフォルトでは uPalette のパレットデータは **PreloadedAssets** に登録され、ランタイムで自動的に読み込まれます。  
 これはパレットのデータがアプリ内に組み込まれることを意味します。

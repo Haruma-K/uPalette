@@ -309,6 +309,39 @@ public class Example
 
 The same can be used for other types of Entries and Themes.
 
+#### Get / Monitor entry value from script
+If you want to get or monitor the entry value from script, you can use the `GetActiveValue()` method of each palette.
+`IReadOnlyObservableProperty<T>` will be returned, so use its `Value` property to get the current value.
+And you can also use the `Subscribe()` to monitor changes in value if you want to watch for changes like theme changes.
+
+```csharp
+using System;
+using UnityEngine;
+using uPalette.Generated;
+using uPalette.Runtime.Core;
+
+public class Example : MonoBehaviour
+{
+    private void Start()
+    {
+        // Get the color palette.
+        var colorPalette = PaletteStore.Instance.ColorPalette;
+
+        // Get the color entry id from the auto-generated ColorEntry enum.
+        var targetColorEntryId = ColorEntry.KeyColor1.ToEntryId();
+
+        var colorProperty = colorPalette.GetActiveValue(targetColorEntryId);
+
+        // If you want to get the current value, use the Value property.
+        var targetValue = colorProperty.Value;
+
+        // If you want to get the value when the theme is changed, subscribe the property.
+        IObserver<Color> observer;
+        var disposable = colorProperty.Subscribe(observer);
+    }
+}
+```
+
 ### Don't manage Palette Data with PreloadedAssets
 In default, Palette Data is registered to **PreloadedAssets**, and it is loaded automatically in runtime.
 This means that the Palette Data is included in the application.
