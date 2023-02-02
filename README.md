@@ -38,6 +38,7 @@ Centrally manage colors and text styles in Unity projects.
 - [Advanced Usage](#advanced-usage)
   - [SynchronizeEvent - Only notify changes in entry values](#synchronizeevent---only-notify-changes-in-entry-values)
   - [Automatic generation of enums for Entries and Themes](#automatic-generation-of-enums-for-entries-and-themes)
+    - [Get / Monitor entry value from script](#get--monitor-entry-value-from-script)
   - [Don't manage Palette Data with PreloadedAssets](#dont-manage-palette-data-with-preloadedassets)
   - [Edit uPalette data from scripts](#edit-upalette-data-from-scripts)
   - [Reflects values to your own components](#reflects-values-to-your-own-components)
