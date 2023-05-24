@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 using uPalette.Editor.Core.Updater;
@@ -81,6 +82,30 @@ namespace uPalette.Editor.Core.Shared
                     EditorGUILayout.HelpBox(
                         $"\"Automatic Runtime Data Loading\" is turned off, so you must load the \"{nameof(PaletteStore)}\" manually before loading GUIs that use uPalette.",
                         MessageType.Warning);
+
+                // This is an implementation for backward compatibility.
+                var message =
+                    "Enable TextMeshPro Auto Size Options for all data and set the initial value for each option. Is it OK?";
+                if (GUILayout.Button("Enable TextMeshPro Auto Size Options")
+                    && EditorUtility.DisplayDialog("Enable TextMeshPro Auto Size Options", message, "OK", "Cancel"))
+                {
+                    foreach (var entry in store.CharacterStyleTMPPalette.Entries.Values)
+                    foreach (var value in entry.Values.Values)
+                    {
+                        if (value.Value.enableAutoSizeOptions)
+                            continue;
+
+                        var style = value.Value;
+                        style.enableAutoSizeOptions = true;
+                        style.fontSizeMin = TMP_Settings.defaultFontSize * TMP_Settings.defaultTextAutoSizingMinRatio;
+                        style.fontSizeMax = TMP_Settings.defaultFontSize * TMP_Settings.defaultTextAutoSizingMaxRatio;
+                        style.characterWidthAdjustment = 0.0f;
+                        style.lineSpacingAdjustment = 0.0f;
+                        value.Value = style;
+                    }
+
+                    EditorUtility.SetDirty(store);
+                }
             }
         }
 

@@ -22,6 +22,10 @@ namespace uPalette.Editor.Foundation.CharacterStyles
             var fontStyleDisplayName = ObjectNames.NicifyVariableName(nameof(_characterStyle.fontStyle));
             var fontSizeDisplayName = ObjectNames.NicifyVariableName(nameof(_characterStyle.fontSize));
             var enableAutoSizingDisplayName = "Auto Size";
+            var fontSizeMinDisplayName = "Min";
+            var fontSizeMaxDisplayName = "Max";
+            var characterWidthAdjustmentDisplayName = "WD%";
+            var lineSpacingAdjustmentDisplayName = "Line";
             var characterSpacingDisplayName = "Character";
             var wordSpacingDisplayName = "Word";
             var lineSpacingDisplayName = "Line";
@@ -34,6 +38,23 @@ namespace uPalette.Editor.Foundation.CharacterStyles
             EditorGUI.indentLevel++;
             _characterStyle.enableAutoSizing =
                 EditorGUILayout.Toggle(enableAutoSizingDisplayName, _characterStyle.enableAutoSizing);
+            if (_characterStyle.enableAutoSizing)
+            {
+                GUI.enabled = _characterStyle.enableAutoSizeOptions;
+                EditorGUI.indentLevel++;
+                var min = EditorGUILayout.FloatField(fontSizeMinDisplayName, _characterStyle.fontSizeMin);
+                _characterStyle.fontSizeMin = Mathf.Min(min, _characterStyle.fontSizeMax);
+                var max = EditorGUILayout.FloatField(fontSizeMaxDisplayName, _characterStyle.fontSizeMax);
+                _characterStyle.fontSizeMax = Mathf.Max(max, _characterStyle.fontSizeMin);
+                var wd = EditorGUILayout.FloatField(characterWidthAdjustmentDisplayName,
+                    _characterStyle.characterWidthAdjustment);
+                _characterStyle.characterWidthAdjustment = Mathf.Max(wd, 0.0f);
+                var line = EditorGUILayout.FloatField(lineSpacingAdjustmentDisplayName,
+                    _characterStyle.lineSpacingAdjustment);
+                _characterStyle.lineSpacingAdjustment = Mathf.Min(line, 0.0f);
+                EditorGUI.indentLevel--;
+                GUI.enabled = true;
+            }
             EditorGUI.indentLevel--;
             EditorGUILayout.LabelField("Spacing Options (em)");
             EditorGUI.indentLevel++;
@@ -113,6 +134,19 @@ namespace uPalette.Editor.Foundation.CharacterStyles
             // Enable Auto Sizing
             height += EditorGUIUtility.singleLineHeight;
             height += EditorGUIUtility.standardVerticalSpacing;
+            // Min Font Size
+            height += EditorGUIUtility.singleLineHeight;
+            height += EditorGUIUtility.standardVerticalSpacing;
+            // Max Font Size
+            height += EditorGUIUtility.singleLineHeight;
+            height += EditorGUIUtility.standardVerticalSpacing;
+            // Character Width Adjustment
+            height += EditorGUIUtility.singleLineHeight;
+            height += EditorGUIUtility.standardVerticalSpacing;
+            // Line Spacing Adjustment
+            height += EditorGUIUtility.singleLineHeight;
+            height += EditorGUIUtility.standardVerticalSpacing;
+            
             // Spacing Option Titles
             height += EditorGUIUtility.singleLineHeight;
             height += EditorGUIUtility.standardVerticalSpacing;
