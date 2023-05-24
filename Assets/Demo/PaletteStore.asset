@@ -206,6 +206,11 @@ MonoBehaviour:
               fontStyle: 1
               fontSize: 48
               enableAutoSizing: 0
+              enableAutoSizeOptions: 1
+              fontSizeMin: 18
+              fontSizeMax: 72
+              characterWidthAdjustment: 0
+              lineSpacingAdjustment: 0
               characterSpacing: 0
               wordSpacing: 0
               lineSpacing: 0
@@ -215,6 +220,11 @@ MonoBehaviour:
               fontStyle: 1
               fontSize: 48
               enableAutoSizing: 0
+              enableAutoSizeOptions: 1
+              fontSizeMin: 18
+              fontSizeMax: 72
+              characterWidthAdjustment: 0
+              lineSpacingAdjustment: 0
               characterSpacing: 0
               wordSpacing: 0
               lineSpacing: 0
@@ -224,6 +234,11 @@ MonoBehaviour:
               fontStyle: 1
               fontSize: 48
               enableAutoSizing: 0
+              enableAutoSizeOptions: 1
+              fontSizeMin: 18
+              fontSizeMax: 72
+              characterWidthAdjustment: 0
+              lineSpacingAdjustment: 0
               characterSpacing: 0
               wordSpacing: 0
               lineSpacing: 0
@@ -242,6 +257,11 @@ MonoBehaviour:
               fontStyle: 32
               fontSize: 136.1
               enableAutoSizing: 0
+              enableAutoSizeOptions: 1
+              fontSizeMin: 18
+              fontSizeMax: 72
+              characterWidthAdjustment: 0
+              lineSpacingAdjustment: 0
               characterSpacing: 0
               wordSpacing: 0
               lineSpacing: 0
@@ -251,6 +271,11 @@ MonoBehaviour:
               fontStyle: 32
               fontSize: 134.7
               enableAutoSizing: 0
+              enableAutoSizeOptions: 1
+              fontSizeMin: 18
+              fontSizeMax: 72
+              characterWidthAdjustment: 0
+              lineSpacingAdjustment: 0
               characterSpacing: 15.6
               wordSpacing: 0
               lineSpacing: 0
@@ -260,6 +285,11 @@ MonoBehaviour:
               fontStyle: 33
               fontSize: 162.84
               enableAutoSizing: 0
+              enableAutoSizeOptions: 1
+              fontSizeMin: 18
+              fontSizeMax: 72
+              characterWidthAdjustment: 0
+              lineSpacingAdjustment: 0
               characterSpacing: 3.78
               wordSpacing: 0
               lineSpacing: 0
@@ -278,6 +308,11 @@ MonoBehaviour:
               fontStyle: 32
               fontSize: 80
               enableAutoSizing: 0
+              enableAutoSizeOptions: 1
+              fontSizeMin: 18
+              fontSizeMax: 72
+              characterWidthAdjustment: 0
+              lineSpacingAdjustment: 0
               characterSpacing: 0
               wordSpacing: 0
               lineSpacing: 0
@@ -287,6 +322,11 @@ MonoBehaviour:
               fontStyle: 32
               fontSize: 80.83
               enableAutoSizing: 0
+              enableAutoSizeOptions: 1
+              fontSizeMin: 18
+              fontSizeMax: 72
+              characterWidthAdjustment: 0
+              lineSpacingAdjustment: 0
               characterSpacing: 10.9
               wordSpacing: 0
               lineSpacing: 0
@@ -296,6 +336,11 @@ MonoBehaviour:
               fontStyle: 33
               fontSize: 80
               enableAutoSizing: 0
+              enableAutoSizeOptions: 1
+              fontSizeMin: 18
+              fontSizeMax: 72
+              characterWidthAdjustment: 0
+              lineSpacingAdjustment: 0
               characterSpacing: 5.05
               wordSpacing: 0
               lineSpacing: 0
