@@ -13,18 +13,25 @@ namespace uPalette.Editor.Core.Synchronizer
 
             serializedObject.Update();
 
-            var entryIdProperty = serializedObject.FindProperty("_entryId");
-            using (var ccs = new EditorGUI.ChangeCheckScope())
-            {
-                EditorGUILayout.PropertyField(entryIdProperty, new GUIContent("Entry"));
-
-                if (ccs.changed)
+            var iter = serializedObject.GetIterator();
+            iter.NextVisible(true);
+            while (iter.NextVisible(false))
+                if (iter.name == "_entryId")
                 {
+                    using var ccs = new EditorGUI.ChangeCheckScope();
+                    EditorGUILayout.PropertyField(iter, new GUIContent("Entry"));
+
+                    if (!ccs.changed)
+                        continue;
+
                     serializedObject.ApplyModifiedProperties();
                     component.StopObserving();
                     component.StartObserving();
                 }
-            }
+                else
+                {
+                    EditorGUILayout.PropertyField(iter, true);
+                }
 
 
             serializedObject.ApplyModifiedProperties();
