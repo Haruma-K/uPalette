@@ -207,6 +207,21 @@ PaletteEditorの左上のドロップダウンメニューから、パレット�
 | Character Style | uGUI Textの文字スタイルを管理するために使用します。 |
 | Character Style TMP | Text Mesh Proの文字スタイルを管理するために使用します。 |
 
+### エントリをフォルダ分けする
+エントリ名をスラッシュで区切ると、エントリをフォルダ分けすることができます。  
+フォルダ分けされたエントリはPalette Editor上で下図のように階層表示されます。
+
+<p align="center">
+  <img width="70%" src="Documentation/folder_mode.png" alt="Folder Mode">
+</p>
+
+フォルダ分けするかどうかの設定は、以下のメニューから変更することができます。
+
+* Project Settings > uPalette > Use Folder View in Palette Editor
+
+フォルダ分けをしない場合には全ての要素がフラットに表示され、ドラッグ&ドロップで並び替えられます。  
+フォルダ分けをする場合には名前順に並び替えられます。
+
 ## テーマ機能の使い方
 
 ### テーマとは？
@@ -335,6 +350,9 @@ public class Example
 ```
 
 他の種類のエントリやテーマについても同様にして使用できます。
+
+なお、プロジェクト設定の`Contains Folder Name to Name Enums`にチェックを入れると、フォルダ名もEnumに含められます。  
+このチェックを外すと、フォルダ名を除外した名前がEnumに使用されます。
 
 #### スクリプトからエントリの値を取得・監視する
 スクリプトからエントリの値を取得したり監視するには、以下のように各Paletteの`GetActiveValue()`を使います。  

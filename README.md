@@ -189,6 +189,20 @@ Each drop-down menu is described below.
 | Character Style | Use to manage character style of uGUI Text. |
 | Character Style TMP | Use to manage character style of Text Mesh Pro. |
 
+### Organizing Entries into Folders
+You can organize entries into folders by separating entry names with slashes.
+When entries are organized into folders, they are displayed hierarchically in the Palette Editor as shown in the figure below.
+
+<p align="center">
+  <img width="70%" src="Documentation/folder_mode.png" alt="Folder Mode">
+</p>
+The setting to organize entries into folders can be changed from the following menu.
+
+* Project Settings > uPalette > Use Folder View in Palette Editor
+
+If you choose not to organize entries into folders, all elements will be displayed flatly and can be rearranged via drag and drop.
+If you choose to organize entries into folders, they will be sorted in alphabetical order.
+
 ## Theme Feature Usage
 
 ### What is Theme?
@@ -309,6 +323,9 @@ public class Example
 ```
 
 The same can be used for other types of Entries and Themes.
+
+If you check the `Contains Folder Name to Name Enums` option in the project settings, the folder name will also be included in the Enums.
+If you uncheck this option, the name used for the Enums will exclude the folder name.
 
 #### Get / Monitor entry value from script
 If you want to get or monitor the entry value from script, you can use the `GetActiveValue()` method of each palette.
