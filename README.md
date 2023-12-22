@@ -30,6 +30,7 @@ Centrally manage colors and text styles in Unity projects.
   - [Apply Entry](#apply-entry)
   - [Highlight synchronized GameObjects](#highlight-synchronized-gameobjects)
   - [Handling non-color Entries.](#handling-non-color-entries)
+  - [Organizing Entries into Folders](#organizing-entries-into-folders)
 - [Theme Feature Usage](#theme-feature-usage)
   - [What is Theme?](#what-is-theme)
   - [Create Theme](#create-theme)
