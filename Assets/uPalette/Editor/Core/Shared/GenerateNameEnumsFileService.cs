@@ -68,11 +68,14 @@ namespace uPalette.Editor.Core.Shared
         private static NameEnumsTemplateInput.PaletteData CreatePaletteData<T>(string typeName, Palette<T> palette)
         {
             var paletteData = new NameEnumsTemplateInput.PaletteData(typeName);
+            var settings = UPaletteProjectSettings.instance;
+            var folderDelimiter = settings.FolderDelimiter;
+            var containsFolderNameToNameEnums = settings.ContainsFolderNameToNameEnums;
 
-            foreach (var idAndName in palette.GetThemeIdAndNames())
+            foreach (var idAndName in palette.GetThemeIdAndNames(folderDelimiter, containsFolderNameToNameEnums))
                 paletteData.AddThemeInfo(idAndName.name, idAndName.id);
 
-            foreach (var idAndName in palette.GetEntryIdAndNames())
+            foreach (var idAndName in palette.GetEntryIdAndNames(folderDelimiter, containsFolderNameToNameEnums))
                 paletteData.AddEntryInfo(idAndName.name, idAndName.id);
 
             return paletteData;

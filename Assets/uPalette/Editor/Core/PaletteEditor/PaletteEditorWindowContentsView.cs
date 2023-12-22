@@ -2,7 +2,6 @@
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine;
-using uPalette.Editor.Core.Shared;
 using uPalette.Editor.Foundation.EasyTreeView;
 using uPalette.Runtime.Foundation.TinyRx;
 
@@ -46,6 +45,11 @@ namespace uPalette.Editor.Core.PaletteEditor
             TreeView = CreateTreeView(_state);
             _searchField = new TreeViewSearchField(TreeView, 0);
             AddContextMenuToTreeView(TreeView);
+        }
+
+        public void SetFolderMode(bool folderMode, bool reload)
+        {
+            TreeView.SetFolderMode(folderMode, reload);
         }
 
         private void AddContextMenuToTreeView(TreeViewBase treeView)

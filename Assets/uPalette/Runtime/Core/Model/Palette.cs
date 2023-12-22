@@ -29,7 +29,6 @@ namespace uPalette.Runtime.Core.Model
 
         // NOTE: Serialize _activeThemeId instead of _activeTheme as an ad-hoc solution to a serialization bug (probably in Unity).
         [SerializeField] private string _activeThemeId;
-        private ObservableProperty<Theme> _activeTheme = new ObservableProperty<Theme>();
 
         private readonly CompositeDisposable _activeThemeDisposables = new CompositeDisposable();
 
@@ -41,6 +40,8 @@ namespace uPalette.Runtime.Core.Model
 
         private readonly Subject<(string themeId, int index)> _themeOrderChangedSubject =
             new Subject<(string themeId, int index)>();
+
+        private ObservableProperty<Theme> _activeTheme = new ObservableProperty<Theme>();
 
         private Dictionary<string, RemovedEntryInfo> _removedEntryInfos = new Dictionary<string, RemovedEntryInfo>();
         private Dictionary<string, RemovedThemeInfo> _removedThemeInfos = new Dictionary<string, RemovedThemeInfo>();
@@ -380,7 +381,11 @@ namespace uPalette.Runtime.Core.Model
 
         protected abstract T GetDefaultValue();
 
-        internal IEnumerable<(string id, string name)> GetThemeIdAndNames(bool nicifyNames = false)
+        internal IEnumerable<(string id, string name)> GetThemeIdAndNames(
+            char folderDelimiter,
+            bool containsFolderName,
+            bool nicifyNames = true
+        )
         {
             var processedNames = new List<string>();
 
@@ -388,9 +393,9 @@ namespace uPalette.Runtime.Core.Model
             {
                 var name = theme.Name.Value;
 
-                if (!nicifyNames)
+                if (nicifyNames)
                 {
-                    name = GetDisplayName(name);
+                    name = GetDisplayName(name, folderDelimiter, containsFolderName);
 
                     while (processedNames.Contains(name))
                         name = GetIncrementedName(name);
@@ -401,7 +406,11 @@ namespace uPalette.Runtime.Core.Model
             }
         }
 
-        internal IEnumerable<(string id, string name)> GetEntryIdAndNames(bool nicifyNames = false)
+        internal IEnumerable<(string id, string name)> GetEntryIdAndNames(
+            char folderDelimiter,
+            bool containsFolderName,
+            bool nicifyNames = true
+        )
         {
             var processedNames = new List<string>();
 
@@ -409,9 +418,9 @@ namespace uPalette.Runtime.Core.Model
             {
                 var name = entry.Name.Value;
 
-                if (!nicifyNames)
+                if (nicifyNames)
                 {
-                    name = GetDisplayName(name);
+                    name = GetDisplayName(name, folderDelimiter, containsFolderName);
 
                     while (processedNames.Contains(name))
                         name = GetIncrementedName(name);
@@ -422,9 +431,20 @@ namespace uPalette.Runtime.Core.Model
             }
         }
 
-        private static string GetDisplayName(string name)
+        private static string GetDisplayName(string name, char folderDelimiter, bool containsFolderName = false)
         {
-            return name.Replace(" ", "");
+            if (!containsFolderName)
+            {
+                var hasFolderName = name.Contains(folderDelimiter);
+                if (hasFolderName)
+                {
+                    var index = name.LastIndexOf(folderDelimiter);
+                    if (index != -1)
+                        name = name.Substring(index + 1);
+                }
+            }
+
+            return name.Replace(" ", "").Replace("/", "_").Replace("-", "_");
         }
 
         private static string GetIncrementedName(string name)
@@ -462,8 +482,12 @@ namespace uPalette.Runtime.Core.Model
         {
             public readonly IReadOnlyDictionary<string, T> EntryValues;
 
-            public RemovedThemeInfo(Theme theme, string previousThemeId, bool wasActiveTheme,
-                Dictionary<string, T> entryValues)
+            public RemovedThemeInfo(
+                Theme theme,
+                string previousThemeId,
+                bool wasActiveTheme,
+                Dictionary<string, T> entryValues
+            )
             {
                 Theme = theme;
                 PreviousThemeId = previousThemeId;

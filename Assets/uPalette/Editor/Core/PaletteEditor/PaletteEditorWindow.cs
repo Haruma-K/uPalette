@@ -90,6 +90,16 @@ namespace uPalette.Editor.Core.PaletteEditor
             UPaletteEditorApplication.ReleaseInstance();
         }
 
+        private void OnFocus()
+        {
+            if (_activeWindowContentsView != null)
+            {
+                var settings = UPaletteProjectSettings.instance;
+                var folderMode = settings.UseFolderViewInPaletteEditor;
+                _activeWindowContentsView.SetFolderMode(folderMode, true);
+            }
+        }
+
         private void OnLostFocus()
         {
             if (focusedWindow == null)
@@ -219,6 +229,9 @@ namespace uPalette.Editor.Core.PaletteEditor
             }
 
             _activePaletteType = paletteType;
+            var settings = UPaletteProjectSettings.instance;
+            var folderMode = settings.UseFolderViewInPaletteEditor;
+            _activeWindowContentsView.SetFolderMode(folderMode, true);
             
             Repaint();
         }
