@@ -4,11 +4,11 @@ namespace uPalette.Editor.Core.PaletteEditor
 {
     internal sealed class PaletteEditorTreeViewFolderItem : TreeViewItem
     {
-        public PaletteEditorTreeViewFolderItem(string name)
+        public PaletteEditorTreeViewFolderItem(string folderPath)
         {
-            Name = name;
+            FolderPath = folderPath;
         }
 
-        public string Name { get; }
+        public string FolderPath { get; }
     }
 }

@@ -113,7 +113,7 @@ namespace uPalette.Editor.Core.PaletteEditor
 
                         if (!_folderPathToItemIdMap.ContainsKey(currentFolderPath))
                         {
-                            var folderItem = new PaletteEditorTreeViewFolderItem(folderName)
+                            var folderItem = new PaletteEditorTreeViewFolderItem(currentFolderPath)
                             {
                                 id = _currentItemId++,
                                 displayName = folderName
@@ -180,10 +180,24 @@ namespace uPalette.Editor.Core.PaletteEditor
         public void RemoveItem(string entryId, bool invokeCallback = true)
         {
             var id = _entryIdToItemIdMap[entryId];
+            var item = GetItem(id);
             _entryIdToItemIdMap.Remove(entryId);
             RemoveItem(id, invokeCallback);
+            RemoveParentItemsIfEmpty(item);
         }
 
+        private void RemoveParentItemsIfEmpty(TreeViewItem item)
+        {
+            var parent = item.parent;
+            if (parent.id != -1 && !parent.hasChildren)
+            {
+                var folderItem = (PaletteEditorTreeViewFolderItem)parent;
+                _folderPathToItemIdMap.Remove(folderItem.FolderPath);
+                RemoveItem(parent.id, false);
+                RemoveParentItemsIfEmpty(parent);
+            }
+        }
+        
         protected override bool CanRename(TreeViewItem item)
         {
             // Rename is not supported for folder.
