@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _nameEnumsFileGenerateMode: 1
+  _containsFolderNameToNameEnums: 0
+  useFolderViewInPaletteEditor: 1
   _nameEnumsFolder: {fileID: 102900000, guid: 4ad2c7723fdb568439ce3781da4f1c82, type: 3}
   _nameEnumsFile: {fileID: 11500000, guid: 5035d55d29af14937b3d4ea95e4d0097, type: 3}
   _automaticRuntimeDataLoading: 1

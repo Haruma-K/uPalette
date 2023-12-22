@@ -1,6 +1,5 @@
 ﻿using UnityEditor;
 using UnityEngine;
-using UnityEngine.Serialization;
 using uPalette.Runtime.Core;
 
 namespace uPalette.Editor.Core.Shared
@@ -11,10 +10,8 @@ namespace uPalette.Editor.Core.Shared
         [SerializeField]
         private NameEnumsFileGenerateMode _nameEnumsFileGenerateMode = NameEnumsFileGenerateMode.Manual;
 
-        [SerializeField] private bool _containsFolderNameToNameEnums = true;
-
-        [FormerlySerializedAs("_useFolderMode")] [SerializeField]
-        private bool useFolderViewInPaletteEditor = true;
+        [SerializeField] private bool _containsFolderNameToNameEnums;
+        [SerializeField] private bool useFolderViewInPaletteEditor = true;
 
         [SerializeField] private DefaultAsset _nameEnumsFolder;
         [SerializeField] private MonoScript _nameEnumsFile;

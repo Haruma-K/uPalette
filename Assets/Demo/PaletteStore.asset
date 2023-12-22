@@ -50,7 +50,7 @@ MonoBehaviour:
           - _value: {r: 1, g: 1, b: 1, a: 1}
       - _id: 4d4ede3c-e38a-45f4-8dd2-db084f5ac4a6
         _name:
-          _value: Key Color 1
+          _value: Key Color/Key Color 1
         _values:
           _keys:
           - ca0a054c-cd1f-415c-8946-eb80b0a46c86
@@ -62,7 +62,7 @@ MonoBehaviour:
           - _value: {r: 0.22352941, g: 0.1882353, b: 0.11372549, a: 1}
       - _id: 5adfd18e-5fc5-4bc8-958a-4be3f6ec59b6
         _name:
-          _value: Key Color 2
+          _value: Key Color/Key Color 2
         _values:
           _keys:
           - ca0a054c-cd1f-415c-8946-eb80b0a46c86
@@ -74,7 +74,7 @@ MonoBehaviour:
           - _value: {r: 0.11372549, g: 0.18431373, b: 0.22352941, a: 1}
       - _id: ace06488-c485-4f64-a359-64ab534f0454
         _name:
-          _value: Button Contents
+          _value: Buttons/Contents/Button Contents
         _values:
           _keys:
           - ca0a054c-cd1f-415c-8946-eb80b0a46c86
@@ -86,7 +86,7 @@ MonoBehaviour:
           - _value: {r: 1, g: 1, b: 1, a: 1}
       - _id: 813656bc-9c9a-432d-a465-98344fd8b8b1
         _name:
-          _value: Sub Button Background
+          _value: Buttons/Background/Sub Button Background
         _values:
           _keys:
           - ca0a054c-cd1f-415c-8946-eb80b0a46c86
@@ -98,7 +98,7 @@ MonoBehaviour:
           - _value: {r: 0.23921569, g: 0.2509804, b: 0.3137255, a: 1}
       - _id: f0b6741e-8aab-4614-901d-d938f23a1ed8
         _name:
-          _value: Option Button Background
+          _value: Buttons/Background/Option Button Background
         _values:
           _keys:
           - ca0a054c-cd1f-415c-8946-eb80b0a46c86
@@ -110,7 +110,7 @@ MonoBehaviour:
           - _value: {r: 0, g: 0, b: 0, a: 1}
       - _id: 3de325d8-9dc3-4304-aef6-df868625e6f2
         _name:
-          _value: Option Button Contents
+          _value: Buttons/Contents/Option Button Contents
         _values:
           _keys:
           - ca0a054c-cd1f-415c-8946-eb80b0a46c86
