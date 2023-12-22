@@ -83,14 +83,15 @@ namespace uPalette.Editor.Core.PaletteEditor
             RemoveSelectedItems();
         }
 
-        private void OnItemAdded(PaletteEditorTreeViewItem<T> item)
+        private void OnItemAdded(PaletteEditorTreeViewEntryItem<T> entryItem)
         {
             var disposables = new CompositeDisposable();
             disposables.DisposeWith(_disposables);
 
             // Observe item name.
-            var entry = _palette.Entries[item.EntryId];
-            item.Name.Skip(1).Subscribe(x =>
+            var entry = _palette.Entries[entryItem.EntryId];
+            entryItem.Name.Skip(1)
+                .Subscribe(x =>
             {
                 var oldValue = entry.Name.Value;
                 _editService.Edit($"Set {typeof(T).Name} Entry Name {entry.Id}",
@@ -112,20 +113,20 @@ namespace uPalette.Editor.Core.PaletteEditor
                 }).DisposeWith(disposables);
             }
 
-            foreach (var value in item.Values)
+            foreach (var value in entryItem.Values)
                 ObserveItemValue(value);
 
-            item.Values.ObservableAdd
+            entryItem.Values.ObservableAdd
                 .Subscribe(value =>
                 {
                     ObserveItemValue(new KeyValuePair<string, ObservableProperty<T>>(value.Key, value.Value));
                 }).DisposeWith(disposables);
 
             // Observe apply button clicks.
-            item.ApplyButtonClickedAsObservable.Subscribe(_ => { OpenRegisterEntryIdMenu(item.EntryId); })
+            entryItem.ApplyButtonClickedAsObservable.Subscribe(_ => { OpenRegisterEntryIdMenu(entryItem.EntryId); })
                 .DisposeWith(disposables);
 
-            _perItemDisposables.Add(item.id, disposables);
+            _perItemDisposables.Add(entryItem.id, disposables);
         }
 
         private void OnItemRemoved(TreeViewItem treeViewItem)
@@ -142,15 +143,15 @@ namespace uPalette.Editor.Core.PaletteEditor
             _perItemDisposables.Clear();
         }
 
-        private void ItemIndexChanged(PaletteEditorTreeViewItem<T> item, int index)
+        private void ItemIndexChanged(PaletteEditorTreeViewEntryItem<T> entryItem, int index)
         {
-            var oldIndex = _palette.GetEntryOrder(item.EntryId);
-            _editService.Edit($"Change {typeof(T).Name} Entry Index {item.EntryId}",
-                () => _palette.SetEntryOrder(item.EntryId, index),
+            var oldIndex = _palette.GetEntryOrder(entryItem.EntryId);
+            _editService.Edit($"Change {typeof(T).Name} Entry Index {entryItem.EntryId}",
+                () => _palette.SetEntryOrder(entryItem.EntryId, index),
                 () =>
                 {
-                    _palette.SetEntryOrder(item.EntryId, oldIndex);
-                    _view.TreeView.SetItemIndex(item, oldIndex, false);
+                    _palette.SetEntryOrder(entryItem.EntryId, oldIndex);
+                    _view.TreeView.SetItemIndex(entryItem, oldIndex, false);
                     _view.TreeView.Reload();
                 },
                 markAsIdOrNameDirty: true);
@@ -164,12 +165,15 @@ namespace uPalette.Editor.Core.PaletteEditor
         private void RemoveSelectedItems()
         {
             var treeView = _view.TreeView;
-            var entries = treeView.GetSelection().Select(x =>
-            {
-                var item = (PaletteEditorTreeViewItem<T>)treeView.GetItem(x);
-                var entry = _palette.Entries[item.EntryId];
-                return entry;
-            }).ToArray();
+            var entries = treeView.GetSelection()
+                .Where(x => treeView.GetItem(x) is PaletteEditorTreeViewEntryItem<T>)
+                .Select(x =>
+                {
+                    var item = (PaletteEditorTreeViewEntryItem<T>)treeView.GetItem(x);
+                    var entry = _palette.Entries[item.EntryId];
+                    return entry;
+                })
+                .ToArray();
 
             foreach (var entry in entries)
                 _editService.Edit($"Remove Entry {typeof(T).Name} {entry.Id}",
@@ -185,11 +189,14 @@ namespace uPalette.Editor.Core.PaletteEditor
             if (!treeView.HasSelection())
                 return;
 
-            var entryIds = treeView.GetSelection().Select(x =>
-            {
-                var item = (PaletteEditorTreeViewItem<T>)treeView.GetItem(x);
-                return item.EntryId;
-            }).ToArray();
+            var entryIds = treeView.GetSelection()
+                .Where(x => treeView.GetItem(x) is PaletteEditorTreeViewEntryItem<T>)
+                .Select(x =>
+                {
+                    var item = (PaletteEditorTreeViewEntryItem<T>)treeView.GetItem(x);
+                    return item.EntryId;
+                })
+                .ToArray();
 
             var findService = new FindAppliedGameObjectService();
             var gameObjects = findService.Execute(entryIds);

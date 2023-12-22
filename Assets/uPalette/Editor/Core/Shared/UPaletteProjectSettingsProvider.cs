@@ -60,6 +60,10 @@ namespace uPalette.Editor.Core.Shared
                         (NameEnumsFileGenerateMode)EditorGUILayout.EnumPopup("Name Enums File Generation",
                             projectSettings.NameEnumsFileGenerateMode);
 
+                    projectSettings.ContainsFolderNameToNameEnums = EditorGUILayout.Toggle(
+                        "Contains Folder Name to Name Enums",
+                        projectSettings.ContainsFolderNameToNameEnums);
+
                     projectSettings.NameEnumsFolder =
                         (DefaultAsset)EditorGUILayout.ObjectField("Name Enums File Location",
                             projectSettings.NameEnumsFolder,
@@ -69,6 +73,10 @@ namespace uPalette.Editor.Core.Shared
                         NameEnumsFileGenerateMode.WhenWindowLosesFocus)
                         EditorPrefs.SetBool(EditorPrefsKey.IsIdOrNameDirtyPrefsKey, true);
                 }
+
+                projectSettings.UseFolderViewInPaletteEditor = EditorGUILayout.Toggle(
+                    "Use Folder View in Palette Editor",
+                    projectSettings.UseFolderViewInPaletteEditor);
 
                 projectSettings.AutomaticRuntimeDataLoading = EditorGUILayout.Toggle("Automatic Runtime Data Loading",
                     projectSettings.AutomaticRuntimeDataLoading);

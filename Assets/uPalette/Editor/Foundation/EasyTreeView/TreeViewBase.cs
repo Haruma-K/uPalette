@@ -126,6 +126,14 @@ namespace uPalette.Editor.Foundation.EasyTreeView
             }
         }
 
+        public void SetParent(int itemId, int parentId)
+        {
+            var item = _items[itemId];
+            var parent = parentId == -1 ? _rootItem : _items[parentId];
+            item.parent.children.Remove(item);
+            parent.AddChild(item);
+        }
+
         /// <summary>
         ///     Remove an item.
         /// </summary>
@@ -136,7 +144,7 @@ namespace uPalette.Editor.Foundation.EasyTreeView
         {
             if (id == -1 || !_items.ContainsKey(id))
             {
-                throw new InvalidOperationException();
+                throw new InvalidOperationException($"The item with id {id} does not exist.");
             }
 
             var item = _items[id];

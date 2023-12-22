@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using uPalette.Runtime.Core.Model;
 using uPalette.Runtime.Foundation.TinyRx;
 
@@ -113,7 +112,10 @@ namespace uPalette.Editor.Core.PaletteEditor
             }
 
             var item = treeView.AddItem(entry.Id, entry.Name.Value, values);
-            treeView.SetItemIndex(item, index, false);
+            if (treeView.FolderMode)
+                treeView.SetItemIndexByName(item);
+            else
+                treeView.SetItemIndex(item, index, false);
 
             // Observe entry.
             var disposable = new CompositeDisposable();

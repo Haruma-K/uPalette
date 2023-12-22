@@ -7,5 +7,7 @@ namespace uPalette.Editor.Core.PaletteEditor
         void DrawSearchFieldToolbarGUI();
 
         void DrawTreeViewGUI(Rect rect);
+
+        void SetFolderMode(bool folderMode, bool reload);
     }
 }

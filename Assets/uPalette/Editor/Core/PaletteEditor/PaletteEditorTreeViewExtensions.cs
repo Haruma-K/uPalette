@@ -1,22 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEditor.IMGUI.Controls;
-using uPalette.Editor.Foundation.EasyTreeView;
 using uPalette.Runtime.Foundation.TinyRx;
 
 namespace uPalette.Editor.Core.PaletteEditor
 {
     internal static class PaletteEditorTreeViewExtensions
     {
-        public static IObservable<PaletteEditorTreeViewItem<T>> OnItemAddedAsObservable<T>(this PaletteEditorTreeView<T> self)
+        public static IObservable<PaletteEditorTreeViewEntryItem<T>> OnItemAddedAsObservable<T>(
+            this PaletteEditorTreeView<T> self
+        )
         {
-            return new AnonymousObservable<PaletteEditorTreeViewItem<T>>(observer =>
+            return new AnonymousObservable<PaletteEditorTreeViewEntryItem<T>>(observer =>
             {
                 void OnNext(TreeViewItem item)
                 {
                     try
                     {
-                        observer.OnNext((PaletteEditorTreeViewItem<T>)item);
+                        observer.OnNext((PaletteEditorTreeViewEntryItem<T>)item);
                     }
                     catch (Exception e)
                     {
@@ -29,15 +29,17 @@ namespace uPalette.Editor.Core.PaletteEditor
             });
         }
 
-        public static IObservable<PaletteEditorTreeViewItem<T>> OnItemRemovedAsObservable<T>(this PaletteEditorTreeView<T> self)
+        public static IObservable<PaletteEditorTreeViewEntryItem<T>> OnItemRemovedAsObservable<T>(
+            this PaletteEditorTreeView<T> self
+        )
         {
-            return new AnonymousObservable<PaletteEditorTreeViewItem<T>>(observer =>
+            return new AnonymousObservable<PaletteEditorTreeViewEntryItem<T>>(observer =>
             {
                 void OnNext(TreeViewItem item)
                 {
                     try
                     {
-                        observer.OnNext((PaletteEditorTreeViewItem<T>)item);
+                        observer.OnNext((PaletteEditorTreeViewEntryItem<T>)item);
                     }
                     catch (Exception e)
                     {

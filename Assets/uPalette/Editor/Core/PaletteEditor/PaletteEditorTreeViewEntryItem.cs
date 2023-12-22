@@ -7,7 +7,7 @@ using uPalette.Runtime.Foundation.TinyRx.ObservableProperty;
 
 namespace uPalette.Editor.Core.PaletteEditor
 {
-    internal sealed class PaletteEditorTreeViewItem<T> : TreeViewItem
+    internal sealed class PaletteEditorTreeViewEntryItem<T> : TreeViewItem
     {
         private readonly ObservableDictionary<string, ObservableProperty<T>> _values =
             new ObservableDictionary<string, ObservableProperty<T>>();
@@ -16,7 +16,7 @@ namespace uPalette.Editor.Core.PaletteEditor
 
         private readonly Subject<Empty> _applyButtonClickedSubject = new Subject<Empty>();
 
-        public PaletteEditorTreeViewItem(string entryId, string name, Dictionary<string, T> values)
+        public PaletteEditorTreeViewEntryItem(string entryId, string name, Dictionary<string, T> values)
         {
             EntryId = entryId;
             _name = new ObservableProperty<string>(name);

@@ -10,9 +10,40 @@ namespace uPalette.Editor.Core.Shared
         [SerializeField]
         private NameEnumsFileGenerateMode _nameEnumsFileGenerateMode = NameEnumsFileGenerateMode.Manual;
 
+        [SerializeField] private bool _containsFolderNameToNameEnums;
+        [SerializeField] private bool useFolderViewInPaletteEditor = true;
+
         [SerializeField] private DefaultAsset _nameEnumsFolder;
         [SerializeField] private MonoScript _nameEnumsFile;
         [SerializeField] private bool _automaticRuntimeDataLoading = true;
+
+        public char FolderDelimiter => '/';
+
+        public bool ContainsFolderNameToNameEnums
+        {
+            get => _containsFolderNameToNameEnums;
+            set
+            {
+                if (value != _containsFolderNameToNameEnums)
+                {
+                    _containsFolderNameToNameEnums = value;
+                    Save(true);
+                }
+            }
+        }
+
+        public bool UseFolderViewInPaletteEditor
+        {
+            get => useFolderViewInPaletteEditor;
+            set
+            {
+                if (value != useFolderViewInPaletteEditor)
+                {
+                    useFolderViewInPaletteEditor = value;
+                    Save(true);
+                }
+            }
+        }
 
         public NameEnumsFileGenerateMode NameEnumsFileGenerateMode
         {

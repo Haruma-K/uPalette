@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine;
+using uPalette.Editor.Core.Shared;
 using uPalette.Editor.Foundation.EasyTreeView;
 using uPalette.Runtime.Foundation.TinyRx;
 
@@ -12,12 +13,14 @@ namespace uPalette.Editor.Core.PaletteEditor
     internal abstract class PaletteEditorTreeView<T> : TreeViewBase
     {
         private const string DragType = "PaletteEditorTreeView";
+        public char FolderDelimiter => UPaletteProjectSettings.instance.FolderDelimiter;
 
         private readonly Dictionary<int, string> _columnIndexToThemeIdMap = new Dictionary<int, string>();
         private readonly Dictionary<string, int> _entryIdToItemIdMap = new Dictionary<string, int>();
+        private readonly Dictionary<string, int> _folderPathToItemIdMap = new Dictionary<string, int>();
 
-        private readonly Subject<(PaletteEditorTreeViewItem<T> item, int newIndex)> _itemIndexChangedSubject =
-            new Subject<(PaletteEditorTreeViewItem<T> item, int newIndex)>();
+        private readonly Subject<(PaletteEditorTreeViewEntryItem<T> item, int newIndex)> _itemIndexChangedSubject =
+            new Subject<(PaletteEditorTreeViewEntryItem<T> item, int newIndex)>();
 
         private readonly Subject<Empty> _onAddThemeButtonClickedSubject = new Subject<Empty>();
 
@@ -39,8 +42,10 @@ namespace uPalette.Editor.Core.PaletteEditor
             SetupColumnStates();
         }
 
-        public IObservable<(PaletteEditorTreeViewItem<T> item, int newIndex)> ItemIndexChangedAsObservable =>
+        public IObservable<(PaletteEditorTreeViewEntryItem<T> item, int newIndex)> ItemIndexChangedAsObservable =>
             _itemIndexChangedSubject;
+
+        public bool FolderMode { get; private set; }
 
         public void AddThemeColumn(string id, string name)
         {
@@ -66,73 +71,209 @@ namespace uPalette.Editor.Core.PaletteEditor
             SetupColumnStates();
         }
 
-        public PaletteEditorTreeViewItem<T> AddItem(string entryId, string name, Dictionary<string, T> values)
+        public PaletteEditorTreeViewEntryItem<T> AddItem(string entryId, string name, Dictionary<string, T> values)
         {
-            var item = new PaletteEditorTreeViewItem<T>(entryId, name, values)
+            var entryItem = new PaletteEditorTreeViewEntryItem<T>(entryId, name, values)
             {
                 id = _currentItemId++,
                 displayName = name
             };
-            _entryIdToItemIdMap.Add(entryId, item.id);
-            AddItemAndSetParent(item, -1);
-            return item;
+            _entryIdToItemIdMap.Add(entryId, entryItem.id);
+            AddItemAndSetParent(entryItem, -1);
+            SetHierarchy(entryItem.id);
+            return entryItem;
+        }
+
+        private void SetHierarchy(int entryItemId)
+        {
+            var entryItem = (PaletteEditorTreeViewEntryItem<T>)GetItem(entryItemId);
+
+            if (FolderMode)
+            {
+                var name = entryItem.Name.Value;
+                var hasFolder = name.Contains(FolderDelimiter);
+                var folderPath = hasFolder
+                    ? name.Substring(0, name.LastIndexOf(FolderDelimiter))
+                    : "";
+
+                // Create folders if needed
+                if (hasFolder)
+                {
+                    var folderNames = folderPath.Split(FolderDelimiter);
+
+                    var currentFolderPath = "";
+                    foreach (var folderName in folderNames)
+                    {
+                        var parentFolderId = string.IsNullOrEmpty(currentFolderPath)
+                            ? -1
+                            : _folderPathToItemIdMap[currentFolderPath];
+                        if (!string.IsNullOrEmpty(currentFolderPath))
+                            currentFolderPath += FolderDelimiter;
+                        currentFolderPath += folderName;
+
+                        if (!_folderPathToItemIdMap.ContainsKey(currentFolderPath))
+                        {
+                            var folderItem = new PaletteEditorTreeViewFolderItem(currentFolderPath)
+                            {
+                                id = _currentItemId++,
+                                displayName = folderName
+                            };
+                            _folderPathToItemIdMap.Add(currentFolderPath, folderItem.id);
+                            AddItemAndSetParent(folderItem, parentFolderId, false);
+                            SetItemIndexByName(folderItem);
+                        }
+                    }
+                }
+
+                // Parenting
+                var oldFolderPath = entryItem.Name.Value; // cache for removing empty folder
+                var oldParent = entryItem.parent; // cache for removing empty folder
+                var folderItemId = string.IsNullOrEmpty(folderPath) ? -1 : _folderPathToItemIdMap[folderPath];
+                SetParent(entryItemId, folderItemId);
+
+                // Remove empty folder
+                if (oldParent.id != -1 && !oldParent.hasChildren)
+                {
+                    _folderPathToItemIdMap.Remove(oldFolderPath);
+                    RemoveItem(oldParent.id, false);
+                }
+
+                // Set display name
+                var nonFolderName = hasFolder
+                    ? name.Substring(name.LastIndexOf(FolderDelimiter) + 1)
+                    : name;
+                entryItem.displayName = nonFolderName;
+            }
+            else
+            {
+                // Parenting
+                SetParent(entryItemId, -1);
+
+                // Set display name
+                entryItem.displayName = entryItem.Name.Value;
+            }
+        }
+
+        public void SetFolderMode(bool folderMode, bool reload = true)
+        {
+            if (FolderMode == folderMode)
+                return;
+
+            FolderMode = folderMode;
+
+            // Remove all folder items
+            foreach (var folderItemId in _folderPathToItemIdMap.Values)
+                RemoveItem(folderItemId, false);
+            _folderPathToItemIdMap.Clear();
+
+            // Build hierarchy
+            foreach (var entryItemId in _entryIdToItemIdMap.Values)
+                SetHierarchy(entryItemId);
+
+            if (FolderMode)
+                OrderItemsByName(RootItem, true);
+
+            if (reload)
+                Reload();
         }
 
         public void RemoveItem(string entryId, bool invokeCallback = true)
         {
             var id = _entryIdToItemIdMap[entryId];
+            var item = GetItem(id);
             _entryIdToItemIdMap.Remove(entryId);
             RemoveItem(id, invokeCallback);
+            RemoveParentItemsIfEmpty(item);
         }
 
+        private void RemoveParentItemsIfEmpty(TreeViewItem item)
+        {
+            var parent = item.parent;
+            if (parent.id != -1 && !parent.hasChildren)
+            {
+                var folderItem = (PaletteEditorTreeViewFolderItem)parent;
+                _folderPathToItemIdMap.Remove(folderItem.FolderPath);
+                RemoveItem(parent.id, false);
+                RemoveParentItemsIfEmpty(parent);
+            }
+        }
+        
         protected override bool CanRename(TreeViewItem item)
         {
+            // Rename is not supported for folder.
+            if (item is PaletteEditorTreeViewFolderItem)
+                return false;
+
+            // Set displayName to full name during rename.
+            if (FolderMode)
+                item.displayName = ((PaletteEditorTreeViewEntryItem<T>)item).Name.Value;
+            
             return true;
         }
 
         protected override void RenameEnded(RenameEndedArgs args)
         {
+            var item = (PaletteEditorTreeViewEntryItem<T>)GetItem(args.itemID);
             if (args.acceptedRename)
-            {
-                var item = (PaletteEditorTreeViewItem<T>)GetItem(args.itemID);
                 item.SetName(args.newName, true);
+
+            if (FolderMode)
+            {
+                var name = item.Name.Value;
+                var hasFolder = name.Contains(FolderDelimiter);
+                var nonFolderName = hasFolder
+                    ? name.Substring(name.LastIndexOf(FolderDelimiter) + 1)
+                    : name;
+                item.displayName = nonFolderName;
             }
+
+            SetHierarchy(item.id);
+            if (FolderMode)
+                OrderItemsByName(item.parent, true);
+            Reload();
         }
 
         protected override void CellGUI(int columnIndex, Rect cellRect, RowGUIArgs args)
         {
             cellRect.height -= 4;
             cellRect.y += 2;
-            var item = (PaletteEditorTreeViewItem<T>)args.item;
-            var columnCount = ColumnStates.Length;
-            if (columnIndex == 0)
+            if (args.item is PaletteEditorTreeViewFolderItem)
             {
-                args.rowRect.xMin -= 10;
                 args.rowRect.yMin += 5;
                 DefaultRowGUI(args);
             }
-            else if (columnIndex == columnCount - 1)
-            {
-                if (GUI.Button(cellRect, new GUIContent("Apply")))
-                {
-                    item.OnApplyButtonClicked();
-                }
-            }
             else
             {
-                var themeId = _columnIndexToThemeIdMap[columnIndex];
-                item.Values[themeId].Value = DrawValueField(cellRect, item.Values[themeId].Value);
+                var item = (PaletteEditorTreeViewEntryItem<T>)args.item;
+                var columnCount = ColumnStates.Length;
+                if (columnIndex == 0)
+                {
+                    args.rowRect.yMin += 5;
+                    DefaultRowGUI(args);
+                }
+                else if (columnIndex == columnCount - 1)
+                {
+                    if (GUI.Button(cellRect, new GUIContent("Apply"))) item.OnApplyButtonClicked();
+                }
+                else
+                {
+                    var themeId = _columnIndexToThemeIdMap[columnIndex];
+                    item.Values[themeId].Value = DrawValueField(cellRect, item.Values[themeId].Value);
+                }
             }
         }
 
         protected abstract T DrawValueField(Rect rect, T value);
 
-        protected override IOrderedEnumerable<TreeViewItem> OrderItems(IList<TreeViewItem> items, int keyColumnIndex,
-            bool ascending)
+        protected override IOrderedEnumerable<TreeViewItem> OrderItems(
+            IList<TreeViewItem> items,
+            int keyColumnIndex,
+            bool ascending
+        )
         {
             string KeySelector(TreeViewItem x)
             {
-                return GetText((PaletteEditorTreeViewItem<T>)x, keyColumnIndex);
+                return GetText((PaletteEditorTreeViewEntryItem<T>)x, keyColumnIndex);
             }
 
             return ascending
@@ -142,15 +283,15 @@ namespace uPalette.Editor.Core.PaletteEditor
 
         protected override string GetTextForSearch(TreeViewItem item, int columnIndex)
         {
-            return GetText((PaletteEditorTreeViewItem<T>)item, columnIndex);
+            return GetText((PaletteEditorTreeViewEntryItem<T>)item, columnIndex);
         }
 
-        private static string GetText(PaletteEditorTreeViewItem<T> item, int columnIndex)
+        private static string GetText(PaletteEditorTreeViewEntryItem<T> entryItem, int columnIndex)
         {
             switch (columnIndex)
             {
                 case 0:
-                    return item.Name.Value;
+                    return entryItem.Name.Value;
                 default:
                     throw new NotImplementedException();
             }
@@ -168,26 +309,28 @@ namespace uPalette.Editor.Core.PaletteEditor
 
         protected override bool CanStartDrag(CanStartDragArgs args)
         {
+            // Index is not supported in folder mode because items are sorted by name.
+            if (FolderMode)
+                return false;
+            
             return string.IsNullOrEmpty(searchString);
         }
 
         protected override void SetupDragAndDrop(SetupDragAndDropArgs args)
         {
-            var selections = args.draggedItemIDs;
-            if (selections.Count <= 0)
-            {
+            // Index is not supported in folder mode because items are sorted by name.
+            if (FolderMode)
                 return;
-            }
+
+            var selections = args.draggedItemIDs;
+            if (selections.Count <= 0) return;
 
             var items = GetRows()
                 .Where(i => selections.Contains(i.id))
-                .Select(x => (PaletteEditorTreeViewItem<T>)x)
+                .Select(x => (PaletteEditorTreeViewEntryItem<T>)x)
                 .ToArray();
 
-            if (items.Length <= 0)
-            {
-                return;
-            }
+            if (items.Length <= 0) return;
 
             DragAndDrop.PrepareStartDrag();
             DragAndDrop.SetGenericData(DragType, items);
@@ -196,15 +339,16 @@ namespace uPalette.Editor.Core.PaletteEditor
 
         protected override DragAndDropVisualMode HandleDragAndDrop(DragAndDropArgs args)
         {
+            // Index is not supported in folder mode because items are sorted by name.
+            if (FolderMode)
+                return DragAndDropVisualMode.None;
+            
             if (args.performDrop)
             {
                 var data = DragAndDrop.GetGenericData(DragType);
-                var items = (PaletteEditorTreeViewItem<T>[])data;
+                var items = (PaletteEditorTreeViewEntryItem<T>[])data;
 
-                if (items == null || items.Length <= 0)
-                {
-                    return DragAndDropVisualMode.None;
-                }
+                if (items == null || items.Length <= 0) return DragAndDropVisualMode.None;
 
                 switch (args.dragAndDropPosition)
                 {
@@ -213,11 +357,8 @@ namespace uPalette.Editor.Core.PaletteEditor
                         foreach (var item in items)
                         {
                             var itemIndex = RootItem.children.IndexOf(item);
-                            if (itemIndex < afterIndex)
-                            {
-                                afterIndex--;
-                            }
-                            
+                            if (itemIndex < afterIndex) afterIndex--;
+
                             SetItemIndex(item, afterIndex, true);
                             afterIndex++;
                         }
@@ -237,15 +378,45 @@ namespace uPalette.Editor.Core.PaletteEditor
             return DragAndDropVisualMode.Move;
         }
 
-        public void SetItemIndex(PaletteEditorTreeViewItem<T> item, int index, bool notify)
+        public void SetItemIndex(PaletteEditorTreeViewEntryItem<T> entryItem, int index, bool notify)
         {
             var children = RootItem.children;
-            var itemIndex = RootItem.children.IndexOf(item);
+            var itemIndex = RootItem.children.IndexOf(entryItem);
+            children.RemoveAt(itemIndex);
+            children.Insert(index, entryItem);
+            if (notify)
+                _itemIndexChangedSubject.OnNext((entryItem, index));
+        }
+
+        public void SetItemIndexByName(TreeViewItem item)
+        {
+            var children = item.parent.children;
+            var orderedChildren = children
+                .OrderBy(x => x.displayName, Comparer<string>.Create(EditorUtility.NaturalCompare))
+                .ToArray();
+            var index = Array.IndexOf(orderedChildren, item);
+
+            var itemIndex = item.parent.children.IndexOf(item);
             children.RemoveAt(itemIndex);
             children.Insert(index, item);
-            if (notify)
+        }
+
+        public void OrderItemsByName(TreeViewItem parent, bool recursive)
+        {
+            if (parent.children == null)
+                return;
+
+            var children = parent.children;
+            var orderedChildren = children
+                .OrderBy(x => x.displayName, Comparer<string>.Create(EditorUtility.NaturalCompare))
+                .ToArray();
+
+            children.Clear();
+            foreach (var child in orderedChildren)
             {
-                _itemIndexChangedSubject.OnNext((item, index));
+                children.Add(child);
+                if (recursive)
+                    OrderItemsByName(child, true);
             }
         }
 
