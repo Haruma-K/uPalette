@@ -59,8 +59,10 @@ namespace uPalette.Editor.Core.PaletteEditor
             foreach (var entry in sortedEntries)
             {
                 var index = _palette.GetEntryOrder(entry.Id);
-                AddTreeViewItem(entry, index);
+                AddTreeViewItem(entry, index, false);
             }
+
+            _view.TreeView.OrderItemsByName(_view.TreeView.RootItem, true);
 
             view.TreeView.Reload();
         }
@@ -98,7 +100,7 @@ namespace uPalette.Editor.Core.PaletteEditor
             RefreshTreeViewColumns();
         }
 
-        private void AddTreeViewItem(Entry<T> entry, int index)
+        private void AddTreeViewItem(Entry<T> entry, int index, bool doSort = true)
         {
             var treeView = _view.TreeView;
 
@@ -112,10 +114,13 @@ namespace uPalette.Editor.Core.PaletteEditor
             }
 
             var item = treeView.AddItem(entry.Id, entry.Name.Value, values);
-            if (treeView.FolderMode)
-                treeView.SetItemIndexByName(item);
-            else
-                treeView.SetItemIndex(item, index, false);
+            if (doSort)
+            {
+                if (treeView.FolderMode)
+                    treeView.SetItemIndexByName(item);
+                else
+                    treeView.SetItemIndex(item, index, false);
+            }
 
             // Observe entry.
             var disposable = new CompositeDisposable();
@@ -150,6 +155,17 @@ namespace uPalette.Editor.Core.PaletteEditor
 
             entry.Values.ObservableClear
                 .Subscribe(x => item.ClearValues())
+                .DisposeWith(disposable);
+
+            entry.Name.Subscribe(x =>
+                {
+                    treeView.SetHierarchy(item.id);
+                    if (treeView.FolderMode)
+                        treeView.SetItemIndexByName(item);
+                    else
+                        treeView.SetItemIndex(item, index, false);
+                    treeView.Reload();
+                })
                 .DisposeWith(disposable);
 
             _perItemDisposables.Add(entry.Id, disposable);
