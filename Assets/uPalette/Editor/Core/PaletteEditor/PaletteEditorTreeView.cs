@@ -13,7 +13,6 @@ namespace uPalette.Editor.Core.PaletteEditor
     internal abstract class PaletteEditorTreeView<T> : TreeViewBase
     {
         private const string DragType = "PaletteEditorTreeView";
-        public char FolderDelimiter => UPaletteProjectSettings.instance.FolderDelimiter;
 
         private readonly Dictionary<int, string> _columnIndexToThemeIdMap = new Dictionary<int, string>();
         private readonly Dictionary<string, int> _entryIdToItemIdMap = new Dictionary<string, int>();
@@ -41,6 +40,8 @@ namespace uPalette.Editor.Core.PaletteEditor
 
             SetupColumnStates();
         }
+
+        public char FolderDelimiter => UPaletteProjectSettings.instance.FolderDelimiter;
 
         public IObservable<(PaletteEditorTreeViewEntryItem<T> item, int newIndex)> ItemIndexChangedAsObservable =>
             _itemIndexChangedSubject;
@@ -75,8 +76,7 @@ namespace uPalette.Editor.Core.PaletteEditor
         {
             var entryItem = new PaletteEditorTreeViewEntryItem<T>(entryId, name, values)
             {
-                id = _currentItemId++,
-                displayName = name
+                id = _currentItemId++
             };
             _entryIdToItemIdMap.Add(entryId, entryItem.id);
             AddItemAndSetParent(entryItem, -1);
@@ -84,7 +84,11 @@ namespace uPalette.Editor.Core.PaletteEditor
             return entryItem;
         }
 
-        private void SetHierarchy(int entryItemId)
+        /// <summary>
+        ///     Set the item as a child item of the appropriate parent item. If there is no parent item, create it.
+        /// </summary>
+        /// <param name="entryItemId"></param>
+        public void SetHierarchy(int entryItemId)
         {
             var entryItem = (PaletteEditorTreeViewEntryItem<T>)GetItem(entryItemId);
 
@@ -126,17 +130,11 @@ namespace uPalette.Editor.Core.PaletteEditor
                 }
 
                 // Parenting
-                var oldFolderPath = entryItem.Name.Value; // cache for removing empty folder
-                var oldParent = entryItem.parent; // cache for removing empty folder
                 var folderItemId = string.IsNullOrEmpty(folderPath) ? -1 : _folderPathToItemIdMap[folderPath];
                 SetParent(entryItemId, folderItemId);
 
-                // Remove empty folder
-                if (oldParent.id != -1 && !oldParent.hasChildren)
-                {
-                    _folderPathToItemIdMap.Remove(oldFolderPath);
-                    RemoveItem(oldParent.id, false);
-                }
+                // Remove empty folders
+                RemoveEmptyFolders();
 
                 // Set display name
                 var nonFolderName = hasFolder
@@ -151,6 +149,41 @@ namespace uPalette.Editor.Core.PaletteEditor
 
                 // Set display name
                 entryItem.displayName = entryItem.Name.Value;
+            }
+        }
+
+        private void RemoveEmptyFolders()
+        {
+            // Process in order of long folder path (from the end folder)
+            var orderedFolderPaths = _folderPathToItemIdMap.Keys
+                .OrderByDescending(x => x.Length)
+                .ToArray();
+
+            var removeTargetFolders = new List<(string path, int itemId)>();
+            foreach (var folderPath in orderedFolderPaths)
+            {
+                var folderItemId = _folderPathToItemIdMap[folderPath];
+                var folderItem = GetItem(folderItemId);
+
+                // if folder has no children, remove it.
+                if (!folderItem.hasChildren)
+                {
+                    removeTargetFolders.Add((folderPath, folderItemId));
+                    continue;
+                }
+
+                // if all children are remove target, remove it.
+                var allChildrenAreRemoveTarget = folderItem.children
+                    .All(x => removeTargetFolders.Any(y => y.itemId == x.id));
+                if (allChildrenAreRemoveTarget)
+                    removeTargetFolders.Add((folderPath, folderItemId));
+            }
+
+            foreach (var removeTargetFolder in removeTargetFolders)
+            {
+                var removeTargetFolderItemId = removeTargetFolder.itemId;
+                _folderPathToItemIdMap.Remove(removeTargetFolder.path);
+                RemoveItem(removeTargetFolderItemId, false);
             }
         }
 
@@ -197,7 +230,7 @@ namespace uPalette.Editor.Core.PaletteEditor
                 RemoveParentItemsIfEmpty(parent);
             }
         }
-        
+
         protected override bool CanRename(TreeViewItem item)
         {
             // Rename is not supported for folder.
@@ -207,7 +240,7 @@ namespace uPalette.Editor.Core.PaletteEditor
             // Set displayName to full name during rename.
             if (FolderMode)
                 item.displayName = ((PaletteEditorTreeViewEntryItem<T>)item).Name.Value;
-            
+
             return true;
         }
 
@@ -217,6 +250,7 @@ namespace uPalette.Editor.Core.PaletteEditor
             if (args.acceptedRename)
                 item.SetName(args.newName, true);
 
+            // Set displayName to non-folder name after rename.
             if (FolderMode)
             {
                 var name = item.Name.Value;
@@ -226,11 +260,6 @@ namespace uPalette.Editor.Core.PaletteEditor
                     : name;
                 item.displayName = nonFolderName;
             }
-
-            SetHierarchy(item.id);
-            if (FolderMode)
-                OrderItemsByName(item.parent, true);
-            Reload();
         }
 
         protected override void CellGUI(int columnIndex, Rect cellRect, RowGUIArgs args)
@@ -312,7 +341,7 @@ namespace uPalette.Editor.Core.PaletteEditor
             // Index is not supported in folder mode because items are sorted by name.
             if (FolderMode)
                 return false;
-            
+
             return string.IsNullOrEmpty(searchString);
         }
 
@@ -342,7 +371,7 @@ namespace uPalette.Editor.Core.PaletteEditor
             // Index is not supported in folder mode because items are sorted by name.
             if (FolderMode)
                 return DragAndDropVisualMode.None;
-            
+
             if (args.performDrop)
             {
                 var data = DragAndDrop.GetGenericData(DragType);
@@ -378,6 +407,12 @@ namespace uPalette.Editor.Core.PaletteEditor
             return DragAndDropVisualMode.Move;
         }
 
+        /// <summary>
+        ///     Sort items by specifying index
+        /// </summary>
+        /// <param name="entryItem"></param>
+        /// <param name="index"></param>
+        /// <param name="notify"></param>
         public void SetItemIndex(PaletteEditorTreeViewEntryItem<T> entryItem, int index, bool notify)
         {
             var children = RootItem.children;
@@ -388,6 +423,10 @@ namespace uPalette.Editor.Core.PaletteEditor
                 _itemIndexChangedSubject.OnNext((entryItem, index));
         }
 
+        /// <summary>
+        ///     Sort items according to name
+        /// </summary>
+        /// <param name="item"></param>
         public void SetItemIndexByName(TreeViewItem item)
         {
             var children = item.parent.children;
@@ -401,6 +440,11 @@ namespace uPalette.Editor.Core.PaletteEditor
             children.Insert(index, item);
         }
 
+        /// <summary>
+        ///     Sort all items under <see cref="parent" /> according to name
+        /// </summary>
+        /// <param name="parent"></param>
+        /// <param name="recursive"></param>
         public void OrderItemsByName(TreeViewItem parent, bool recursive)
         {
             if (parent.children == null)
