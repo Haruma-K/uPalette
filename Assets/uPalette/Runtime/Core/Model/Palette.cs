@@ -75,7 +75,7 @@ namespace uPalette.Runtime.Core.Model
                 var value = entry.Values[activeThemeId];
                 var colorProperty = new ObservableProperty<T>();
                 _activeValues[entry.Id] = colorProperty;
-                value.Subscribe(x => { colorProperty.Value = x; })
+                value.Subscribe(x => { colorProperty.SetValueAndNotify(x); })
                     .DisposeWith(_activeThemeDisposables);
             }
 
@@ -117,7 +117,7 @@ namespace uPalette.Runtime.Core.Model
             {
                 var valueProperty = _activeValues[entry.Id];
                 entry.Values[themeId]
-                    .Subscribe(x => valueProperty.Value = x)
+                    .Subscribe(x => valueProperty.SetValueAndNotify(x))
                     .DisposeWith(_activeThemeDisposables);
             }
 
@@ -284,7 +284,7 @@ namespace uPalette.Runtime.Core.Model
                 {
                     var colorProperty = new ObservableProperty<T>();
                     _activeValues[entry.Id] = colorProperty;
-                    value.Subscribe(x => { colorProperty.Value = x; })
+                    value.Subscribe(x => { colorProperty.SetValueAndNotify(x); })
                         .DisposeWith(_activeThemeDisposables);
                 }
             }
@@ -356,7 +356,7 @@ namespace uPalette.Runtime.Core.Model
                 {
                     var colorProperty = new ObservableProperty<T>();
                     _activeValues[removedEntry.Id] = colorProperty;
-                    value.Subscribe(x => { colorProperty.Value = x; })
+                    value.Subscribe(x => { colorProperty.SetValueAndNotify(x); })
                         .DisposeWith(_activeThemeDisposables);
                 }
             }

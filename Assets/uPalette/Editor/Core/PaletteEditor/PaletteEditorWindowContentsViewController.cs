@@ -108,8 +108,8 @@ namespace uPalette.Editor.Core.PaletteEditor
                 {
                     var oldValue = entry.Values[themeId].Value;
                     _editService.Edit($"Set {typeof(T).Name} Entry Value {entry.Id}",
-                        () => { entry.Values[themeId].Value = x; },
-                        () => { entry.Values[themeId].Value = oldValue; });
+                        () => { entry.Values[themeId].SetValueAndNotify(x); },
+                        () => { entry.Values[themeId].SetValueAndNotify(oldValue); });
                 }).DisposeWith(disposables);
             }
 

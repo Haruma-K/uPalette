@@ -287,7 +287,13 @@ namespace uPalette.Editor.Core.PaletteEditor
                 else
                 {
                     var themeId = _columnIndexToThemeIdMap[columnIndex];
-                    item.Values[themeId].Value = DrawValueField(cellRect, item.Values[themeId].Value);
+                    // For Gradient, use SetValueAndNotify to notify the change.
+                    using (var ccs = new EditorGUI.ChangeCheckScope())
+                    {
+                        var newValue = DrawValueField(cellRect, item.Values[themeId].Value);
+                        if (ccs.changed)
+                            item.Values[themeId].SetValueAndNotify(newValue);
+                    }
                 }
             }
         }

@@ -9,12 +9,9 @@ namespace uPalette.Runtime.Core.Synchronizer
 
         protected internal abstract void SetValue(T value);
 
-        protected abstract bool EqualsToCurrentValue(T value);
-
         protected override void OnValueChanged(T value)
         {
-            if (!EqualsToCurrentValue(value))
-                SetValue(value);
+            SetValue(value);
         }
     }
 }

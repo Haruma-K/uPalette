@@ -18,10 +18,5 @@ namespace uPalette.Runtime.Core.Synchronizer.Color
             colors.selectedColor = value;
             Component.colors = colors;
         }
-
-        protected override bool EqualsToCurrentValue(UnityEngine.Color value)
-        {
-            return Component.colors.selectedColor == value;
-        }
     }
 }

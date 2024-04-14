@@ -16,10 +16,5 @@ namespace uPalette.Runtime.Core.Synchronizer.Color
         {
             Component.effectColor = value;
         }
-
-        protected override bool EqualsToCurrentValue(UnityEngine.Color value)
-        {
-            return Component.effectColor == value;
-        }
     }
 }

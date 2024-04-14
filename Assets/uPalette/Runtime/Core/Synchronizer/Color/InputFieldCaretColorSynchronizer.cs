@@ -17,10 +17,5 @@ namespace uPalette.Runtime.Core.Synchronizer.Color
             Component.customCaretColor = true;
             Component.caretColor = value;
         }
-
-        protected override bool EqualsToCurrentValue(UnityEngine.Color value)
-        {
-            return Component.caretColor == value;
-        }
     }
 }

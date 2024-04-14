@@ -475,11 +475,6 @@ public sealed class GraphicColorSynchronizer : GradientSynchronizer<SampleGradie
     {
         _component.Gradient = value;
     }
-
-    protected override bool EqualsToCurrentValue(Gradient value)
-    {
-        return _component.Gradient.Equals(value);
-    }
 }
 ```
 
