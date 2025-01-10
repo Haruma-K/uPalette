@@ -87,8 +87,9 @@ namespace uPalette.Editor.Core.Shared
             _paletteEditorWindow?.Reload();
             _themeEditorWindow?.Reload();
             
-            var activeScene = SceneManager.GetActiveScene().path;
-            EditorSceneManager.OpenScene(activeScene);
+            var activeScenePath = SceneManager.GetActiveScene().path;
+            if (!string.IsNullOrEmpty(activeScenePath)) // Open the scene only if the scene is saved as an asset = if there is a path
+                EditorSceneManager.OpenScene(activeScenePath);
         }
 
         public static UPaletteEditorApplication RequestInstance()
