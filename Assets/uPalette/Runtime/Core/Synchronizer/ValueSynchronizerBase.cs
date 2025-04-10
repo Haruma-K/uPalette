@@ -37,7 +37,8 @@ namespace uPalette.Runtime.Core.Synchronizer
 #else
             EntryId.Value = entryId;
 #endif
-            StartObserving();
+            if (isActiveAndEnabled)
+                StartObserving();
         }
 
         internal void StartObserving()
