@@ -26,8 +26,11 @@ namespace uPalette.Editor.Core.PaletteEditor
 
         private readonly PaletteEditorWindowContentsView<T> _view;
 
-        public PaletteEditorWindowContentsViewController(Palette<T> palette, EditPaletteStoreService editService,
-            PaletteEditorWindowContentsView<T> view)
+        public PaletteEditorWindowContentsViewController(
+            Palette<T> palette,
+            EditPaletteStoreService editService,
+            PaletteEditorWindowContentsView<T> view
+        )
         {
             _palette = palette;
             _editService = editService;
@@ -92,25 +95,28 @@ namespace uPalette.Editor.Core.PaletteEditor
             var entry = _palette.Entries[entryItem.EntryId];
             entryItem.Name.Skip(1)
                 .Subscribe(x =>
-            {
-                var oldValue = entry.Name.Value;
-                _editService.Edit($"Set {typeof(T).Name} Entry Name {entry.Id}",
-                    () => entry.Name.Value = x,
-                    () => entry.Name.Value = oldValue,
-                    markAsIdOrNameDirty: true);
-            }).DisposeWith(disposables);
+                {
+                    var oldValue = entry.Name.Value;
+                    _editService.Edit($"Set {typeof(T).Name} Entry Name {entry.Id}",
+                        () => entry.Name.Value = x,
+                        () => entry.Name.Value = oldValue,
+                        markAsIdOrNameDirty: true);
+                })
+                .DisposeWith(disposables);
 
             // Observe item values.
             void ObserveItemValue(KeyValuePair<string, ObservableProperty<T>> value)
             {
                 var themeId = value.Key;
-                value.Value.Skip(1).Subscribe(x =>
-                {
-                    var oldValue = entry.Values[themeId].Value;
-                    _editService.Edit($"Set {typeof(T).Name} Entry Value {entry.Id}",
-                        () => { entry.Values[themeId].SetValueAndNotify(x); },
-                        () => { entry.Values[themeId].SetValueAndNotify(oldValue); });
-                }).DisposeWith(disposables);
+                value.Value.Skip(1)
+                    .Subscribe(x =>
+                    {
+                        var oldValue = entry.Values[themeId].Value;
+                        _editService.Edit($"Set {typeof(T).Name} Entry Value {entry.Id}",
+                            () => { entry.Values[themeId].SetValueAndNotify(x); },
+                            () => { entry.Values[themeId].SetValueAndNotify(oldValue); });
+                    })
+                    .DisposeWith(disposables);
             }
 
             foreach (var value in entryItem.Values)
@@ -120,7 +126,8 @@ namespace uPalette.Editor.Core.PaletteEditor
                 .Subscribe(value =>
                 {
                     ObserveItemValue(new KeyValuePair<string, ObservableProperty<T>>(value.Key, value.Value));
-                }).DisposeWith(disposables);
+                })
+                .DisposeWith(disposables);
 
             // Observe apply button clicks.
             entryItem.ApplyButtonClickedAsObservable.Subscribe(_ => { OpenRegisterEntryIdMenu(entryItem.EntryId); })
@@ -209,11 +216,37 @@ namespace uPalette.Editor.Core.PaletteEditor
 
             var findService = new FindSynchronizeTargetService();
             var menuFunctions = new Dictionary<string, GenericMenu.MenuFunction>();
+
+            // ComponentType+PropertyDisplayNameをキーとして、該当するSynchronizerをグループ化
+            // 例: "CustomImageColor" => [(gameObj1, GraphicColorSynchronizer), (gameObj1, CustomSynchronizer)]
+            var synchronizerResults =
+                new Dictionary<string, List<(GameObject gameObj, FindSynchronizeTargetService.Result result)>>();
+
+            // Collect all results and group by component/property
             foreach (var gameObj in gameObjects)
             {
                 var results = findService.Run<T>(gameObj);
 
                 foreach (var result in results)
+                {
+                    var key = $"{result.ComponentType.Name}{result.PropertyDisplayName}";
+                    if (!synchronizerResults.ContainsKey(key))
+                        synchronizerResults[key] = new List<(GameObject, FindSynchronizeTargetService.Result)>();
+
+                    synchronizerResults[key].Add((gameObj, result));
+                }
+            }
+
+            // Create menu items
+            foreach (var kvp in synchronizerResults)
+            {
+                var groupedResults = kvp.Value;
+                // 同一のComponent/Propertyに対して複数のSynchronizerが存在するかチェック
+                // 存在する場合はメニュー項目にSynchronizer名を含める
+                var hasMultipleSynchronizers =
+                    groupedResults.Select(r => r.result.SynchronizerType).Distinct().Count() > 1;
+
+                foreach (var (gameObj, result) in groupedResults)
                 {
                     var componentType = result.ComponentType;
 
@@ -260,7 +293,9 @@ namespace uPalette.Editor.Core.PaletteEditor
                             });
                     }
 
-                    var menuName = $"{componentType.Name}{result.PropertyDisplayName}";
+                    var menuName = hasMultipleSynchronizers
+                        ? $"{componentType.Name}{result.PropertyDisplayName}/{result.SynchronizerType.Name}"
+                        : $"{componentType.Name}{result.PropertyDisplayName}";
                     menuName = ObjectNames.NicifyVariableName(menuName);
 
                     if (!menuFunctions.ContainsKey(menuName))
