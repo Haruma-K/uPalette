@@ -30,6 +30,7 @@ namespace uPalette.Editor.Foundation.CharacterStyles
             var wordSpacingDisplayName = "Word";
             var lineSpacingDisplayName = "Line";
             var paragraphSpacingDisplayName = "Paragraph";
+            var fontSharedMaterialDisplayName = "Font Material";
 
             _characterStyle.font = (TMP_FontAsset)EditorGUILayout.ObjectField(fontDisplayName, _characterStyle.font,
                 typeof(TMP_FontAsset), false);
@@ -67,6 +68,46 @@ namespace uPalette.Editor.Foundation.CharacterStyles
             _characterStyle.paragraphSpacing =
                 EditorGUILayout.FloatField(paragraphSpacingDisplayName, _characterStyle.paragraphSpacing);
             EditorGUI.indentLevel--;
+
+            // フォントマテリアル
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.PrefixLabel(fontSharedMaterialDisplayName);
+
+            if (_characterStyle.fontSharedMaterial == null)
+            {
+                // マテリアルが設定されていない場合のプレースホルダー表示
+                var placeholderStyle = new GUIStyle(EditorStyles.objectField);
+                placeholderStyle.normal.textColor = Color.gray;
+
+                var defaultMaterialName = "(Default)";
+
+                if (GUILayout.Button(defaultMaterialName, placeholderStyle))
+                    // ObjectFieldと同じようにマテリアル選択ウィンドウを開く
+                    EditorGUIUtility.ShowObjectPicker<Material>(null,
+                        false,
+                        string.Empty,
+                        GUIUtility.GetControlID(FocusType.Passive));
+
+                // ObjectPickerからの選択を処理
+                if (Event.current.commandName == "ObjectSelectorUpdated")
+                {
+                    var pickedObject = EditorGUIUtility.GetObjectPickerObject();
+                    if (pickedObject is Material material)
+                    {
+                        _characterStyle.fontSharedMaterial = material;
+                        GUI.changed = true;
+                    }
+                }
+            }
+            else
+            {
+                _characterStyle.fontSharedMaterial = (Material)EditorGUILayout.ObjectField(
+                    _characterStyle.fontSharedMaterial,
+                    typeof(Material),
+                    false);
+            }
+
+            EditorGUILayout.EndHorizontal();
 
             if (EditorGUI.EndChangeCheck())
                 OnValueChanged?.Invoke(_characterStyle);
@@ -160,6 +201,9 @@ namespace uPalette.Editor.Foundation.CharacterStyles
             height += EditorGUIUtility.singleLineHeight;
             height += EditorGUIUtility.standardVerticalSpacing;
             // Paragraph Spacing
+            height += EditorGUIUtility.singleLineHeight;
+            height += EditorGUIUtility.standardVerticalSpacing;
+            // Font Material
             height += EditorGUIUtility.singleLineHeight;
             height += EditorGUIUtility.standardVerticalSpacing;
             // Padding
