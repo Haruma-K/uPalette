@@ -145,6 +145,8 @@ You can also drag elements to reorder them.
 ### Apply Entry
 To apply the color and character style you created to components, select the target GameObject and press the Apply button for the target entry. The names of applicable components and properties will then be listed, and you can select the one you want to apply.
 
+When multiple Synchronizers are implemented for the same component and property, the menu will display each Synchronizer name, allowing you to choose which Synchronizer to use.
+
 <p align="center">
   <img width="70%" src="https://user-images.githubusercontent.com/47441314/157679154-0e1aa71a-27f4-49c4-9c28-9eca8080f96d.gif" alt="Apply Entry">
 </p>
@@ -449,6 +451,40 @@ public sealed class GraphicColorSynchronizer : GradientSynchronizer<SampleGradie
 }
 ```
 
+It's also possible to implement multiple Synchronizers for the same component and property.  
+For example, you can create a custom Synchronizer that provides a different synchronization method than the standard GraphicColorSynchronizer for the existing Image component.
+
+```csharp
+[DisallowMultipleComponent]
+[RequireComponent(typeof(Image))]
+[ColorSynchronizer(typeof(Image), "Color")]
+public sealed class CustomImageColorSynchronizer : ColorSynchronizer<Image>
+{
+    [SerializeField]
+    private bool _syncAlpha = true;
+
+    protected override Color GetValue()
+    {
+        return Component.color;
+    }
+
+    protected override void SetValue(Color value)
+    {
+        if (!_syncAlpha)
+        {
+            value.a = Component.color.a;
+        }
+        Component.color = value;
+    }
+}
+```
+
+In this case, the Palette Editor's Apply menu will display as follows:
+- When there's only one Synchronizer: "Image Color"
+- When there are multiple Synchronizers: "Image Color/Graphic Color Synchronizer" and "Image Color/Custom Image Color Synchronizer"
+
+This allows you to choose different synchronization methods for the same property, enabling more flexible implementations.
+
 ### Configure behavior when an entry is not found
 
 When a target Entry is not found, you may want to output error logs, or you may want to ignore it. You can configure the behavior when an Entry is not found by `Project Settings > uPalette > Missing Entry Error`.
@@ -483,7 +519,7 @@ The Synchronizer implemented in uPalette is as follows.
 | Color | TMPro.TMP_InputField | caretColor |
 | Color | TMPro.TMP_InputField | selectionColor |
 | CharacterStyle | UnityEngine.UI.Text | font / fontStyle / fontSize / lineSpacing |
-| CharacterStyleTMP | TMPro.TextMeshProUGUI | font / fontStyle / fontSize / enableAutoSizing / characterSpacing / wordSpacing / lineSpacing / paragraphSpacing |
+| CharacterStyleTMP | TMPro.TextMeshProUGUI | font / fontStyle / fontSize / enableAutoSizing / characterSpacing / wordSpacing / lineSpacing / paragraphSpacing / fontSharedMaterial |
 
 ## Technical details
 

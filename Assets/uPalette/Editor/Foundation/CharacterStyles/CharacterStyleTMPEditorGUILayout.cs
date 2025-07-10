@@ -64,7 +64,15 @@ namespace uPalette.Editor.Foundation.CharacterStyles
             }
 
             EditorGUI.LabelField(previewRect, previewLabel, previewGuiStyle);
-            EditorGUI.LabelField(textRect, $"{fontName} - {value.fontSize}pt");
+
+            // マテリアル情報を含む表示
+            var displayText = $"{fontName} - {value.fontSize}pt";
+            if (value.fontSharedMaterial != null)
+                displayText += $" [{value.fontSharedMaterial.name}]";
+            else if (value.font != null && value.font.material != null)
+                // デフォルトマテリアルを使用していることを明示
+                displayText += " [Default Material]";
+            EditorGUI.LabelField(textRect, displayText);
 
             if ((value.fontStyle & FontStyles.Strikethrough) != 0)
             {
