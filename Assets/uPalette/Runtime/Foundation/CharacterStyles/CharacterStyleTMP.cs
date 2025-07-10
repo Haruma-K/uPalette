@@ -24,6 +24,7 @@ namespace uPalette.Runtime.Foundation.CharacterStyles
         public float wordSpacing;
         public float lineSpacing;
         public float paragraphSpacing;
+        public Material fontSharedMaterial;
 
         public static CharacterStyleTMP Default
         {
@@ -47,7 +48,8 @@ namespace uPalette.Runtime.Foundation.CharacterStyles
                     characterSpacing = 0.0f,
                     wordSpacing = 0.0f,
                     lineSpacing = 0.0f,
-                    paragraphSpacing = 0.0f
+                    paragraphSpacing = 0.0f,
+                    fontSharedMaterial = null
                 };
             }
         }

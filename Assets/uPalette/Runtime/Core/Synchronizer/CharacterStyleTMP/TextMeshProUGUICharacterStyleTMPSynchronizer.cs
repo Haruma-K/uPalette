@@ -22,7 +22,8 @@ namespace uPalette.Runtime.Core.Synchronizer.CharacterStyleTMP
                 characterSpacing = Component.characterSpacing,
                 wordSpacing = Component.wordSpacing,
                 lineSpacing = Component.lineSpacing,
-                paragraphSpacing = Component.paragraphSpacing
+                paragraphSpacing = Component.paragraphSpacing,
+                fontSharedMaterial = Component.fontSharedMaterial
             };
         }
 
@@ -43,6 +44,13 @@ namespace uPalette.Runtime.Core.Synchronizer.CharacterStyleTMP
             Component.wordSpacing = value.wordSpacing;
             Component.lineSpacing = value.lineSpacing;
             Component.paragraphSpacing = value.paragraphSpacing;
+
+            // マテリアルの設定
+            if (value.fontSharedMaterial != null)
+                Component.fontSharedMaterial = value.fontSharedMaterial;
+            else if (value.font != null)
+                // マテリアルが指定されていない場合は、フォントアセットのデフォルトマテリアルを使用
+                Component.fontSharedMaterial = value.font.material;
         }
     }
 }

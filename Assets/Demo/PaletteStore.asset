@@ -215,6 +215,7 @@ MonoBehaviour:
               wordSpacing: 0
               lineSpacing: 0
               paragraphSpacing: 0
+              fontSharedMaterial: {fileID: 0}
           - _value:
               font: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
               fontStyle: 1
@@ -229,6 +230,7 @@ MonoBehaviour:
               wordSpacing: 0
               lineSpacing: 0
               paragraphSpacing: 0
+              fontSharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
           - _value:
               font: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
               fontStyle: 1
@@ -243,6 +245,7 @@ MonoBehaviour:
               wordSpacing: 0
               lineSpacing: 0
               paragraphSpacing: 0
+              fontSharedMaterial: {fileID: 0}
       - _id: 40b83e6c-74e3-4f98-ac6a-f8c4705ad8a9
         _name:
           _value: Title
@@ -255,7 +258,7 @@ MonoBehaviour:
           - _value:
               font: {fileID: 11400000, guid: a9afcabfe81ac4e7281a9df4b6a11e78, type: 2}
               fontStyle: 32
-              fontSize: 136.1
+              fontSize: 137.05
               enableAutoSizing: 0
               enableAutoSizeOptions: 1
               fontSizeMin: 18
@@ -266,10 +269,11 @@ MonoBehaviour:
               wordSpacing: 0
               lineSpacing: 0
               paragraphSpacing: 0
+              fontSharedMaterial: {fileID: 2100000, guid: 7e8b6a12ee81f4b8189f99ab1633d937, type: 2}
           - _value:
               font: {fileID: 11400000, guid: b81fdff2855c444e68579f3df0109e91, type: 2}
               fontStyle: 32
-              fontSize: 134.7
+              fontSize: 168.45
               enableAutoSizing: 0
               enableAutoSizeOptions: 1
               fontSizeMin: 18
@@ -280,6 +284,7 @@ MonoBehaviour:
               wordSpacing: 0
               lineSpacing: 0
               paragraphSpacing: 0
+              fontSharedMaterial: {fileID: 0}
           - _value:
               font: {fileID: 11400000, guid: 855ef1fd6df214cfbb3c753d5f5567d5, type: 2}
               fontStyle: 33
@@ -294,6 +299,7 @@ MonoBehaviour:
               wordSpacing: 0
               lineSpacing: 0
               paragraphSpacing: 0
+              fontSharedMaterial: {fileID: 0}
       - _id: 066cbf8f-8b4a-441c-937e-c234e2780b88
         _name:
           _value: Main Button
@@ -317,6 +323,7 @@ MonoBehaviour:
               wordSpacing: 0
               lineSpacing: 0
               paragraphSpacing: 0
+              fontSharedMaterial: {fileID: 0}
           - _value:
               font: {fileID: 11400000, guid: b81fdff2855c444e68579f3df0109e91, type: 2}
               fontStyle: 32
@@ -331,6 +338,7 @@ MonoBehaviour:
               wordSpacing: 0
               lineSpacing: 0
               paragraphSpacing: 0
+              fontSharedMaterial: {fileID: 0}
           - _value:
               font: {fileID: 11400000, guid: 855ef1fd6df214cfbb3c753d5f5567d5, type: 2}
               fontStyle: 33
@@ -345,6 +353,7 @@ MonoBehaviour:
               wordSpacing: 0
               lineSpacing: 0
               paragraphSpacing: 0
+              fontSharedMaterial: {fileID: 0}
     _themes:
       _keys:
       - 10a7c335-bf25-4867-8af2-dd1b19273382
