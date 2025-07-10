@@ -156,6 +156,8 @@ Palette Editorの右上にある「+」ボタンを押下することで、エ�
 作成した色や文字スタイルをコンポーネントに反映するには、対象のGameObjectを選択した状態で対象のエントリのApplyボタンを押下します。  
 すると適用可能なコンポーネントとプロパティの名前がリストアップされるので、適用したいものを選択します。
 
+同一のコンポーネント・プロパティに対して複数のSynchronizerが実装されている場合、メニューではそれぞれのSynchronizer名が表示され、どのSynchronizerを使用するか選択できます。
+
 <p align="center">
   <img width="70%" src="https://user-images.githubusercontent.com/47441314/157679154-0e1aa71a-27f4-49c4-9c28-9eca8080f96d.gif" alt="Apply Entry">
 </p>
@@ -478,6 +480,40 @@ public sealed class GraphicColorSynchronizer : GradientSynchronizer<SampleGradie
 }
 ```
 
+同一のコンポーネント・プロパティに対して複数のSynchronizerを実装することも可能です。  
+例えば、既存のImageコンポーネントに対して、標準のGraphicColorSynchronizerとは異なる同期方法を提供するカスタムSynchronizerを作成できます。
+
+```csharp
+[DisallowMultipleComponent]
+[RequireComponent(typeof(Image))]
+[ColorSynchronizer(typeof(Image), "Color")]
+public sealed class CustomImageColorSynchronizer : ColorSynchronizer<Image>
+{
+    [SerializeField]
+    private bool _syncAlpha = true;
+
+    protected override Color GetValue()
+    {
+        return Component.color;
+    }
+
+    protected override void SetValue(Color value)
+    {
+        if (!_syncAlpha)
+        {
+            value.a = Component.color.a;
+        }
+        Component.color = value;
+    }
+}
+```
+
+この場合、Palette EditorのApplyメニューでは以下のように表示されます。
+- Synchronizerが1つの場合：「Image Color」
+- 複数のSynchronizerがある場合：「Image Color/Graphic Color Synchronizer」と「Image Color/Custom Image Color Synchronizer」
+
+これにより、同じプロパティに対して異なる同期方法を選択できるようになり、より柔軟な実装が可能になります。
+
 ### エントリが見つからなかった時の挙動を設定する
 対象のエントリが見つからなかった場合、エラーログを出したい場合もあれば、それを無視したい場合もあるでしょう。  
 `Project Settings > uPalette > Missing Entry Error`から、エントリが見つからなかった時の挙動を設定できます。
@@ -512,7 +548,7 @@ uPaletteに標準で実装されているSynchronizerは以下の通りです。
 | Color | TMPro.TMP_InputField | caretColor |
 | Color | TMPro.TMP_InputField | selectionColor |
 | CharacterStyle | UnityEngine.UI.Text | font / fontStyle / fontSize / lineSpacing |
-| CharacterStyleTMP | TMPro.TextMeshProUGUI | font / fontStyle / fontSize / enableAutoSizing / characterSpacing / wordSpacing / lineSpacing / paragraphSpacing |
+| CharacterStyleTMP | TMPro.TextMeshProUGUI | font / fontStyle / fontSize / enableAutoSizing / characterSpacing / wordSpacing / lineSpacing / paragraphSpacing / fontSharedMaterial |
 
 ## 技術的詳細
 
