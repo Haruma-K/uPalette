@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEditor.IMGUI.Controls;
 using uPalette.Editor.Foundation.EasyTreeView;
 using uPalette.Runtime.Foundation.TinyRx;
+#if UNITY_6000_2_OR_NEWER
+using TreeViewItem = UnityEditor.IMGUI.Controls.TreeViewItem<int>;
+#endif
 
 namespace uPalette.Editor.Foundation
 {

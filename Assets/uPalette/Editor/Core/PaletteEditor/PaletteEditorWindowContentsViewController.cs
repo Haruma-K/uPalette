@@ -11,6 +11,9 @@ using uPalette.Runtime.Core.Synchronizer;
 using uPalette.Runtime.Foundation.TinyRx;
 using uPalette.Runtime.Foundation.TinyRx.ObservableProperty;
 using Object = UnityEngine.Object;
+#if UNITY_6000_2_OR_NEWER
+using TreeViewItem = UnityEditor.IMGUI.Controls.TreeViewItem<int>;
+#endif
 
 namespace uPalette.Editor.Core.PaletteEditor
 {
