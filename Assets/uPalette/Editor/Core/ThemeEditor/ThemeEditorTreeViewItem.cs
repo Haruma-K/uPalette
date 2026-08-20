@@ -1,6 +1,9 @@
 ﻿using UnityEditor.IMGUI.Controls;
 using UnityEngine;
 using uPalette.Runtime.Foundation.TinyRx.ObservableProperty;
+#if UNITY_6000_2_OR_NEWER
+using TreeViewItem = UnityEditor.IMGUI.Controls.TreeViewItem<int>;
+#endif
 
 namespace uPalette.Editor.Core.ThemeEditor
 {
