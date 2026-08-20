@@ -315,6 +315,54 @@ namespace uPalette.Tests.Runtime
         }
 
         [Test]
+        public void GetEntryIdAndNames_EntriesAreOrderedByEntryOrderWhenContainingFolderNames()
+        {
+            var palette = new ColorPalette();
+            const char folderDelimiter = '/';
+
+            // フォルダ名を含むエントリを、名前順とは異なる順序で並べる。
+            var firstEntry = palette.AddEntry();
+            firstEntry.Name.Value = "Folder/First";
+            var secondEntry = palette.AddEntry();
+            secondEntry.Name.Value = "Folder/Second";
+            var thirdEntry = palette.AddEntry();
+            thirdEntry.Name.Value = "Folder/Third";
+            palette.SetEntryOrder(thirdEntry.Id, 0);
+
+            // フォルダ名を含めて NameEnums の入力を作成する。
+            var entryNames = palette.GetEntryIdAndNames(folderDelimiter, true)
+                .Select(x => x.name)
+                .ToArray();
+
+            // enum の宣言順に、Palette Editor で指定したエントリ順を使う。
+            Assert.That(entryNames, Is.EqualTo(new[] { "Folder_Third", "Folder_First", "Folder_Second" }));
+        }
+
+        [Test]
+        public void GetEntryIdAndNames_UsesSpecifiedEntrySequenceWhenProcessingNames()
+        {
+            var palette = new ColorPalette();
+            const char folderDelimiter = '/';
+
+            // フォルダ名を含むエントリを3件用意する。
+            var thirdEntry = palette.AddEntry();
+            thirdEntry.Name.Value = "Folder/Third";
+            var firstEntry = palette.AddEntry();
+            firstEntry.Name.Value = "Folder/First";
+            var secondEntry = palette.AddEntry();
+            secondEntry.Name.Value = "Folder/Second";
+
+            // Paletteの保存順とは異なる順序を明示的に指定して、Name Enumsの入力を作成する。
+            var entries = new[] { firstEntry, secondEntry, thirdEntry };
+            var entryNames = palette.GetEntryIdAndNames(entries, folderDelimiter, true)
+                .Select(x => x.name)
+                .ToArray();
+
+            // enumの宣言順に、指定したエントリ列の順番が使われる。
+            Assert.That(entryNames, Is.EqualTo(new[] { "Folder_First", "Folder_Second", "Folder_Third" }));
+        }
+
+        [Test]
         public void AddEntry_EntryIsAdded()
         {
             var palette = new ColorPalette();

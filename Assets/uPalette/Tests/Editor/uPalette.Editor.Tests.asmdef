@@ -1,0 +1,22 @@
+{
+    "name": "uPalette.Editor.Tests",
+    "references": [
+        "GUID:45481c1a5703e4b4db8cfbe8316a40db",
+        "GUID:f2b46654766a88a40bf344f29aec823f"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

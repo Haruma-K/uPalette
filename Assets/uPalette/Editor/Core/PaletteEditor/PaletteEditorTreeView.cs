@@ -20,6 +20,7 @@ namespace uPalette.Editor.Core.PaletteEditor
 
         private readonly Dictionary<int, string> _columnIndexToThemeIdMap = new Dictionary<int, string>();
         private readonly Dictionary<string, int> _entryIdToItemIdMap = new Dictionary<string, int>();
+        private readonly List<string> _flatEntryOrder = new List<string>();
         private readonly Dictionary<string, int> _folderPathToItemIdMap = new Dictionary<string, int>();
 
         private readonly Subject<(PaletteEditorTreeViewEntryItem<T> item, int newIndex)> _itemIndexChangedSubject =
@@ -83,6 +84,7 @@ namespace uPalette.Editor.Core.PaletteEditor
                 id = _currentItemId++
             };
             _entryIdToItemIdMap.Add(entryId, entryItem.id);
+            _flatEntryOrder.Add(entryId);
             AddItemAndSetParent(entryItem, -1);
             SetHierarchy(entryItem.id);
             return entryItem;
@@ -204,8 +206,8 @@ namespace uPalette.Editor.Core.PaletteEditor
             _folderPathToItemIdMap.Clear();
 
             // Build hierarchy
-            foreach (var entryItemId in _entryIdToItemIdMap.Values)
-                SetHierarchy(entryItemId);
+            foreach (var entryId in _flatEntryOrder)
+                SetHierarchy(_entryIdToItemIdMap[entryId]);
 
             if (FolderMode)
                 OrderItemsByName(RootItem, true);
@@ -219,8 +221,20 @@ namespace uPalette.Editor.Core.PaletteEditor
             var id = _entryIdToItemIdMap[entryId];
             var item = GetItem(id);
             _entryIdToItemIdMap.Remove(entryId);
+            _flatEntryOrder.Remove(entryId);
             RemoveItem(id, invokeCallback);
             RemoveParentItemsIfEmpty(item);
+        }
+
+        public new void ClearItems(bool invokeCallback = true)
+        {
+            foreach (var entryId in _flatEntryOrder.ToArray())
+                RemoveItem(entryId, invokeCallback);
+
+            base.ClearItems(invokeCallback);
+            _entryIdToItemIdMap.Clear();
+            _flatEntryOrder.Clear();
+            _folderPathToItemIdMap.Clear();
         }
 
         private void RemoveParentItemsIfEmpty(TreeViewItem item)
@@ -398,7 +412,7 @@ namespace uPalette.Editor.Core.PaletteEditor
                             var itemIndex = RootItem.children.IndexOf(item);
                             if (itemIndex < afterIndex) afterIndex--;
 
-                            SetItemIndex(item, afterIndex, true);
+                            SetFlatEntryIndex(item, afterIndex, true);
                             afterIndex++;
                         }
 
@@ -417,20 +431,32 @@ namespace uPalette.Editor.Core.PaletteEditor
             return DragAndDropVisualMode.Move;
         }
 
-        /// <summary>
-        ///     Sort items by specifying index
-        /// </summary>
-        /// <param name="entryItem"></param>
-        /// <param name="index"></param>
-        /// <param name="notify"></param>
-        public void SetItemIndex(PaletteEditorTreeViewEntryItem<T> entryItem, int index, bool notify)
+        public void SetFlatEntryIndex(PaletteEditorTreeViewEntryItem<T> entryItem, int index, bool notify)
         {
-            var children = RootItem.children;
-            var itemIndex = RootItem.children.IndexOf(entryItem);
-            children.RemoveAt(itemIndex);
-            children.Insert(index, entryItem);
+            var entryOrderIndex = _flatEntryOrder.IndexOf(entryItem.EntryId);
+            _flatEntryOrder.RemoveAt(entryOrderIndex);
+            _flatEntryOrder.Insert(index, entryItem.EntryId);
+
+            // Folder mode has its own name-based hierarchy, but the saved flat order must still follow Undo/Redo.
+            if (!FolderMode)
+                MoveFlatEntryItem(entryItem, index);
+
             if (notify)
                 _itemIndexChangedSubject.OnNext((entryItem, index));
+        }
+
+        public void RestoreFlatEntryPosition(PaletteEditorTreeViewEntryItem<T> entryItem)
+        {
+            var index = _flatEntryOrder.IndexOf(entryItem.EntryId);
+            MoveFlatEntryItem(entryItem, index);
+        }
+
+        private void MoveFlatEntryItem(PaletteEditorTreeViewEntryItem<T> entryItem, int index)
+        {
+            var children = RootItem.children;
+            var itemIndex = children.IndexOf(entryItem);
+            children.RemoveAt(itemIndex);
+            children.Insert(index, entryItem);
         }
 
         /// <summary>
@@ -441,7 +467,7 @@ namespace uPalette.Editor.Core.PaletteEditor
         {
             var children = item.parent.children;
             var orderedChildren = children
-                .OrderBy(x => x.displayName, Comparer<string>.Create(EditorUtility.NaturalCompare))
+                .OrderBy(x => x, Comparer<TreeViewItem>.Create(CompareItemsByName))
                 .ToArray();
             var index = Array.IndexOf(orderedChildren, item);
 
@@ -462,7 +488,7 @@ namespace uPalette.Editor.Core.PaletteEditor
 
             var children = parent.children;
             var orderedChildren = children
-                .OrderBy(x => x.displayName, Comparer<string>.Create(EditorUtility.NaturalCompare))
+                .OrderBy(x => x, Comparer<TreeViewItem>.Create(CompareItemsByName))
                 .ToArray();
 
             children.Clear();
@@ -472,6 +498,15 @@ namespace uPalette.Editor.Core.PaletteEditor
                 if (recursive)
                     OrderItemsByName(child, true);
             }
+        }
+
+        private static int CompareItemsByName(TreeViewItem leftItem, TreeViewItem rightItem)
+        {
+            return PaletteEntryOrdering.CompareSiblingNames(
+                leftItem.displayName,
+                leftItem is PaletteEditorTreeViewFolderItem,
+                rightItem.displayName,
+                rightItem is PaletteEditorTreeViewFolderItem);
         }
 
         private void SetupColumnStates()

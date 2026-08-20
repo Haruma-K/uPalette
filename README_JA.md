@@ -224,6 +224,7 @@ PaletteEditorの左上のドロップダウンメニューから、パレット�
 
 フォルダ分けをしない場合には全ての要素がフラットに表示され、ドラッグ&ドロップで並び替えられます。  
 フォルダ分けをする場合には名前順に並び替えられます。
+Name Enumsのエントリも、フォルダ分けをする場合はこの名前順、しない場合はドラッグ&ドロップで指定した順に生成されます。
 
 ## テーマ機能の使い方
 
@@ -316,6 +317,7 @@ public class Example : MonoBehaviour
 ### エントリやテーマを表すEnumを自動生成する
 スクリプトからuPaletteを操作する場合、テーマやエントリの情報にアクセスするためのスクリプトを自動生成しておくと便利です。  
 `Project Settings > uPalette > Name Enums File Generation`を`When Window Loses Focus`に設定すると、Palette EditorやTheme Editorからフォーカスが外れた際にこのファイルが自動生成されます。  
+この設定では、`Contains Folder Name to Name Enums`、`Name Enums File Location`、`Use Folder View in Palette Editor`を変更した際にもファイルが自動生成されます。  
 `Name Enums File Location`にフォルダを指定するとそのフォルダに生成されます。未指定の場合にはAssetsフォルダ直下に生成されます。
 
 <p align="center">
@@ -356,6 +358,7 @@ public class Example
 
 なお、プロジェクト設定の`Contains Folder Name to Name Enums`にチェックを入れると、フォルダ名もEnumに含められます。  
 このチェックを外すと、フォルダ名を除外した名前がEnumに使用されます。
+この設定はEnum名だけに影響し、並び順は変更しません。
 
 #### スクリプトからエントリの値を取得・監視する
 スクリプトからエントリの値を取得したり監視するには、以下のように各Paletteの`GetActiveValue()`を使います。  

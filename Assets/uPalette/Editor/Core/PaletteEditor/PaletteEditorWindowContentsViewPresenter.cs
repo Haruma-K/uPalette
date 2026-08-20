@@ -62,7 +62,8 @@ namespace uPalette.Editor.Core.PaletteEditor
                 AddTreeViewItem(entry, index, false);
             }
 
-            _view.TreeView.OrderItemsByName(_view.TreeView.RootItem, true);
+            if (_view.TreeView.FolderMode)
+                _view.TreeView.OrderItemsByName(_view.TreeView.RootItem, true);
 
             view.TreeView.Reload();
         }
@@ -119,7 +120,7 @@ namespace uPalette.Editor.Core.PaletteEditor
                 if (treeView.FolderMode)
                     treeView.SetItemIndexByName(item);
                 else
-                    treeView.SetItemIndex(item, index, false);
+                    treeView.SetFlatEntryIndex(item, index, false);
             }
 
             // Observe entry.
@@ -163,7 +164,7 @@ namespace uPalette.Editor.Core.PaletteEditor
                     if (treeView.FolderMode)
                         treeView.SetItemIndexByName(item);
                     else
-                        treeView.SetItemIndex(item, index, false);
+                        treeView.RestoreFlatEntryPosition(item);
                     treeView.Reload();
                 })
                 .DisposeWith(disposable);
