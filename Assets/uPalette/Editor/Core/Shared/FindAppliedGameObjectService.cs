@@ -10,7 +10,11 @@ namespace uPalette.Editor.Core.Shared
         public GameObject[] Execute(params string[] entryIds)
         {
             var result = new List<GameObject>();
+#if UNITY_2022_2_OR_NEWER
+            var synchronizers = Object.FindObjectsByType<ColorSynchronizer>(FindObjectsSortMode.InstanceID);
+#else
             var synchronizers = Object.FindObjectsOfType<ColorSynchronizer>();
+#endif
             foreach (var synchronizer in synchronizers)
             {
                 if (result.Contains(synchronizer.gameObject))
