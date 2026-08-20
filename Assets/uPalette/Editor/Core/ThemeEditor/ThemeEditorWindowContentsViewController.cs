@@ -6,6 +6,9 @@ using uPalette.Editor.Core.Shared;
 using uPalette.Editor.Foundation;
 using uPalette.Runtime.Core.Model;
 using uPalette.Runtime.Foundation.TinyRx;
+#if UNITY_6000_2_OR_NEWER
+using TreeViewItem = UnityEditor.IMGUI.Controls.TreeViewItem<int>;
+#endif
 
 namespace uPalette.Editor.Core.ThemeEditor
 {

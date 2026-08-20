@@ -4,6 +4,9 @@ using UnityEditor.IMGUI.Controls;
 using uPalette.Runtime.Foundation.TinyRx;
 using uPalette.Runtime.Foundation.TinyRx.ObservableCollection;
 using uPalette.Runtime.Foundation.TinyRx.ObservableProperty;
+#if UNITY_6000_2_OR_NEWER
+using TreeViewItem = UnityEditor.IMGUI.Controls.TreeViewItem<int>;
+#endif
 
 namespace uPalette.Editor.Core.PaletteEditor
 {
