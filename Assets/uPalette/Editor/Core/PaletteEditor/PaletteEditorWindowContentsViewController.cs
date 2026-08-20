@@ -157,14 +157,16 @@ namespace uPalette.Editor.Core.PaletteEditor
         {
             var oldIndex = _palette.GetEntryOrder(entryItem.EntryId);
             _editService.Edit($"Change {typeof(T).Name} Entry Index {entryItem.EntryId}",
-                () => _palette.SetEntryOrder(entryItem.EntryId, index),
-                () =>
-                {
-                    _palette.SetEntryOrder(entryItem.EntryId, oldIndex);
-                    _view.TreeView.SetItemIndex(entryItem, oldIndex, false);
-                    _view.TreeView.Reload();
-                },
+                () => SetFlatEntryIndex(entryItem, index),
+                () => SetFlatEntryIndex(entryItem, oldIndex),
                 markAsIdOrNameDirty: true);
+        }
+
+        private void SetFlatEntryIndex(PaletteEditorTreeViewEntryItem<T> entryItem, int index)
+        {
+            _palette.SetEntryOrder(entryItem.EntryId, index);
+            _view.TreeView.SetFlatEntryIndex(entryItem, index, false);
+            _view.TreeView.Reload();
         }
 
         private void OnRightClickRemoveMenuClicked()

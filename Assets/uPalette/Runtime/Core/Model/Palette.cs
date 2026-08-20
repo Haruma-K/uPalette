@@ -412,9 +412,20 @@ namespace uPalette.Runtime.Core.Model
             bool nicifyNames = true
         )
         {
+            var entries = _entries.Values.OrderBy(x => GetEntryOrder(x.Id));
+            return GetEntryIdAndNames(entries, folderDelimiter, containsFolderName, nicifyNames);
+        }
+
+        internal IEnumerable<(string id, string name)> GetEntryIdAndNames(
+            IEnumerable<Entry<T>> entries,
+            char folderDelimiter,
+            bool containsFolderName,
+            bool nicifyNames = true
+        )
+        {
             var processedNames = new List<string>();
 
-            foreach (var entry in _entries.Values.OrderBy(x => GetEntryOrder(x.Id)))
+            foreach (var entry in entries)
             {
                 var name = entry.Name.Value;
 

@@ -10,6 +10,9 @@ namespace uPalette.Editor.Core.Shared
 {
     public sealed class UPaletteProjectSettingsProvider : SettingsProvider
     {
+        private static bool _isNameEnumsGenerationScheduled;
+        private static PaletteStore _scheduledGenerationStore;
+
         public UPaletteProjectSettingsProvider(string path, SettingsScope scopes, IEnumerable<string> keywords = null)
             : base(path, scopes, keywords)
         {
@@ -69,14 +72,13 @@ namespace uPalette.Editor.Core.Shared
                             projectSettings.NameEnumsFolder,
                             typeof(DefaultAsset), false);
 
-                    if (ccs.changed && projectSettings.NameEnumsFileGenerateMode ==
-                        NameEnumsFileGenerateMode.WhenWindowLosesFocus)
-                        EditorPrefs.SetBool(EditorPrefsKey.IsIdOrNameDirtyPrefsKey, true);
-                }
+                    projectSettings.UseFolderViewInPaletteEditor = EditorGUILayout.Toggle(
+                        "Use Folder View in Palette Editor",
+                        projectSettings.UseFolderViewInPaletteEditor);
 
-                projectSettings.UseFolderViewInPaletteEditor = EditorGUILayout.Toggle(
-                    "Use Folder View in Palette Editor",
-                    projectSettings.UseFolderViewInPaletteEditor);
+                    if (ccs.changed)
+                        RequestNameEnumsGeneration(store, projectSettings.NameEnumsFileGenerateMode);
+                }
 
                 projectSettings.AutomaticRuntimeDataLoading = EditorGUILayout.Toggle("Automatic Runtime Data Loading",
                     projectSettings.AutomaticRuntimeDataLoading);
@@ -115,6 +117,41 @@ namespace uPalette.Editor.Core.Shared
                     EditorUtility.SetDirty(store);
                 }
             }
+        }
+
+        private static void RequestNameEnumsGeneration(
+            PaletteStore store,
+            NameEnumsFileGenerateMode generateMode
+        )
+        {
+            var generationService = new GenerateNameEnumsFileService(store);
+            generationService.MarkDirty();
+
+            if (generateMode != NameEnumsFileGenerateMode.WhenWindowLosesFocus)
+                return;
+
+            _scheduledGenerationStore = store;
+            if (_isNameEnumsGenerationScheduled)
+                return;
+
+            _isNameEnumsGenerationScheduled = true;
+            EditorApplication.delayCall += GenerateScheduledNameEnums;
+        }
+
+        private static void GenerateScheduledNameEnums()
+        {
+            _isNameEnumsGenerationScheduled = false;
+            var store = _scheduledGenerationStore;
+            _scheduledGenerationStore = null;
+
+            if (UPaletteProjectSettings.instance.NameEnumsFileGenerateMode !=
+                NameEnumsFileGenerateMode.WhenWindowLosesFocus)
+                return;
+
+            if (store == null)
+                return;
+
+            new GenerateNameEnumsFileService(store).RunIfNeeded();
         }
 
         private sealed class GUIScope : GUI.Scope

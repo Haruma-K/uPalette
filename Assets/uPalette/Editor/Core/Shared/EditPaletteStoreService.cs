@@ -20,8 +20,14 @@ namespace uPalette.Editor.Core.Shared
 
         public bool IsIdOrNameDirty
         {
-            get => EditorPrefs.GetBool(EditorPrefsKey.IsIdOrNameDirtyPrefsKey, false);
-            set => EditorPrefs.SetBool(EditorPrefsKey.IsIdOrNameDirtyPrefsKey, value);
+            get => _generateNameEnumsFileService.IsDirty;
+            set
+            {
+                if (value)
+                    _generateNameEnumsFileService.MarkDirty();
+                else
+                    _generateNameEnumsFileService.ClearDirty();
+            }
         }
 
         public EditPaletteStoreService(PaletteStore paletteStore,
@@ -103,21 +109,7 @@ namespace uPalette.Editor.Core.Shared
 
         public void GenerateNameEnumsFileIfNeeded()
         {
-            if (!IsIdOrNameDirty)
-                return;
-            
-            EditorUtility.DisplayProgressBar("Processing", "Generating Name Enum File...", 0.0f);
-            try
-            {
-                _generateNameEnumsFileService.Run();
-
-            }
-            finally
-            {
-                EditorUtility.DisplayProgressBar("Processing", "Generating Name Enum File...", 1.0f);
-                EditorUtility.ClearProgressBar();
-            }
-            ClearIdOrNameDirty();
+            _generateNameEnumsFileService.RunIfNeeded();
         }
 
         public void MarkAsDirty()
@@ -127,7 +119,7 @@ namespace uPalette.Editor.Core.Shared
 
         public void MarkAsIdOrNameDirty()
         {
-            IsIdOrNameDirty = true;
+            _generateNameEnumsFileService.MarkDirty();
         }
 
         public void Undo()
@@ -147,7 +139,7 @@ namespace uPalette.Editor.Core.Shared
 
         public void ClearIdOrNameDirty()
         {
-            IsIdOrNameDirty = false;
+            _generateNameEnumsFileService.ClearDirty();
         }
 
         private void OnUpdate()

@@ -205,6 +205,7 @@ The setting to organize entries into folders can be changed from the following m
 
 If you choose not to organize entries into folders, all elements will be displayed flatly and can be rearranged via drag and drop.
 If you choose to organize entries into folders, they will be sorted in alphabetical order.
+Name Enum entries are generated in that alphabetical order when folders are used, or in the drag-and-drop order when they are not.
 
 ## Theme Feature Usage
 
@@ -290,6 +291,7 @@ To use it, attach the above component and setup UnityEvent to handle when the va
 When working with uPalette from script, it is useful to have a script automatically generated to access Theme and Entry information.
 
 If you set `Project Settings > uPalette > Name Enums File Generation`to`When Window Loses Focus`, this file will be automatically generated when the focus is lost from the Palette Editor or Theme Editor. If you set a folder to `Name Enums File Location`, the file will be generated in that folder. If not set, the file will be generated in the Assets folder.
+When this mode is enabled, the file is also regenerated when you change `Contains Folder Name to Name Enums`, `Name Enums File Location`, or `Use Folder View in Palette Editor`.
 
 <p align="center">
   <img width="70%" src="https://user-images.githubusercontent.com/47441314/158021815-2cec00b7-46f1-403b-b459-e03c8754b29d.png" alt="Project Settings">
@@ -329,6 +331,7 @@ The same can be used for other types of Entries and Themes.
 
 If you check the `Contains Folder Name to Name Enums` option in the project settings, the folder name will also be included in the Enums.
 If you uncheck this option, the name used for the Enums will exclude the folder name.
+This option only affects enum names; it does not change their order.
 
 #### Get / Monitor entry value from script
 If you want to get or monitor the entry value from script, you can use the `GetActiveValue()` method of each palette.
