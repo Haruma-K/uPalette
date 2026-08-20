@@ -2,7 +2,7 @@
 
 [![license](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE.md)
 [![license](https://img.shields.io/badge/PR-welcome-green.svg)](https://github.com/pulls)
-[![license](https://img.shields.io/badge/Unity-2020.1-green.svg)](#Requirements)
+[![license](https://img.shields.io/badge/Unity-6-green.svg)](#Requirements)
 
 **Docs** ([English](README.md), [日本語](README_JA.md))
 | [Demo](Assets/Demo/Demo.unity)
@@ -88,7 +88,7 @@ In addition, the theme feature allows you to save a set of colors and text style
 ## Setup
 
 ### Requirements
-Unity2020.1 or higher.
+Unity 6 or later.
 
 ### Installation
 インストールは以下の手順で行います。

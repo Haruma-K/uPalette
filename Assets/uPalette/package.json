@@ -2,7 +2,7 @@
   "name": "com.harumak.upalette",
   "displayName": "uPalette",
   "version": "2.5.3",
-  "unity": "2020.1",
+  "unity": "6000.0",
   "license": "MIT",
   "dependencies": {
   },

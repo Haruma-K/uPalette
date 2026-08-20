@@ -2,7 +2,7 @@
 
 [![license](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE.md)
 [![license](https://img.shields.io/badge/PR-welcome-green.svg)](https://github.com/pulls)
-[![license](https://img.shields.io/badge/Unity-2020.1-green.svg)](#要件)
+[![license](https://img.shields.io/badge/Unity-6-green.svg)](#要件)
 
 **ドキュメント** ([English](README.md), [日本語](README_JA.md))
 | [デモ](Assets/Demo/Demo.unity)
@@ -93,7 +93,7 @@ uPaletteを使えば色を一元管理することでこのような変更を一
 ## セットアップ
 
 ### 要件
-Unity2020.1 以上
+Unity 6 以上
 
 ### インストール
 インストールは以下の手順で行います。
