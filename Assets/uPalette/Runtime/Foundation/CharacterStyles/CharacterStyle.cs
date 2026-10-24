@@ -14,7 +14,7 @@ namespace uPalette.Runtime.Foundation.CharacterStyles
         public static CharacterStyle Default =>
             new CharacterStyle
             {
-                font = Resources.GetBuiltinResource<Font>("Arial.ttf"),
+                font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf"),
                 fontStyle = FontStyle.Normal,
                 fontSize = 14,
                 lineSpacing = 1
